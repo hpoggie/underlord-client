@@ -10,8 +10,8 @@ from panda3d.core import CollisionTraverser, CollisionHandlerQueue
 from panda3d.core import loadPrcFileData
 from direct.task import Task
 
-from network_manager import ConnectionClosed
-from network import ClientNetworkManager
+from core.net.network_manager import ConnectionClosed
+from core.net.network import ClientNetworkManager
 from core.enums import Zone
 from core.game import Game, Phase, EndOfGame
 from core.exceptions import IllegalMoveError
