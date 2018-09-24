@@ -1,6 +1,6 @@
-from core.game import Phase
+from ul_core.core.game import Phase
 
-from . import hud
+import hud
 
 
 class FaerieHud(hud.GameHud):

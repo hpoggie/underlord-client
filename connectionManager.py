@@ -1,6 +1,6 @@
 from direct.showbase.DirectObject import DirectObject
 
-from client.hud import ConnectionUI
+from hud import ConnectionUI
 
 
 class ConnectionManager(DirectObject):

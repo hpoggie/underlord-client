@@ -1,13 +1,13 @@
-import factions.thieves
-from client.hud import GameHud
+import ul_core.factions.thieves
+from hud import GameHud
 from panda3d.core import TextNode
 from direct.gui.DirectGui import OnscreenText
 # https://www.panda3d.org/manual/index.php/DirectEntry
 from direct.gui.DirectGui import DirectEntry
 
-from client.zoneMaker import hideCard, showCard
+from zoneMaker import hideCard, showCard
 
-from core.game import Phase
+from ul_core.core.game import Phase
 
 
 class ThiefHud(GameHud):

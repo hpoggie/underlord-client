@@ -2,9 +2,9 @@ import copy
 
 from direct.showbase.DirectObject import DirectObject
 
-from core.card import Card
-from core.game import EndOfGame
-from core.zone import Zone
+from ul_core.core.card import Card
+from ul_core.core.game import EndOfGame
+from ul_core.core.zone import Zone
 
 
 class NetworkInstructions(DirectObject):

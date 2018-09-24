@@ -1,12 +1,12 @@
 from panda3d.core import CollisionNode, GeomNode, CollisionRay
 from direct.showbase.DirectObject import DirectObject
 
-from core.game import Phase
-from core.exceptions import IllegalMoveError
-import core.card
+from ul_core.core.game import Phase
+from ul_core.core.exceptions import IllegalMoveError
+import ul_core.core.card
 
-import client.zoneMaker as zoneMaker
-import client.attackLine as attackLine
+import zoneMaker
+import attackLine
 
 
 # Adapted from the asteroids panda3d example

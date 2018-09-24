@@ -4,8 +4,8 @@ import panda3d.core
 from panda3d.core import CardMaker, BitMask32
 from direct.showbase.DirectObject import DirectObject
 
-from .fanHand import fanHand
-from . import animations
+from fanHand import fanHand
+import animations
 
 def hideCard(card):
     for ch in card.children:

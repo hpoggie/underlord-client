@@ -10,22 +10,22 @@ from panda3d.core import CollisionTraverser, CollisionHandlerQueue
 from panda3d.core import loadPrcFileData
 from direct.task import Task
 
-from core.net.network_manager import ConnectionClosed
-from core.net.network import ClientNetworkManager
-from core.enums import Zone
-from core.game import Game, Phase, EndOfGame
-from core.exceptions import IllegalMoveError
-import core.card
-from factions import templars, mariners, thieves, fae
-from client.mouse import MouseHandler
-from client.zoneMaker import ZoneMaker
-import client.hud as hud
-from client.connectionManager import ConnectionManager
-import client.networkInstructions
-import client.templarHud as templarHud
-import client.marinerHud as marinerHud
-import client.thiefHud as thiefHud
-import client.faerieHud as faerieHud
+from ul_core.net.network_manager import ConnectionClosed
+from ul_core.net.network import ClientNetworkManager
+from ul_core.net.enums import Zone
+from ul_core.core.game import Game, Phase, EndOfGame
+from ul_core.core.exceptions import IllegalMoveError
+import ul_core.core.card
+from ul_core.factions import templars, mariners, thieves, fae
+from mouse import MouseHandler
+from zoneMaker import ZoneMaker
+import hud
+from connectionManager import ConnectionManager
+import networkInstructions
+import templarHud
+import marinerHud
+import thiefHud
+import faerieHud
 
 loadPrcFileData(
     "",
@@ -33,7 +33,7 @@ loadPrcFileData(
     win-size 500 500
     window-title Underlord
     fullscreen 0
-    model-path client/assets
+    model-path assets
     """)
 
 
@@ -54,7 +54,7 @@ class App (ShowBase):
         self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
 
         # Set up the NetworkManager
-        instr = client.networkInstructions.NetworkInstructions()
+        instr = networkInstructions.NetworkInstructions()
         self.networkManager = ClientNetworkManager(instr, ip, port)
         self.networkManager.verbose = verbose
 

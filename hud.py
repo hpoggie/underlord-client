@@ -7,10 +7,10 @@ from direct.gui.DirectGui import DirectButton
 from direct.gui.OnscreenText import OnscreenText
 from direct.gui.OnscreenImage import OnscreenImage
 
-from core.game import Phase
-from core.exceptions import IllegalMoveError
+from ul_core.core.game import Phase
+from ul_core.core.exceptions import IllegalMoveError
 
-from client.zoneMaker import hideCard, showCard
+from zoneMaker import hideCard, showCard
 
 
 commit_hash = ''
