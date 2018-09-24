@@ -20,7 +20,7 @@ setup(
                 'pandagl',
             ],
             'gui_apps': {
-                'Underlord': 'client/__main__.py',
+                'Underlord': '__main__.py',
             },
             'platforms': [
                 'manylinux1_x86_64',
