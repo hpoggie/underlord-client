@@ -1,5 +1,5 @@
 from ul_core.core.game import Phase
-from hud import GameHud
+from hud.hud import GameHud
 
 
 class MarinerHud(GameHud):

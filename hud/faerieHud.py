@@ -1,9 +1,9 @@
 from ul_core.core.game import Phase
 
-import hud
+import hud.hud
 
 
-class FaerieHud(hud.GameHud):
+class FaerieHud(hud.hud.GameHud):
     def onEndPhaseButton(self):
         if base.game.phase != Phase.reveal:
             base.endPhase()

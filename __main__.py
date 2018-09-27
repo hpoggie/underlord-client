@@ -19,13 +19,13 @@ import ul_core.core.card
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 from zoneMaker import ZoneMaker
-import hud
+import hud.hud as hud
 from connectionManager import ConnectionManager
 import networkInstructions
-import templarHud
-import marinerHud
-import thiefHud
-import faerieHud
+import hud.templarHud as templarHud
+import hud.marinerHud as marinerHud
+import hud.thiefHud as thiefHud
+import hud.faerieHud as faerieHud
 
 loadPrcFileData(
     "",

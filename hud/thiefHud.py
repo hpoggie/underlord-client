@@ -1,5 +1,5 @@
 import ul_core.factions.thieves
-from hud import GameHud
+from hud.hud import GameHud
 from panda3d.core import TextNode
 from direct.gui.DirectGui import OnscreenText
 # https://www.panda3d.org/manual/index.php/DirectEntry
