@@ -56,14 +56,7 @@ class ZoneMaker(DirectObject):
         for name in ['mulliganHand', 'orphan']:
             setattr(self, name, self.scene.attachNewNode(name))
 
-        #self.playerHand.setPosHpr(2.5, 0, -2, 0, 45.0, 0)
         self.mulliganHand.reparentTo(base.camera)
-        #self.playerBoard.setPos(0, 0, -2)
-        #self.enemyBoard.setPos(0, 0, 2.1)
-        #self.playerGraveyard = self.scene.attachNewNode('player graveyard')
-        #self.playerGraveyard.setPos(0, 0, -6.5)
-        #self.enemyGraveyard = self.scene.attachNewNode('enemy graveyard')
-        #self.enemyGraveyard.setPos(0, 0, 6.5)
 
         self.makePlayerFace()
         self.makeEnemyFace()
@@ -143,8 +136,6 @@ class ZoneMaker(DirectObject):
         fan = fanHand(len(base.enemy.hand))
         for i, tr in enumerate(fan):
             addEnemyHandCard(base.enemy.hand[i], tr)
-
-        # self.enemyHand.setPosHpr(2.5, -1.0, 7.1, 0, 45.0, 0)
 
     def makeBoard(self):
         """
