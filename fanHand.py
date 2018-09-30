@@ -5,8 +5,9 @@ def fanHand(n):
     """
     Return a list of transforms for a fanned hand of n cards
     """
-    minPosX = 0
-    maxPosX = 3
+    scale = 2
+    minPosX = -n / 2 / scale
+    maxPosX = 3 / scale
     minRot = -45.0
     maxRot = -minRot
 
