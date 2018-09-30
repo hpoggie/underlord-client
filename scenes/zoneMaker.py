@@ -34,28 +34,36 @@ def updateCardNode(card):
 
 
 class ZoneMaker(DirectObject):
-    def __init__(self):
-        # Set up the root node
-        self.scene = base.render.attachNewNode('empty')
+    def __init__(self,
+                 scene, playerHand, enemyHand, playerBoard, enemyBoard,
+                 playerFace, enemyFace, playerGraveyard, enemyGraveyard):
+        self.playerHand = playerHand
+        self.enemyHand = enemyHand
+        self.playerBoard = playerBoard
+        self.enemyBoard = enemyBoard
+        self.playerFace = playerFace
+        self.enemyFace = enemyFace
+        self.playerGraveyard = playerGraveyard
+        self.enemyGraveyard = enemyGraveyard
+
+        self.scene = scene
 
         base.playerIconPath = base.player.iconPath
         base.enemyIconPath = base.enemy.iconPath
         base.playerCardBack = base.player.cardBack
         base.enemyCardBack = base.enemy.cardBack
 
-        for name in ['playerHand', 'mulliganHand', 'enemyHand',
-                     'playerBoard', 'enemyBoard', 'orphan']:
+        for name in ['mulliganHand', 'orphan']:
             setattr(self, name, self.scene.attachNewNode(name))
 
-        self.playerHand.reparentTo(self.scene)
-        self.playerHand.setPosHpr(2.5, 0, -2, 0, 45.0, 0)
+        #self.playerHand.setPosHpr(2.5, 0, -2, 0, 45.0, 0)
         self.mulliganHand.reparentTo(base.camera)
-        self.playerBoard.setPos(0, 0, -2)
-        self.enemyBoard.setPos(0, 0, 2.1)
-        self.playerGraveyard = self.scene.attachNewNode('player graveyard')
-        self.playerGraveyard.setPos(0, 0, -6.5)
-        self.enemyGraveyard = self.scene.attachNewNode('enemy graveyard')
-        self.enemyGraveyard.setPos(0, 0, 6.5)
+        #self.playerBoard.setPos(0, 0, -2)
+        #self.enemyBoard.setPos(0, 0, 2.1)
+        #self.playerGraveyard = self.scene.attachNewNode('player graveyard')
+        #self.playerGraveyard.setPos(0, 0, -6.5)
+        #self.enemyGraveyard = self.scene.attachNewNode('enemy graveyard')
+        #self.enemyGraveyard.setPos(0, 0, 6.5)
 
         self.makePlayerFace()
         self.makeEnemyFace()
@@ -136,7 +144,7 @@ class ZoneMaker(DirectObject):
         for i, tr in enumerate(fan):
             addEnemyHandCard(base.enemy.hand[i], tr)
 
-        self.enemyHand.setPosHpr(2.5, -1.0, 7.1, 0, 45.0, 0)
+        # self.enemyHand.setPosHpr(2.5, -1.0, 7.1, 0, 45.0, 0)
 
     def makeBoard(self):
         """
@@ -380,21 +388,19 @@ class ZoneMaker(DirectObject):
 
     def makePlayerFace(self):
         cm = CardMaker("face")
-        cardModel = self.scene.attachNewNode(cm.generate())
+        cardModel = self.playerFace.attachNewNode(cm.generate())
         path = base.playerIconPath + "/" + base.playerCardBack
         tex = loader.loadTexture(path)
         cardModel.setTexture(tex)
-        cardModel.setPos(0, 0, -5)
         cardModel.setPythonTag('zone', base.player.face)
         base.playerFaceNode = cardModel
 
     def makeEnemyFace(self):
         cm = CardMaker("face")
-        cardModel = self.scene.attachNewNode(cm.generate())
+        cardModel = self.enemyFace.attachNewNode(cm.generate())
         path = base.enemyIconPath + "/" + base.enemyCardBack
         tex = loader.loadTexture(path)
         cardModel.setTexture(tex)
-        cardModel.setPos(0, 0, 5)
         cardModel.setPythonTag('zone', base.enemy.face)
         base.enemyFaceNode = cardModel
 
@@ -415,4 +421,3 @@ class ZoneMaker(DirectObject):
     def unmake(self):
         self.playerHand.removeNode()  # In case it's parented to the camera
         self.mulliganHand.removeNode()
-        self.scene.removeNode()

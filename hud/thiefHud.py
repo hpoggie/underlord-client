@@ -5,7 +5,7 @@ from direct.gui.DirectGui import OnscreenText
 # https://www.panda3d.org/manual/index.php/DirectEntry
 from direct.gui.DirectGui import DirectEntry
 
-from zoneMaker import hideCard, showCard
+from scenes.zoneMaker import hideCard, showCard
 
 from ul_core.core.game import Phase
 

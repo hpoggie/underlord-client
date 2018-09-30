@@ -5,7 +5,7 @@ from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 
-import zoneMaker
+import scenes.zoneMaker as zoneMaker
 import attackLine
 
 

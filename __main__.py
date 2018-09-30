@@ -18,7 +18,6 @@ from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
-from zoneMaker import ZoneMaker
 import hud.hud as hud
 from connectionManager import ConnectionManager
 import networkInstructions
@@ -26,6 +25,8 @@ import hud.templarHud as templarHud
 import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
+
+import scenes.game as game
 
 loadPrcFileData(
     "",
@@ -167,7 +168,8 @@ class App (ShowBase):
             self.guiScene = faerieHud.FaerieHud()
         else:
             self.guiScene = hud.GameHud()
-        self.zoneMaker = ZoneMaker()
+        self.gameScene = game.Scene()
+        self.zoneMaker = self.gameScene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
 
@@ -316,8 +318,8 @@ class App (ShowBase):
             1, self._quitToMainMenuTask, "QuitToMainMenu")
 
     def _quitToMainMenuTask(self, task):
-        if hasattr(self, 'zoneMaker'):  # TODO: kludge
-            self.zoneMaker.unmake()
+        if hasattr(self, 'gameScene'):  # TODO: kludge
+            self.gameScene.unmake()
         self.guiScene = hud.MainMenu()
         self.networkManager.requestNumPlayers()
         self.ready = False

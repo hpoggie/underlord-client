@@ -10,7 +10,7 @@ from direct.gui.OnscreenImage import OnscreenImage
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 
-from zoneMaker import hideCard, showCard
+from scenes.zoneMaker import hideCard, showCard
 
 
 commit_hash = ''
