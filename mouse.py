@@ -237,7 +237,7 @@ class MouseHandler (DirectObject):
 
                 if self.activeCard:
                     basePos = (pickedObj.getPos(base.render)
-                        if pickedObj is not None
+                        if pickedObj is not None and not pickedObj.isEmpty()
                         else self.mouseToXZPlane()),
                     self.line.draw(
                         start=self.activeCard.getPos(base.render),
