@@ -16,12 +16,12 @@ import attackLine
 # position. It also assumes that we are dragging in the XZ plane.
 #
 # This is derived from the mathematical of a plane, solved for a given point
-def PointAtY(y, point, vec):
-    return point + vec * ((y - point.getY()) / vec.getY())
+def PointAtZ(z, point, vec):
+    return point + vec * ((z - point.getZ()) / vec.getZ())
 
 
 def inDropZone(pos):
-    return pos.z > -3 and pos.z < 6
+    return pos.y > -3 and pos.y < 6
 
 
 class MouseHandler (DirectObject):
@@ -141,6 +141,7 @@ class MouseHandler (DirectObject):
             base.zoneMaker.makePlayerHand()  # Put the card back
         else:
             obj.reparentTo(base.zoneMaker.scene)
+            obj.setHpr(0, -90, 0)
 
         self._dragging = obj
 
@@ -192,7 +193,7 @@ class MouseHandler (DirectObject):
         if self.dragging:
             self.dragging = None
 
-    def mouseToXZPlane(self):
+    def mouseToXYPlane(self):
         mpos = base.mouseWatcherNode.getMouse()
         # See the Panda3d chess example
         self.pickerRay.setFromLens(
@@ -203,7 +204,7 @@ class MouseHandler (DirectObject):
         nearVec = render.getRelativeVector(
             camera, self.pickerRay.getDirection())
 
-        return PointAtY(.5, nearPoint, nearVec)
+        return PointAtZ(.5, nearPoint, nearVec)
 
     def mouseOverTask(self):
         if base.mouseWatcherNode.hasMouse():
@@ -220,8 +221,8 @@ class MouseHandler (DirectObject):
                 self._activeObj = None
 
             if self.dragging is not None:
-                # Drag the card in the XZ plane
-                self.dragging.setPos(self.mouseToXZPlane())
+                # Drag the card in the XY plane
+                self.dragging.setPos(self.mouseToXYPlane())
             elif base.hasMulliganed:
                 pickedObj = self.getObjectClickedOn()
                 if pickedObj:
