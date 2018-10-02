@@ -21,7 +21,7 @@ def PointAtZ(z, point, vec):
 
 
 def inDropZone(pos):
-    return pos.y > -3 and pos.y < 6
+    return pos.y > -6 and pos.y < 6
 
 
 class MouseHandler (DirectObject):
