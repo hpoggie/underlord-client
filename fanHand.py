@@ -7,7 +7,7 @@ def fanHand(n):
     """
     scale = 2
     minPosX = -n / 2 / scale
-    maxPosX = 3 / scale
+    maxPosX = n / 2 / scale
     minRot = -45.0
     maxRot = -minRot
 
