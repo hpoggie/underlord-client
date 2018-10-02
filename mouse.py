@@ -81,6 +81,10 @@ class MouseHandler (DirectObject):
                 base.handler.sortEntries()
                 pickedObj = base.handler.getEntry(0).getIntoNodePath()
                 pickedObj = pickedObj.findNetPythonTag('zone')
+                if pickedObj == self.dragging and base.handler.getNumEntries() > 1:
+                    pickedObj = base.handler.getEntry(1).getIntoNodePath()
+                    pickedObj = pickedObj.findNetPythonTag('zone')
+
                 return pickedObj
 
     def doClick(self):
