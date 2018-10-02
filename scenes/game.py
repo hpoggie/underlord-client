@@ -27,8 +27,9 @@ class Scene(DirectObject):
             enemyGraveyard=spawn.find('Enemy Graveyard'))
 
     def rotateTask(self, task):
-        deltaTime = globalClock.getDt()
-        self.hept.setHpr(self.hept, deltaTime * 5, 0, 0)
+        if base.active:
+            deltaTime = globalClock.getDt()
+            self.hept.setHpr(self.hept, deltaTime * 5, 0, 0)
         return Task.cont
 
     def unmake(self):
