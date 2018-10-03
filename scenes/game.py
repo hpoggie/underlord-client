@@ -51,6 +51,7 @@ if __name__ == '__main__':
             self.game = Game(Templar, Templar)
             self.player, self.enemy = self.game.players
             self.game.start()
+            self.active = True
             self.scene = Scene()
             self.hasMulliganed = True
             self.scene.zoneMaker.redrawAll()
