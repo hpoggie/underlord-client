@@ -1,5 +1,6 @@
 from direct.showbase.DirectObject import DirectObject
 from direct.task import Task
+from panda3d.core import AmbientLight, VBase4
 from scenes.zoneMaker import ZoneMaker
 
 
@@ -13,6 +14,12 @@ class Scene(DirectObject):
 
         self.hept = self.model.find('Plane')
         base.taskMgr.add(self.rotateTask, 'RotateHeptTask')
+
+        # Ambient lighting so we can easily see cards
+        alight = AmbientLight('alight')
+        alight.setColor(VBase4(1, 1, 1, 1))
+        alnp = base.render.attachNewNode(alight)
+        base.render.setLight(alnp)
 
         spawn = self.model.find('Spawn')
         self.zoneMaker = ZoneMaker(
