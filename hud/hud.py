@@ -77,8 +77,8 @@ class Scene(DirectObject):
         """
         Put huge text on the screen that obscures stuff
         """
-        if hasattr(base, 'zoneMaker') and not base.hasMulliganed:
-            base.zoneMaker.playerHand.hide()
+        if hasattr(base, 'zoneMaker'):
+            base.zoneMaker.mulliganHand.hide()
         self.label(
             text=message,
             scale=(0.5, 0.5, 0.5))
