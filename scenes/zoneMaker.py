@@ -97,7 +97,7 @@ class ZoneMaker(DirectObject):
         """
         Redraw the player's hand.
         """
-        self.mulliganHand.removeNode()
+        self.mulliganHand.hide()
         # Destroy entire hand. This is slow and may need to be changed
         # cleanup(self.playerHand)
         for pivot in self.playerHand.children:
