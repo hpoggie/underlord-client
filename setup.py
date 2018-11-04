@@ -14,6 +14,7 @@ setup(
             'include_patterns': [
                 '*.png',
                 '*.ttf',
+                '*.bam',
                 'CREDITS.txt'
             ],
             'plugins': [
