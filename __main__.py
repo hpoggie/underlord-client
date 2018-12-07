@@ -19,6 +19,7 @@ import ul_core.core.card
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 import hud
+import hud.goingFirstDecision as gfd
 import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
 from connectionManager import ConnectionManager
@@ -176,7 +177,7 @@ class App (ShowBase):
         self.hasFirstPlayerPenalty = goingFirst
 
     def decideWhetherToGoFirst(self):
-        self.guiScene = hud.hud.GoingFirstDecision()
+        self.guiScene = gfd.GoingFirstDecision()
 
     @property
     def phase(self):

@@ -62,17 +62,3 @@ class Scene(DirectObject):
         self.label(
             text=message,
             scale=(0.5, 0.5, 0.5))
-
-
-class GoingFirstDecision(Scene):
-    def __init__(self):
-        super().__init__()
-
-        self.button(
-            text="Go first",
-            pos=(0, 0, 0.1),
-            command=base.goFirst)
-        self.button(
-            text="Go second",
-            pos=(0, 0, -0.1),
-            command=base.goSecond)
