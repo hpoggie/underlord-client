@@ -18,7 +18,7 @@ from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
-import hud.hud as hud
+import hud
 import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
 from connectionManager import ConnectionManager
@@ -51,7 +51,7 @@ class App (ShowBase):
         self.taskMgr.add(self.inputTask, "InputTask")
 
         # Set up the UI
-        self.fonts = hud.Fonts()
+        self.fonts = hud.hud.Fonts()
 
         # View the cards at an angle
         self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
@@ -169,14 +169,14 @@ class App (ShowBase):
         elif isinstance(self.player, fae.Faerie):
             self.guiScene = faerieHud.FaerieHud()
         else:
-            self.guiScene = hud.GameHud()
+            self.guiScene = hud.hud.GameHud()
         self.gameScene = game.Scene()
         self.zoneMaker = self.gameScene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
 
     def decideWhetherToGoFirst(self):
-        self.guiScene = hud.GoingFirstDecision()
+        self.guiScene = hud.hud.GoingFirstDecision()
 
     @property
     def phase(self):
