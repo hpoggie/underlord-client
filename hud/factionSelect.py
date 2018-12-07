@@ -11,13 +11,13 @@ class FactionSelect(hud.Scene):
             mayChange=True)
 
         icons = self.root.attachNewNode('icons')
-        icons.setPos(-0.15 * len(base.availableFactions) / 2, 0, 0)
+        icons.setPos(-0.155 * len(base.availableFactions) / 2 + 0.005, 0, 0)
 
         for i, faction in enumerate(base.availableFactions):
             self.button(
                 image=faction.iconPath + '/' + faction.cardBack,
                 parent=icons,
-                pos=(i * 0.2, 0, 0),
+                pos=(i * 0.21, 0, 0),
                 relief=None,
                 command=base.pickFaction,
                 extraArgs=[i])
