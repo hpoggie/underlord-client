@@ -1,7 +1,7 @@
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.factions.templars
-from hud.hud import GameHud
+from hud.game import GameHud
 
 
 class TemplarHud(GameHud):

@@ -169,7 +169,7 @@ class App (ShowBase):
         elif isinstance(self.player, fae.Faerie):
             self.guiScene = faerieHud.FaerieHud()
         else:
-            self.guiScene = hud.hud.GameHud()
+            self.guiScene = hud.game.GameHud()
         self.gameScene = game.Scene()
         self.zoneMaker = self.gameScene.zoneMaker
 
