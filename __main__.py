@@ -19,6 +19,7 @@ import ul_core.core.card
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 import hud.hud as hud
+import hud.mainMenu as mainMenu
 from connectionManager import ConnectionManager
 import networkInstructions
 import hud.templarHud as templarHud
@@ -78,7 +79,7 @@ class App (ShowBase):
         self.ready = False
 
     def onConnectedToServer(self):
-        self.guiScene = hud.MainMenu()
+        self.guiScene = mainMenu.MainMenu()
 
     @property
     def active(self):
@@ -320,7 +321,7 @@ class App (ShowBase):
     def _quitToMainMenuTask(self, task):
         if hasattr(self, 'gameScene'):  # TODO: kludge
             self.gameScene.unmake()
-        self.guiScene = hud.MainMenu()
+        self.guiScene = mainMenu.MainMenu()
         self.networkManager.requestNumPlayers()
         self.ready = False
         return Task.done
