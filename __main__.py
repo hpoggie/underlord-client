@@ -20,6 +20,7 @@ from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 import hud.hud as hud
 import hud.mainMenu as mainMenu
+import hud.factionSelect as factionSelect
 from connectionManager import ConnectionManager
 import networkInstructions
 import hud.templarHud as templarHud
@@ -121,7 +122,7 @@ class App (ShowBase):
             self.ready = True
 
     def onEnteredGame(self):
-        self.guiScene = hud.FactionSelect()
+        self.guiScene = factionSelect.FactionSelect()
 
     def pickFaction(self, index):
         """
