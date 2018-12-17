@@ -42,34 +42,39 @@ class MainMenu(hud.Scene):
             parent=main)
 
         self.credits = self.root.attachNewNode('credits')
+        try:
+            with open('CREDITS.txt') as f:
+                self.creditsText = '\n'.join(  # Don't wrap line breaks
+                    textwrap.fill(line, width=60)
+                    for line in f.read().split('\n'))
+        except OSError:
+            self.creditsText = ''
+
+        self.label(
+            text=self.creditsText,
+            align=TextNode.ALeft,
+            scale=0.05,
+            pos=(-0.7, 0.5, 0),
+            parent=self.credits)
+
+        self.credits.hide()
 
         def connect():
             base.connectionManager.startGame()
 
         def showCredits():
-            if not hasattr(self, 'creditsLabel'):
-                with open('CREDITS.txt') as f:
-                    self.creditsLabel = self.label(
-                        text='\n'.join(  # Don't wrap line breaks
-                            textwrap.fill(line, width=60)
-                            for line in f.read().split('\n')),
-                        align=TextNode.ALeft,
-                        scale=0.05,
-                        pos=(-0.7, 0.5, 0),
-                        parent=self.credits)
-
-                self.button(
-                    text="Back",
-                    pos=(0, 0, -0.7),
-                    parent=self.credits,
-                    command=hideCredits)
-
             main.hide()
             self.credits.show()
 
         def hideCredits():
             main.show()
             self.credits.hide()
+
+        self.button(
+            text="Back",
+            pos=(0, 0, -0.7),
+            parent=self.credits,
+            command=hideCredits)
 
         def quit():
             base.userExit()
