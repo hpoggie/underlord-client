@@ -13,7 +13,7 @@ class GameHud(hud.Scene):
 
         self.turnLabel = self.label(
             text="",
-            pos=(0, -0.85, 0),
+            pos=(0, -0.8, 0),
             mayChange=True)
 
         self.playerManaCapLabel = self.label(
@@ -31,9 +31,9 @@ class GameHud(hud.Scene):
             mayChange=True)
         self.tooltipLabel = self.label(
             text="",
-            pos=(0, -0.9, 0),
+            pos=(0, -0.85, 0),
             scale=0.05,
-            wordwrap=10,
+            wordwrap=15,
             mayChange=True)
         self.cardStatsLabel = self.label(
             text="",
@@ -91,8 +91,9 @@ class GameHud(hud.Scene):
     def redrawTooltips(self):
         if base.active:
             self.tooltipLabel.setText(
-                "Reveal face-down cards" if base.phase == Phase.reveal
-                else "Play face-down cards and attack")
+                "Reveal face-down cards or play fast cards"
+                if base.phase == Phase.reveal
+                else "Play face-down cards and attack with units")
         else:
             self.tooltipLabel.setText("")
 
