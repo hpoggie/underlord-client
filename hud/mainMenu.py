@@ -41,24 +41,11 @@ class MainMenu(hud.Scene):
             mayChange=True,
             parent=main)
 
-        self.credits = self.text_screen('CREDITS.txt')
+        credits = self.text_screen('CREDITS.txt')
+        showCredits = self.show_hide_screen(main, credits)
 
         def connect():
             base.connectionManager.startGame()
-
-        def showCredits():
-            main.hide()
-            self.credits.show()
-
-        def hideCredits():
-            main.show()
-            self.credits.hide()
-
-        self.button(
-            text="Back",
-            pos=(0, 0, -0.7),
-            parent=self.credits,
-            command=hideCredits)
 
         def quit():
             base.userExit()
@@ -98,6 +85,23 @@ class MainMenu(hud.Scene):
 
         node.hide()
         return node
+
+    def show_hide_screen(self, main, node, buttonPos=(0, 0, -0.7)):
+        def show_screen():
+            main.hide()
+            node.show()
+
+        def hide_screen():
+            main.show()
+            node.hide()
+
+        self.button(
+            text="Back",
+            pos=buttonPos,
+            parent=node,
+            command=hide_screen)
+
+        return show_screen
 
     def showWaitMessage(self):
         self.label(
