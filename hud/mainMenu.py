@@ -41,23 +41,7 @@ class MainMenu(hud.Scene):
             mayChange=True,
             parent=main)
 
-        self.credits = self.root.attachNewNode('credits')
-        try:
-            with open('CREDITS.txt') as f:
-                self.creditsText = '\n'.join(  # Don't wrap line breaks
-                    textwrap.fill(line, width=60)
-                    for line in f.read().split('\n'))
-        except OSError:
-            self.creditsText = ''
-
-        self.label(
-            text=self.creditsText,
-            align=TextNode.ALeft,
-            scale=0.05,
-            pos=(-0.7, 0.5, 0),
-            parent=self.credits)
-
-        self.credits.hide()
+        self.credits = self.text_screen('CREDITS.txt')
 
         def connect():
             base.connectionManager.startGame()
@@ -93,6 +77,27 @@ class MainMenu(hud.Scene):
                 pos=next(buttonPos),
                 frameSize=(-2, 2, -0.5, 1),
                 parent=main)
+
+    def text_screen(self, filename):
+        node = self.root.attachNewNode('text_screen')
+
+        try:
+            with open(filename) as f:
+                text = '\n'.join(  # Don't wrap line breaks
+                    textwrap.fill(line, width=60)
+                    for line in f.read().split('\n'))
+        except OSError:
+            text = ''
+
+        self.label(
+            text=text,
+            align=TextNode.ALeft,
+            scale=0.05,
+            pos=(-0.7, 0.5, 0),
+            parent=node)
+
+        node.hide()
+        return node
 
     def showWaitMessage(self):
         self.label(
