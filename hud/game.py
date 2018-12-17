@@ -13,7 +13,7 @@ class GameHud(hud.Scene):
 
         self.turnLabel = self.label(
             text="",
-            pos=(0, -0.9, 0),
+            pos=(0, -0.85, 0),
             mayChange=True)
 
         self.playerManaCapLabel = self.label(
@@ -31,9 +31,8 @@ class GameHud(hud.Scene):
             mayChange=True)
         self.tooltipLabel = self.label(
             text="",
-            pos=(-0.9, -0.8, 0),
+            pos=(0, -0.9, 0),
             scale=0.05,
-            align=TextNode.ALeft,
             wordwrap=10,
             mayChange=True)
         self.cardStatsLabel = self.label(
@@ -90,19 +89,12 @@ class GameHud(hud.Scene):
         self.targetingGradient.hide()
 
     def redrawTooltips(self):
-        if hasattr(self, 'cardNameLabel'):
-            self.cardNameLabel.setText("")
-
-        if hasattr(self, 'cardStatsLabel'):
-            self.cardStatsLabel.setText("")
-
-        if hasattr(self, 'tooltipLabel'):
-            if hasattr(self, 'phase') and self.active:
-                self.tooltipLabel.setText(
-                    "Reveal face-down cards" if self.phase == Phase.reveal
-                    else "Play face-down cards and attack")
-            else:
-                self.tooltipLabel.setText("")
+        if base.active:
+            self.tooltipLabel.setText(
+                "Reveal face-down cards" if base.phase == Phase.reveal
+                else "Play face-down cards and attack")
+        else:
+            self.tooltipLabel.setText("")
 
     def redraw(self):
         if base.hasMulliganed:
@@ -131,6 +123,8 @@ class GameHud(hud.Scene):
 
         self.enemyManaCapLabel.setText(str(base.enemy.manaCap))
         self.turnLabel.setText("Your Turn" if base.active else "Enemy Turn")
+
+        self.redrawTooltips()
 
     def startReplacing(self, nTargets):
         targets = []
