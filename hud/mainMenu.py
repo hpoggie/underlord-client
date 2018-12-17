@@ -44,6 +44,9 @@ class MainMenu(hud.Scene):
         credits = self.text_screen('CREDITS.txt')
         showCredits = self.show_hide_screen(main, credits)
 
+        howToPlay = self.text_screen('HOW_TO_PLAY.txt')
+        showHowToPlay = self.show_hide_screen(main, howToPlay)
+
         def connect():
             base.connectionManager.startGame()
 
@@ -53,19 +56,20 @@ class MainMenu(hud.Scene):
         buttons = (
             ("Play", connect),
             ("Credits", showCredits),
+            ("How to Play", showHowToPlay),
             ("Quit", quit))
         buttonPos = iter([
-            (0, 0, len(buttons) * 0.15 - i * 0.15 - 0.5)
+            (0, 0, len(buttons) * 0.15 - i * 0.15 - 0.6)
             for i in range(len(buttons))])
         for b in buttons:
             self.button(
                 text=b[0],
                 command=b[1],
                 pos=next(buttonPos),
-                frameSize=(-2, 2, -0.5, 1),
+                frameSize=(-3, 3, -0.5, 1),
                 parent=main)
 
-    def text_screen(self, filename):
+    def text_screen(self, filename, textPos=(-0.7, 0.5, 0)):
         node = self.root.attachNewNode('text_screen')
 
         try:
@@ -80,13 +84,13 @@ class MainMenu(hud.Scene):
             text=text,
             align=TextNode.ALeft,
             scale=0.05,
-            pos=(-0.7, 0.5, 0),
+            pos=textPos,
             parent=node)
 
         node.hide()
         return node
 
-    def show_hide_screen(self, main, node, buttonPos=(0, 0, -0.7)):
+    def show_hide_screen(self, main, node, buttonPos=(0, 0, -0.9)):
         def show_screen():
             main.hide()
             node.show()
@@ -106,4 +110,4 @@ class MainMenu(hud.Scene):
     def showWaitMessage(self):
         self.label(
             text="Waiting for another player.",
-            pos=(0, -0.5, 0))
+            pos=(0, -0.65, 0))

@@ -1,0 +1,9 @@
+The goal of the game is to increase your opponent's mana cap beyond 15 before they do the same to you. Your mana cap starts at 1 and goes up by 1 at the end of your turn. If your mana cap goes over 15, you lose. You increase your opponent's mana cap by attacking them with units.
+
+To start, each player chooses a faction. Each faction has different cards and a unique ability. Next, the game will ask a random player to decide who goes first. After this has been decided, both players draw a hand of 5 cards. They then have the opportunity to get rid of some of these cards and draw new ones. This is called a mulligan. Once both players have finished mulliganing, the game begins.
+
+On your turn, you have a lot of things you can do, but you have to do them in a specific order. Here is how a turn works:
+1. Reveal phase: If you have any face-down cards, you can pay mana to reveal them. At the start of your turn, you have an amount of mana equal to your mana cap. Mana goes away at the end of your turn.
+1a. End of reveal phase: If you have any cards still face-down (either because you couldn't pay for them or chose not to), discard them.
+2. Draw phase: Draw a card.
+3. Play phase: During this phase you can play cards face-down and attack with any face-up units you might have.
