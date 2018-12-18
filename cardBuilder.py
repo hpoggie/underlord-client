@@ -2,6 +2,9 @@ import textwrap
 import panda3d.core
 
 
+cardCollisionMask = panda3d.core.BitMask32.bit(31)
+
+
 def buildCard(self, card, parent):
     cardBase = parent.attachNewNode(card.name)
 
@@ -62,6 +65,8 @@ def buildCard(self, card, parent):
 
     cardBase.setPythonTag('card', card)
     card.pandaNode = cardBase
+
+    cardBase.setCollideMask(cardCollisionMask)
 
     return cardBase
 

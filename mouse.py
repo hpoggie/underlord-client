@@ -7,6 +7,7 @@ import ul_core.core.card
 
 import scenes.zoneMaker as zoneMaker
 import attackLine
+import cardBuilder
 
 
 # Adapted from the asteroids panda3d example
@@ -34,7 +35,7 @@ class MouseHandler (DirectObject):
 
         pickerNode = CollisionNode('mouseRay')
         pickerNP = camera.attachNewNode(pickerNode)
-        pickerNode.setFromCollideMask(GeomNode.getDefaultCollideMask())
+        pickerNode.setFromCollideMask(cardBuilder.cardCollisionMask)
         self.pickerRay = CollisionRay()
         pickerNode.addSolid(self.pickerRay)
         base.cTrav.addCollider(pickerNP, base.handler)
