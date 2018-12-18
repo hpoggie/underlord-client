@@ -81,6 +81,7 @@ def buildBlankCard(self, card, parent):
     cardFrame.setTransparency(True)
     cardFrame.setName('frame')
     cardBase.setPythonTag('card', card)
+    cardBase.setCollideMask(cardCollisionMask)
     return cardBase
 
 
