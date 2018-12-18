@@ -92,10 +92,14 @@ class GameHud(hud.Scene):
         if not base.hasMulliganed:
             self.tooltipLabel.setText("Replace cards you don't want in your opening hand")
         elif base.active:
-            self.tooltipLabel.setText(
-                "Reveal face-down cards or play fast cards"
-                if base.phase == Phase.reveal
-                else "Play face-down cards and attack with units")
+            if base.phase == Phase.startOfTurn:
+                text = "Use your faction ability or proceed to your reveal phase"
+            elif base.phase == Phase.reveal:
+                text = "Reveal face-down cards or play fast cards"
+            else:
+                text = "Play face-down cards and attack with units"
+
+            self.tooltipLabel.setText(text)
         else:
             self.tooltipLabel.setText("")
 
