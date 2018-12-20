@@ -22,7 +22,6 @@ base.disableMouse()
 
 class FakePlayer:
     def __init__(self):
-        self.iconPath = card.iconPath  # Hack to make icon paths work
         self.manaCap = 0  # Equus rank hack
 
 card.owner = FakePlayer()
