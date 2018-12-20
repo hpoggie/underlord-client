@@ -7,32 +7,22 @@ from direct.task import Task
 
 import cardBuilder
 
+import ul_core.factions
+
 panda3d.core.loadPrcFileData('', 'model-path assets')
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', type=str, default='templars')
 parser.add_argument('-c', type=str, default='equus')
 args = parser.parse_args()
 
-mod = importlib.import_module('ul_core.factions.' + args.f)
-card = getattr(mod, args.c)()
+card = ul_core.factions.allCards[args.c]()
 
 base = direct.showbase.ShowBase.ShowBase()
 base.disableMouse()
 
 class FakePlayer:
     def __init__(self):
-        if args.f == 'templars':
-            faction = 'Templar'
-        elif args.f == 'thieves':
-            faction = 'Thief'
-        elif args.f == 'mariners':
-            faction = 'Mariner'
-        elif args.f == 'fae':
-            faction = 'Faerie'
-
-        faction = getattr(mod, faction)
-        self.iconPath = faction.iconPath  # Hack to make icon paths work
+        self.iconPath = card.iconPath  # Hack to make icon paths work
         self.manaCap = 0  # Equus rank hack
 
 card.owner = FakePlayer()
