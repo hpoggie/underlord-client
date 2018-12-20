@@ -21,8 +21,19 @@ base = direct.showbase.ShowBase.ShowBase()
 base.disableMouse()
 
 class FakePlayer:
-    iconPath = 'templar_icons'  # Hack to make icon paths work
-    manaCap = 0  # Equus rank hack
+    def __init__(self):
+        if args.f == 'templars':
+            faction = 'Templar'
+        elif args.f == 'thieves':
+            faction = 'Thief'
+        elif args.f == 'mariners':
+            faction = 'Mariner'
+        elif args.f == 'fae':
+            faction = 'Faerie'
+
+        faction = getattr(mod, faction)
+        self.iconPath = faction.iconPath  # Hack to make icon paths work
+        self.manaCap = 0  # Equus rank hack
 
 card.owner = FakePlayer()
 node = base.render.attachNewNode('card_root')
