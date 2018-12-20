@@ -33,13 +33,26 @@ node.setPos(0, 5, 0)
 cardNode = cardBuilder.buildCard(None, card, node)
 cardNode.setPos(-0.5, 0, -0.5)
 
-def mouseRotate(task):
-    if base.mouseWatcherNode.hasMouse():
-        x = base.mouseWatcherNode.getMouseX() * 100
-        node.setHpr(x, 0, 0)
+class MouseRotator:
+    def __init__(self):
+        self.held = False
+        base.addTask(self.mouseRotate)
+        base.accept('mouse1', self.on_mouse1)
+        base.accept('mouse1-up', self.on_mouse1_up)
 
-    return Task.cont
+    def mouseRotate(self, task):
+        if base.mouseWatcherNode.hasMouse() and self.held:
+            x = base.mouseWatcherNode.getMouseX() * 100
+            node.setHpr(x, 0, 0)
 
-base.addTask(mouseRotate)
+        return Task.cont
 
+    def on_mouse1(self):
+        self.held = True
+
+    def on_mouse1_up(self):
+        self.held = False
+
+
+MouseRotator()
 base.run()
