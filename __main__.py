@@ -16,6 +16,7 @@ from ul_core.net.enums import Zone
 from ul_core.core.game import Game, Phase, EndOfGame
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
+import ul_core.factions
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 import hud
@@ -70,11 +71,7 @@ class App (ShowBase):
         # Set up lag simulation
         self.lagTimer = self.lagSimulation = lagSimulation
 
-        self.availableFactions = [
-            templars.Templar,
-            mariners.Mariner,
-            thieves.Thief,
-            fae.Faerie]
+        self.availableFactions = ul_core.factions.availableFactions
 
         self.hasMulliganed = False
 
