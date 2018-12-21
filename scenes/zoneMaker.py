@@ -298,6 +298,7 @@ class ZoneMaker(DirectObject):
         cardModel.setTexture(tex)
         cardModel.setPythonTag('zone', base.player.face)
         base.playerFaceNode = cardModel
+        base.playerFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
 
     def makeEnemyFace(self):
         cm = CardMaker("face")
@@ -307,6 +308,8 @@ class ZoneMaker(DirectObject):
         cardModel.setTexture(tex)
         cardModel.setPythonTag('zone', base.enemy.face)
         base.enemyFaceNode = cardModel
+        # Want it to be possible to click on enemy face
+        base.enemyFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
 
     def redrawAll(self):
         if base.hasMulliganed:
