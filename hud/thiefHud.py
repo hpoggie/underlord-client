@@ -34,19 +34,14 @@ class ThiefHud(GameHud):
             command=self.onThiefAbilityButton)
 
     def useThiefAbility(self, cardname):
-        try:
-            cardId = next(c for c in base.enemy.deck if c.name == cardname).cardId
-        except StopIteration:
-            print("That is not the name of an enemy card.")
-        else:
-            toDiscardIndex = base.player.hand.index(
-                self.toDiscard.getPythonTag('card'))
-            toStealIndex = base.enemy.facedowns.index(
-                self.toSteal.getPythonTag('card'))
-            base.networkManager.useThiefAbility(
-                toDiscardIndex, cardId, toStealIndex)
-            base.mouseHandler.targeting = False
-            self.entry.hide()
+        toDiscardIndex = base.player.hand.index(
+            self.toDiscard.getPythonTag('card'))
+        toStealIndex = base.enemy.facedowns.index(
+            self.toSteal.getPythonTag('card'))
+        base.networkManager.useThiefAbility(
+            toDiscardIndex, cardname, toStealIndex)
+        base.mouseHandler.targeting = False
+        self.entry.hide()
 
     def onThiefAbilityButton(self):
         def chooseTarget(target):
