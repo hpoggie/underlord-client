@@ -289,7 +289,7 @@ class App (ShowBase):
         Hack to pass a card rather than card node to endPhase
         """
         self.networkManager.endPhase(
-            card.owner.zones.index(card.zone), card.zone.index(card),
+            card.controller.zones.index(card.zone), card.zone.index(card),
             card.controller is self.enemy)
 
         self.hasFirstPlayerPenalty = False
