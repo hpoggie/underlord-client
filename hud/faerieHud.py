@@ -16,6 +16,6 @@ class FaerieHud(hud.game.GameHud):
         if len(base.player.facedowns) == 0:
             super().onEndPhaseButton()
         elif len(base.player.facedowns) == 1:
-            base.endPhaseWithCard(base.player.facedowns[0])
+            base.clientActions.endPhase([base.player.facedowns[0]])
         else:
             base.mouseHandler.startTargeting("Choose card to keep", callback)
