@@ -29,6 +29,7 @@ import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
 import protocol.zie
+import protocol.actions
 
 import scenes.game as game
 
@@ -173,6 +174,9 @@ class App (ShowBase):
 
         self.hasFirstPlayerPenalty = goingFirst
 
+        self.clientActions = protocol.actions.ClientActions(
+            self.player, self.networkManager)
+
     def decideWhetherToGoFirst(self):
         self.guiScene = gfd.GoingFirstDecision()
 
@@ -223,13 +227,14 @@ class App (ShowBase):
         otherwise play it face-down.
         """
         c = card.getPythonTag('card')
+        t = self.nodeToGameEntity(target)
         idx = c.zone.index(c)
 
         if self.phase == Phase.reveal:
             if c.requiresTarget:
-                self.networkManager.playFaceup(idx, *self.findCard(target))
+                self.clientActions.playFaceup(c, t)
             else:
-                self.networkManager.playFaceup(idx)
+                self.clientActions.playFaceup(c)
         else:
             self.networkManager.play(idx)
 
