@@ -28,7 +28,6 @@ import hud.templarHud as templarHud
 import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
-import protocol.zie
 import protocol.actions
 
 import scenes.game as game
@@ -247,13 +246,6 @@ class App (ShowBase):
         kwargs = [entityOrBool(arg) for key, arg in kwargs.items()]
 
         self.clientActions.endPhase(args + kwargs)
-        self.hasFirstPlayerPenalty = False
-
-    def endPhaseWithCard(self, card):
-        """
-        Hack to pass a card rather than card node to endPhase
-        """
-        self.networkManager.endPhase(*protocol.zie.cardToZie(self.player, card))
         self.hasFirstPlayerPenalty = False
 
     def replace(self, nodes):
