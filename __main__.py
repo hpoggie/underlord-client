@@ -138,8 +138,6 @@ class App (ShowBase):
         """
         self.networkManager.selectFaction(index)
         self.faction = self.availableFactions[index]
-        self._active = False
-        self._started = False  # Don't show game yet; it hasn't started
 
         # Tell the user we're waiting for opponent
         self.guiScene.showWaitMessage()
@@ -153,8 +151,6 @@ class App (ShowBase):
         self.onGameStarted(goingFirst=False)
 
     def onGameStarted(self, goingFirst=True):
-        self.isFirstPlayer = goingFirst
-
         # Set up game state information
         self.gameState = protocol.state.ClientState(
             goingFirst, self.faction, self.enemyFaction)
