@@ -12,7 +12,7 @@ from direct.task import Task
 
 from ul_core.net.network_manager import ConnectionClosed
 from ul_core.net.network import ClientNetworkManager
-from ul_core.core.game import Game, Phase, EndOfGame
+from ul_core.core.game import Phase, EndOfGame
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 import ul_core.factions
@@ -29,6 +29,7 @@ import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
 import protocol.actions
+import protocol.state
 
 import scenes.game as game
 
@@ -73,29 +74,38 @@ class App (ShowBase):
 
         self.availableFactions = ul_core.factions.availableFactions
 
-        self.hasMulliganed = False
-
         self.ready = False
+
+        self.gameState = None
 
     def onConnectedToServer(self):
         self.guiScene = mainMenu.MainMenu()
 
     @property
+    def hasMulliganed(self):
+        if self.gameState is None:
+            return False
+        else:
+            return self.gameState.hasMulliganed
+
+    @hasMulliganed.setter
+    def hasMulliganed(self, value):
+        self.gameState.hasMulliganed = value
+
+    @property
     def active(self):
-        return self.player.active if hasattr(self, 'player') else False
+        if self.gameState is None:
+            return False
+        else:
+            return self.gameState.active
 
     @active.setter
     def active(self, value):
-        """
-        Update whose turn it is.
-        """
-        # Ignore setting active before mulligans
-        # b/c the opcode is False instead of None
-        # TODO: change this
-        if self.hasMulliganed:
-            # (not value) gives us 0 for player 1 and 1 for player 2
-            self.game.turn = not value if (
-                self.player == self.game.players[0]) else value
+        self.gameState.active = value
+
+    @property
+    def game(self):
+        return self.gameState.game
 
     @property
     def guiScene(self):
@@ -146,12 +156,8 @@ class App (ShowBase):
         self.isFirstPlayer = goingFirst
 
         # Set up game state information
-        if goingFirst:
-            self.game = Game(self.faction, self.enemyFaction)
-            self.player, self.enemy = self.game.players
-        else:
-            self.game = Game(self.enemyFaction, self.faction)
-            self.enemy, self.player = self.game.players
+        self.gameState = protocol.state.ClientState(
+            goingFirst, self.faction, self.enemyFaction)
 
         self.hasMulliganed = False
         self.bothPlayersMulliganed = False
@@ -180,12 +186,20 @@ class App (ShowBase):
         self.guiScene = gfd.GoingFirstDecision()
 
     @property
+    def player(self):
+        return self.gameState.player
+
+    @property
+    def enemy(self):
+        return self.gameState.enemy
+
+    @property
     def phase(self):
-        return self.game.phase
+        return self.gameState.game.phase
 
     @phase.setter
     def phase(self, value):
-        self.game.phase = value
+        self.gameState.game.phase = value
 
     def mulligan(self):
         if not self.hasMulliganed:
