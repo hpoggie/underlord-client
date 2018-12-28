@@ -26,3 +26,8 @@ class ClientActions:
                 idx, *zie.gameEntityToZie(self.player, target))
         else:
             self.rpcSender.playFaceup(idx)
+
+    def attack(self, attacker, target):
+        _, index, _ = zie.gameEntityToZie(self.player, attacker)
+        targetZone, targetIndex, _ = zie.gameEntityToZie(self.player, target)
+        self.rpcSender.attack(index, targetIndex, targetZone)

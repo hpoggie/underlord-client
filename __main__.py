@@ -244,14 +244,8 @@ class App (ShowBase):
         self.clientActions.revealFacedown(card, target)
 
     def attack(self, card, target):
-        try:
-            zone, index, enemy = self.findCard(card)
-            targetZone, targetIndex, targetsEnemy = self.findCard(target)
-        except ValueError as e:
-            print("Card not found: " + e)
-            return
-
-        self.networkManager.attack(index, targetIndex, targetZone)
+        self.clientActions.attack(
+            card.getPythonTag('card'), self.nodeToGameEntity(target))
 
     def endPhase(self, *args, **kwargs):
         # For each value in args, append the indices for that value
