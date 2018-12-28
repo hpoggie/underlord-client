@@ -6,6 +6,10 @@ class ClientActions:
         self.player = player
         self.rpcSender = rpcSender
 
+    def playFacedown(self, card):
+        idx = card.zone.index(card)
+        self.rpcSender.play(idx)
+
     def playFaceup(self, card, target=None):
         idx = card.zone.index(card)
 

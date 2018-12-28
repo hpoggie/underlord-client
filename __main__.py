@@ -228,7 +228,6 @@ class App (ShowBase):
         """
         c = card.getPythonTag('card')
         t = self.nodeToGameEntity(target)
-        idx = c.zone.index(c)
 
         if self.phase == Phase.reveal:
             if c.requiresTarget:
@@ -236,7 +235,7 @@ class App (ShowBase):
             else:
                 self.clientActions.playFaceup(c)
         else:
-            self.networkManager.play(idx)
+            self.clientActions.playFacedown(c)
 
     def revealFacedown(self, card, target=None):
         card = card.getPythonTag('card')
