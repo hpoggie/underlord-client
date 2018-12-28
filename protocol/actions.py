@@ -6,6 +6,14 @@ class ClientActions:
         self.player = player
         self.rpcSender = rpcSender
 
+    def revealFacedown(self, card, target=None):
+        idx = card.zone.index(card)
+        if target is not None:
+            self.rpcSender.revealFacedown(
+                index, *zie.gameEntityToZie(self.player, target))
+        else:
+            self.rpcSender.revealFacedown(index)
+
     def playFacedown(self, card):
         idx = card.zone.index(card)
         self.rpcSender.play(idx)
