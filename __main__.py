@@ -193,21 +193,23 @@ class App (ShowBase):
         else:
             print("Already mulliganed.")
 
+    def nodeToGameEntity(self, node):
+        if node is None:
+            return None
+        elif node.getPythonTag('zone') is self.player.face:
+            return self.player.face
+        elif node.getPythonTag('zone') is self.enemy.face:
+            return self.enemy.face
+        else:
+            return node.getPythonTag('card')
+
     def findCard(self, node):
         """
         Given a card node, get its zone, index in that zone, and whether we
         control it
         """
-        if node is None:
-            return protocol.zie.cardToZie(self.player, None)
-
-        zone = node.getPythonTag('zone')
-        if zone is self.player.face:
-            return protocol.zie.playerFace()
-        elif zone is self.enemy.face:
-            return protocol.zie.enemyFace()
-        else:
-            return protocol.zie.cardToZie(self.player, node.getPythonTag('card'))
+        return protocol.zie.gameEntityToZie(self.player,
+                                            self.nodeToGameEntity(node))
 
     def finishTargeting(self):
         self.targetCallback = None
