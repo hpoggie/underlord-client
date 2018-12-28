@@ -12,7 +12,6 @@ from direct.task import Task
 
 from ul_core.net.network_manager import ConnectionClosed
 from ul_core.net.network import ClientNetworkManager
-from ul_core.net.enums import Zone
 from ul_core.core.game import Game, Phase, EndOfGame
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
@@ -29,6 +28,7 @@ import hud.templarHud as templarHud
 import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
+import protocol.zie
 
 import scenes.game as game
 
@@ -193,46 +193,21 @@ class App (ShowBase):
         else:
             print("Already mulliganed.")
 
-    def findCard(self, card):
+    def findCard(self, node):
         """
         Given a card node, get its zone, index in that zone, and whether we
         control it
         """
-        if card is None:
-            return (-1, -1, 0)
+        if node is None:
+            return protocol.zie.cardToZie(self.player, None)
 
-        enemy = True
-        index = -1
-        zone = -1
-
-        if card.getPythonTag('zone') is self.player.facedowns:
-            zone = Zone.facedown
-            enemy = False
-        elif card.getPythonTag('zone') is self.enemy.facedowns:
-            zone = Zone.facedown
-        elif card.getPythonTag('zone') is self.player.faceups:
-            zone = Zone.faceup
-            enemy = False
-        elif card.getPythonTag('zone') is self.enemy.faceups:
-            zone = Zone.faceup
-        elif card.getPythonTag('zone') is self.player.hand:
-            zone = Zone.hand
-            enemy = False
-        elif card.getPythonTag('zone') is self.enemy.hand:
-            zone = Zone.hand
-        elif card.getPythonTag('zone') is self.player.face:
-            zone = Zone.face
-            enemy = False
-        elif card.getPythonTag('zone') is self.enemy.face:
-            zone = Zone.face
-
-        try:
-            c = card.getPythonTag('card')
-            index = card.getPythonTag('zone').index(c)
-        except ValueError:
-            pass
-
-        return (zone, index, int(enemy))
+        zone = node.getPythonTag('zone')
+        if zone is self.player.face:
+            return protocol.zie.playerFace()
+        elif zone is self.enemy.face:
+            return protocol.zie.enemyFace()
+        else:
+            return protocol.zie.cardToZie(self.player, node.getPythonTag('card'))
 
     def finishTargeting(self):
         self.targetCallback = None
