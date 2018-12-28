@@ -42,3 +42,10 @@ class ClientActions:
         ]
 
         self.rpcSender.endPhase(*args)
+
+    def replace(self, cards):
+        args = [
+            i for card in cards
+            for i in zie.gameEntityToZie(self.player, card)
+        ]
+        self.rpcSender.replace(*args)

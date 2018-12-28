@@ -264,17 +264,17 @@ class App (ShowBase):
         self.networkManager.endPhase(*protocol.zie.cardToZie(self.player, card))
         self.hasFirstPlayerPenalty = False
 
-    def replace(self, cards):
-        args = [i for card in cards for i in self.findCard(card)]
-        self.networkManager.replace(*args)
+    def replace(self, nodes):
+        cards = [self.nodeToGameEntity(node) for node in nodes]
+        self.clientActions.replace(cards)
 
-        for card in cards:
+        for node in nodes:
             # Do getParent.getParent because of pivots
             # TODO: make this cleaner
             # NEVER COMPARE NODE PATHS w/ is. It seems to always return False
-            if (card is not None and
-                    card.getParent().getParent() == self.zoneMaker.playerHand):
-                card.removeNode()
+            if (node is not None and
+                    node.getParent().getParent() == self.zoneMaker.playerHand):
+                node.removeNode()
 
     def redraw(self):
         self.player.fishing = False
