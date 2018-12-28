@@ -263,10 +263,7 @@ class App (ShowBase):
         """
         Hack to pass a card rather than card node to endPhase
         """
-        self.networkManager.endPhase(
-            card.controller.zones.index(card.zone), card.zone.index(card),
-            card.controller is self.enemy)
-
+        self.networkManager.endPhase(protocol.zie.cardToZie(card))
         self.hasFirstPlayerPenalty = False
 
     def replace(self, cards):
