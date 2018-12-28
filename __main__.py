@@ -207,14 +207,6 @@ class App (ShowBase):
         else:
             return node.getPythonTag('card')
 
-    def findCard(self, node):
-        """
-        Given a card node, get its zone, index in that zone, and whether we
-        control it
-        """
-        return protocol.zie.gameEntityToZie(self.player,
-                                            self.nodeToGameEntity(node))
-
     def finishTargeting(self):
         self.targetCallback = None
         self.activeDecision = None
