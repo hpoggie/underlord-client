@@ -239,9 +239,9 @@ class App (ShowBase):
 
     def revealFacedown(self, card, target=None):
         card = card.getPythonTag('card')
-        index = card.zone.index(card)
+        target = self.nodeToGameEntity(target)
 
-        self.networkManager.revealFacedown(index, *self.findCard(target))
+        self.clientActions.revealFacedown(card, target)
 
     def attack(self, card, target):
         try:
