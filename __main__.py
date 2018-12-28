@@ -248,15 +248,13 @@ class App (ShowBase):
             card.getPythonTag('card'), self.nodeToGameEntity(target))
 
     def endPhase(self, *args, **kwargs):
-        # For each value in args, append the indices for that value
-        # For each value in kwargs, append it if it's a bool, otherwise
-        # assume it's a card and append the indices for it
-        args = [i for arg in args for i in self.findCard(arg)] +\
-               [i for arg in kwargs.values() for i in ([arg]
-                if isinstance(arg, bool) else self.findCard(arg))]
+        def entityOrBool(arg):
+            return arg if isinstance(arg, bool) else self.nodeToGameEntity(arg)
 
-        self.networkManager.endPhase(*args)
+        args = [entityOrBool(arg) for arg in args]
+        kwargs = [entityOrBool(arg) for key, arg in kwargs.items()]
 
+        self.clientActions.endPhase(args + kwargs)
         self.hasFirstPlayerPenalty = False
 
     def endPhaseWithCard(self, card):

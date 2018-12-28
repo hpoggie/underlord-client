@@ -31,3 +31,14 @@ class ClientActions:
         _, index, _ = zie.gameEntityToZie(self.player, attacker)
         targetZone, targetIndex, _ = zie.gameEntityToZie(self.player, target)
         self.rpcSender.attack(index, targetIndex, targetZone)
+
+    def endPhase(self, args):
+        # For each value in args, append it if it's a bool, otherwise
+        # assume it's a card and append the indices for it
+        args = [
+            i for arg in args
+            for i in ([arg] if isinstance(arg, bool) else zie.gameEntityToZie(
+                self.player, arg))
+        ]
+
+        self.rpcSender.endPhase(*args)
