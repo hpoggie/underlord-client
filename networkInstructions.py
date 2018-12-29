@@ -1,6 +1,3 @@
-import copy
-
-
 class NetworkInstructions:
     """
     Handles instructions from the server.
