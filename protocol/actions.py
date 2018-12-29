@@ -19,6 +19,11 @@ class ClientActions:
         self.rpcSender.decideWhetherToGoFirst(0)
         self.state.onGameStarted(goingFirst=False)
 
+    def mulligan(self, cards):
+        indices = [self.state.player.hand.index(c) for c in cards]
+        self.rpcSender.mulligan(*indices)
+        self.state.hasMulliganed = True
+
     # Game actions
     # TODO: Most of this is ugly and should be refactored
     def revealFacedown(self, card, target=None):

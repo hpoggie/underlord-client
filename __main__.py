@@ -191,9 +191,7 @@ class App (ShowBase):
 
     def mulligan(self):
         if not self.hasMulliganed:
-            indices = [self.player.hand.index(c) for c in self.toMulligan]
-            self.networkManager.mulligan(*indices)
-            self.hasMulliganed = True
+            self.clientActions.mulligan(self.toMulligan)
             self.toMulligan = []  # These get GC'd
         else:
             print("Already mulliganed.")
