@@ -2,9 +2,13 @@ from . import zie
 
 
 class ClientActions:
-    def __init__(self, player, rpcSender):
-        self.player = player
+    def __init__(self, state, rpcSender):
+        self.state = state
         self.rpcSender = rpcSender
+
+    @property
+    def player(self):
+        return self.state.player
 
     def revealFacedown(self, card, target=None):
         index = card.zone.index(card)

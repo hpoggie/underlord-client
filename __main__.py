@@ -66,6 +66,8 @@ class App (ShowBase):
         self.rpcReceiver = protocol.rpcReceiver.RpcReceiver(self.gameState, instr)
         self.networkManager = ClientNetworkManager(self.rpcReceiver, ip, port)
         self.networkManager.verbose = verbose
+        self.clientActions = protocol.actions.ClientActions(
+            self.gameState, self.networkManager)
 
         # Connect to the server
         self.connectionManager = ConnectionManager((ip, port), self)
@@ -169,9 +171,6 @@ class App (ShowBase):
         self.zoneMaker = self.gameScene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
-
-        self.clientActions = protocol.actions.ClientActions(
-            self.player, self.networkManager)
 
     def decideWhetherToGoFirst(self):
         self.guiScene = gfd.GoingFirstDecision()
