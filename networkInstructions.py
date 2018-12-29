@@ -62,49 +62,38 @@ class NetworkInstructions:
 
         return c
 
-    def updatePlayerHand(self, *cardIds):
-        self.base.player.hand[:] = []
+    def updateZone(self, zone, cardIds):
+        zone[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.player.hand)
+            self.moveCard(x, zone)
+
+    def updatePlayerHand(self, *cardIds):
+        self.updateZone(base.player.hand, cardIds)
 
     def updateEnemyHand(self, *cardIds):
-        self.base.enemy.hand[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.enemy.hand)
+        self.updateZone(base.enemy.hand, cardIds)
 
     def updatePlayerFacedowns(self, *cardIds):
-        self.base.player.facedowns[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.player.facedowns)
+        self.updateZone(base.player.facedowns, cardIds)
 
     def updateEnemyFacedowns(self, *cardIds):
-        self.base.enemy.facedowns[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.enemy.facedowns)
+        self.updateZone(base.enemy.facedowns, cardIds)
 
     def updatePlayerFaceups(self, *cardIds):
-        self.base.player.faceups[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.player.faceups)
+        self.updateZone(base.player.faceups, cardIds)
 
     def updateHasAttacked(self, *values):
         for i, c in enumerate(self.base.player.faceups):
             c.hasAttacked = values[i]
 
     def updateEnemyFaceups(self, *cardIds):
-        self.base.enemy.faceups[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.enemy.faceups)
+        self.updateZone(base.enemy.faceups, cardIds)
 
     def updatePlayerGraveyard(self, *cardIds):
-        self.base.player.graveyard[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.player.graveyard)
+        self.updateZone(base.player.graveyard, cardIds)
 
     def updateEnemyGraveyard(self, *cardIds):
-        self.base.enemy.graveyard[:] = []
-        for x in self.idsToCards(cardIds):
-            self.moveCard(x, self.base.enemy.graveyard)
+        self.updateZone(base.enemy.graveyard, cardIds)
 
     def updatePlayerManaCap(self, manaCap):
         self.base.player.manaCap = manaCap
