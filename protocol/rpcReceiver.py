@@ -56,17 +56,15 @@ class RpcReceiver:
         self.callbacks.requestGoingFirstDecision()
 
     def enemyGoingFirst(self):
+        self.state.onGameStarted(goingFirst=False)
         self.callbacks.enemyGoingFirst()
 
     def enemyGoingSecond(self):
+        self.state.onGameStarted(goingFirst=True)
         self.callbacks.enemyGoingSecond()
 
     def updateBothPlayersMulliganed(self):
         self.callbacks.updateBothPlayersMulliganed()
-
-    def updateEnemyFaction(self, index):
-        self.callbacks.updateEnemyFaction(
-            ul_core.factions.availableFactions[index])
 
     def requestTarget(self):
         pass
@@ -89,6 +87,9 @@ class RpcReceiver:
     # Updates
     # Don't call the callbacks, just modify state
     # We redraw things all at once in endRedraw
+    def updateEnemyFaction(self, index):
+        self.state.enemyFaction = ul_core.factions.availableFactions[index]
+
     def updatePlayerHand(self, *cardIds):
         self.updateZone(self.state.player.hand, cardIds)
 

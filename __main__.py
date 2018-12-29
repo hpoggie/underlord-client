@@ -61,8 +61,9 @@ class App (ShowBase):
         self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
 
         # Set up the NetworkManager
+        self.gameState = protocol.state.ClientState()
         instr = networkInstructions.NetworkInstructions(self)
-        self.rpcReceiver = protocol.rpcReceiver.RpcReceiver(None, instr)
+        self.rpcReceiver = protocol.rpcReceiver.RpcReceiver(self.gameState, instr)
         self.networkManager = ClientNetworkManager(self.rpcReceiver, ip, port)
         self.networkManager.verbose = verbose
 
@@ -74,8 +75,6 @@ class App (ShowBase):
         self.availableFactions = ul_core.factions.availableFactions
 
         self.ready = False
-
-        self.gameState = None
 
     def onConnectedToServer(self):
         self.guiScene = mainMenu.MainMenu()
@@ -136,26 +135,22 @@ class App (ShowBase):
         Tell the server we've picked a faction and are ready to start the game.
         """
         self.networkManager.selectFaction(index)
-        self.faction = self.availableFactions[index]
+        self.gameState.faction = self.availableFactions[index]
 
         # Tell the user we're waiting for opponent
         self.guiScene.showWaitMessage()
 
     def goFirst(self):
         base.networkManager.decideWhetherToGoFirst(1)
+        self.gameState.onGameStarted(goingFirst=True)
         self.onGameStarted(goingFirst=True)
 
     def goSecond(self):
         base.networkManager.decideWhetherToGoFirst(0)
+        self.gameState.onGameStarted(goingFirst=False)
         self.onGameStarted(goingFirst=False)
 
     def onGameStarted(self, goingFirst=True):
-        # Set up game state information
-        self.gameState = protocol.state.ClientState(
-            goingFirst, self.faction, self.enemyFaction)
-        self.rpcReceiver.state = self.gameState
-
-        self.hasMulliganed = False
         self.bothPlayersMulliganed = False
         self.toMulligan = []
 

@@ -6,14 +6,9 @@ class ClientState:
     Representation of game state on client side
     """
 
-    def __init__(self, goingFirst, faction, enemyFaction):
-        if goingFirst:
-            self.game = Game(faction, enemyFaction)
-            self.player, self.enemy = self.game.players
-        else:
-            self.game = Game(enemyFaction, faction)
-            self.enemy, self.player = self.game.players
-
+    def __init__(self):
+        self.faction = None
+        self.enemyFaction = None
         self.hasMulliganed = False
 
     @property
@@ -40,3 +35,13 @@ class ClientState:
     @phase.setter
     def phase(self, value):
         self.game.phase = value
+
+    def onGameStarted(self, goingFirst):
+        if goingFirst:
+            self.game = Game(self.faction, self.enemyFaction)
+            self.player, self.enemy = self.game.players
+        else:
+            self.game = Game(self.enemyFaction, self.faction)
+            self.enemy, self.player = self.game.players
+
+        self.hasMulliganed = False

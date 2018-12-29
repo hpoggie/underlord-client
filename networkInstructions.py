@@ -17,9 +17,6 @@ class NetworkInstructions:
     def requestGoingFirstDecision(self):
         self.base.decideWhetherToGoFirst()
 
-    def updateEnemyFaction(self, faction):
-        self.base.enemyFaction = faction
-
     def enemyGoingFirst(self):
         self.base.onGameStarted(goingFirst=False)
 
