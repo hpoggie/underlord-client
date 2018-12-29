@@ -1,4 +1,5 @@
 from . import zie
+import ul_core.factions
 
 
 class ClientActions:
@@ -11,6 +12,10 @@ class ClientActions:
         return self.state.player
 
     # Setup actions
+    def pickFaction(self, index):
+        self.rpcSender.selectFaction(index)
+        self.state.faction = ul_core.factions.availableFactions[index]
+
     def goFirst(self):
         self.rpcSender.decideWhetherToGoFirst(1)
         self.state.onGameStarted(goingFirst=True)

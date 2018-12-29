@@ -136,8 +136,7 @@ class App (ShowBase):
         """
         Tell the server we've picked a faction and are ready to start the game.
         """
-        self.networkManager.selectFaction(index)
-        self.gameState.faction = self.availableFactions[index]
+        self.clientActions.pickFaction(index)
 
         # Tell the user we're waiting for opponent
         self.guiScene.showWaitMessage()
