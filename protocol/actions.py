@@ -10,6 +10,17 @@ class ClientActions:
     def player(self):
         return self.state.player
 
+    # Setup actions
+    def goFirst(self):
+        self.rpcSender.decideWhetherToGoFirst(1)
+        self.state.onGameStarted(goingFirst=True)
+
+    def goSecond(self):
+        self.rpcSender.decideWhetherToGoFirst(0)
+        self.state.onGameStarted(goingFirst=False)
+
+    # Game actions
+    # TODO: Most of this is ugly and should be refactored
     def revealFacedown(self, card, target=None):
         index = card.zone.index(card)
         if target is not None:

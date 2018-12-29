@@ -143,13 +143,11 @@ class App (ShowBase):
         self.guiScene.showWaitMessage()
 
     def goFirst(self):
-        base.networkManager.decideWhetherToGoFirst(1)
-        self.gameState.onGameStarted(goingFirst=True)
+        self.clientActions.goFirst()
         self.onGameStarted(goingFirst=True)
 
     def goSecond(self):
-        base.networkManager.decideWhetherToGoFirst(0)
-        self.gameState.onGameStarted(goingFirst=False)
+        self.clientActions.goSecond()
         self.onGameStarted(goingFirst=False)
 
     def onGameStarted(self, goingFirst=True):
