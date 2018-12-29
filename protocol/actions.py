@@ -12,6 +12,10 @@ class ClientActions:
         return self.state.player
 
     # Setup actions
+    def readyUp(self):
+        self.rpcSender.addPlayer()
+        self.state.ready = True
+
     def pickFaction(self, index):
         self.rpcSender.selectFaction(index)
         self.state.faction = ul_core.factions.availableFactions[index]

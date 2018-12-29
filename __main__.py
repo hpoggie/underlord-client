@@ -76,8 +76,6 @@ class App (ShowBase):
 
         self.availableFactions = ul_core.factions.availableFactions
 
-        self.ready = False
-
     def onConnectedToServer(self):
         self.guiScene = mainMenu.MainMenu()
 
@@ -124,10 +122,9 @@ class App (ShowBase):
         """
         We are ready to play a game.
         """
-        if not self.ready:
-            self.networkManager.addPlayer()
+        if not self.gameState.ready:
+            self.clientActions.readyUp()
             self.guiScene.showWaitMessage()
-            self.ready = True
 
     def onEnteredGame(self):
         self.guiScene = factionSelect.FactionSelect()
@@ -275,7 +272,6 @@ class App (ShowBase):
             self.gameScene.unmake()
         self.guiScene = mainMenu.MainMenu()
         self.networkManager.requestNumPlayers()
-        self.ready = False
         return Task.done
 
     def inputTask(self, task):

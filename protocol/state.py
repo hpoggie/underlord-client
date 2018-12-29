@@ -10,6 +10,7 @@ class ClientState:
         self.faction = None
         self.enemyFaction = None
         self.hasMulliganed = False
+        self.ready = False
 
     @property
     def active(self):

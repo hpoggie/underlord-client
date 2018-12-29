@@ -43,6 +43,9 @@ class RpcReceiver:
         for x in self.idsToCards(cardIds):
             self.moveCard(x, zone)
 
+    def onGameEnded(self):
+        self.state.ready = False
+
     # Events
     # Call the callbacks
 
@@ -73,12 +76,15 @@ class RpcReceiver:
         self.callbacks.requestReplace(nArgs)
 
     def winGame(self):
+        self.onGameEnded()
         self.callbacks.winGame()
 
     def loseGame(self):
+        self.onGameEnded()
         self.callbacks.loseGame()
 
     def kick(self):
+        self.onGameEnded()
         self.callbacks.kick()
 
     def endRedraw(self):
