@@ -30,6 +30,7 @@ import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
 import protocol.actions
 import protocol.state
+import protocol.rpcReceiver
 
 import scenes.game as game
 
@@ -61,7 +62,8 @@ class App (ShowBase):
 
         # Set up the NetworkManager
         instr = networkInstructions.NetworkInstructions(self)
-        self.networkManager = ClientNetworkManager(instr, ip, port)
+        self.rpcReceiver = protocol.rpcReceiver.RpcReceiver(None, instr)
+        self.networkManager = ClientNetworkManager(self.rpcReceiver, ip, port)
         self.networkManager.verbose = verbose
 
         # Connect to the server
@@ -151,6 +153,7 @@ class App (ShowBase):
         # Set up game state information
         self.gameState = protocol.state.ClientState(
             goingFirst, self.faction, self.enemyFaction)
+        self.rpcReceiver.state = self.gameState
 
         self.hasMulliganed = False
         self.bothPlayersMulliganed = False
