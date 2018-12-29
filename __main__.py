@@ -271,7 +271,7 @@ class App (ShowBase):
         if hasattr(self, 'gameScene'):  # TODO: kludge
             self.gameScene.unmake()
         self.guiScene = mainMenu.MainMenu()
-        self.networkManager.requestNumPlayers()
+        self.clientActions.requestNumPlayers()
         return Task.done
 
     def inputTask(self, task):

@@ -12,6 +12,9 @@ class ClientActions:
         return self.state.player
 
     # Setup actions
+    def requestNumPlayers(self):
+        self.rpcSender.requestNumPlayers()
+
     def readyUp(self):
         self.rpcSender.addPlayer()
         self.state.ready = True
