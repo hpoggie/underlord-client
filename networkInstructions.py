@@ -1,38 +1,40 @@
 import copy
 
-from direct.showbase.DirectObject import DirectObject
-
 from ul_core.core.card import Card
 from ul_core.core.game import EndOfGame
 from ul_core.core.zone import Zone
 
 
-class NetworkInstructions(DirectObject):
+class NetworkInstructions:
     """
     Handles instructions from the server.
     """
+
+    def __init__(self, base):
+        self.base = base
+
     def onEnteredGame(self):
-        base.onEnteredGame()
+        self.base.onEnteredGame()
 
     def updateNumPlayers(self, n):
         # numPlayersLabel is set by hud
-        if hasattr(base, 'numPlayersLabel') and base.numPlayersLabel:
-            base.numPlayersLabel.setText(str(n) + " players in lobby.")
+        if hasattr(self.base, 'numPlayersLabel') and self.base.numPlayersLabel:
+            self.base.numPlayersLabel.setText(str(n) + " players in lobby.")
 
     def requestGoingFirstDecision(self):
-        base.decideWhetherToGoFirst()
+        self.base.decideWhetherToGoFirst()
 
     def updateEnemyFaction(self, index):
-        base.enemyFaction = base.availableFactions[index]
+        self.base.enemyFaction = self.base.availableFactions[index]
 
     def enemyGoingFirst(self):
-        base.onGameStarted(goingFirst=False)
+        self.base.onGameStarted(goingFirst=False)
 
     def enemyGoingSecond(self):
-        base.onGameStarted(goingFirst=True)
+        self.base.onGameStarted(goingFirst=True)
 
     def updateBothPlayersMulliganed(self):
-        base.bothPlayersMulliganed = True
+        self.base.bothPlayersMulliganed = True
 
     def idsToCards(self, cardIds):
         idAndEnemy = zip(cardIds[::2], cardIds[1::2])
@@ -40,12 +42,12 @@ class NetworkInstructions(DirectObject):
         for cardId, ownedByEnemy in idAndEnemy:
             if cardId == -1:
                 cards.append(Card(name="mysterious card",
-                             owner=base.enemy,
-                             game=base.game,
+                             owner=self.base.enemy,
+                             game=self.base.game,
                              cardId=-1))
             else:
-                c = (base.enemy.referenceDeck[cardId] if ownedByEnemy
-                     else base.player.referenceDeck[cardId])
+                c = (self.base.enemy.referenceDeck[cardId] if ownedByEnemy
+                     else self.base.player.referenceDeck[cardId])
                 c.visible = True
                 cards.append(c)
 
@@ -61,87 +63,87 @@ class NetworkInstructions(DirectObject):
         return c
 
     def updatePlayerHand(self, *cardIds):
-        base.player.hand[:] = []
+        self.base.player.hand[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.player.hand)
+            self.moveCard(x, self.base.player.hand)
 
     def updateEnemyHand(self, *cardIds):
-        base.enemy.hand[:] = []
+        self.base.enemy.hand[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.enemy.hand)
+            self.moveCard(x, self.base.enemy.hand)
 
     def updatePlayerFacedowns(self, *cardIds):
-        base.player.facedowns[:] = []
+        self.base.player.facedowns[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.player.facedowns)
+            self.moveCard(x, self.base.player.facedowns)
 
     def updateEnemyFacedowns(self, *cardIds):
-        base.enemy.facedowns[:] = []
+        self.base.enemy.facedowns[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.enemy.facedowns)
+            self.moveCard(x, self.base.enemy.facedowns)
 
     def updatePlayerFaceups(self, *cardIds):
-        base.player.faceups[:] = []
+        self.base.player.faceups[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.player.faceups)
+            self.moveCard(x, self.base.player.faceups)
 
     def updateHasAttacked(self, *values):
-        for i, c in enumerate(base.player.faceups):
+        for i, c in enumerate(self.base.player.faceups):
             c.hasAttacked = values[i]
 
     def updateEnemyFaceups(self, *cardIds):
-        base.enemy.faceups[:] = []
+        self.base.enemy.faceups[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.enemy.faceups)
+            self.moveCard(x, self.base.enemy.faceups)
 
     def updatePlayerGraveyard(self, *cardIds):
-        base.player.graveyard[:] = []
+        self.base.player.graveyard[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.player.graveyard)
+            self.moveCard(x, self.base.player.graveyard)
 
     def updateEnemyGraveyard(self, *cardIds):
-        base.enemy.graveyard[:] = []
+        self.base.enemy.graveyard[:] = []
         for x in self.idsToCards(cardIds):
-            self.moveCard(x, base.enemy.graveyard)
+            self.moveCard(x, self.base.enemy.graveyard)
 
     def updatePlayerManaCap(self, manaCap):
-        base.player.manaCap = manaCap
+        self.base.player.manaCap = manaCap
 
     def updatePlayerMana(self, mana):
-        base.player.mana = mana
+        self.base.player.mana = mana
 
     def updateEnemyManaCap(self, manaCap):
-        base.enemy.manaCap = manaCap
+        self.base.enemy.manaCap = manaCap
 
     def updatePhase(self, phase):
-        base.phase = phase
+        self.base.phase = phase
 
     def updatePlayerCounter(self, index, value):
-        base.player.faceups[index].counter = value
+        self.base.player.faceups[index].counter = value
 
     def updateEnemyCounter(self, index, value):
-        base.enemy.faceups[index].counter = value
+        self.base.enemy.faceups[index].counter = value
 
     def requestTarget(self):
         pass
 
     def requestReplace(self, nArgs):
-        base.guiScene.startReplacing(nArgs)
+        self.base.guiScene.startReplacing(nArgs)
 
     def winGame(self):
-        base.guiScene.showBigMessage("Victory")
-        base.quitToMainMenu()
+        self.base.guiScene.showBigMessage("Victory")
+        self.base.quitToMainMenu()
 
     def loseGame(self):
-        base.guiScene.showBigMessage("Defeat")
-        base.quitToMainMenu()
+        self.base.guiScene.showBigMessage("Defeat")
+        self.base.quitToMainMenu()
 
     def kick(self):
-        base.guiScene.showBigMessage("Kicked")
-        base.quitToMainMenu()
+        self.base.guiScene.showBigMessage("Kicked")
+        self.base.quitToMainMenu()
 
     def setActive(self, value):
-        base.active = value
+        self.base.active = value
 
     def endRedraw(self):
-        base.redraw()
+        self.base.redraw()

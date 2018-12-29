@@ -60,7 +60,7 @@ class App (ShowBase):
         self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
 
         # Set up the NetworkManager
-        instr = networkInstructions.NetworkInstructions()
+        instr = networkInstructions.NetworkInstructions(self)
         self.networkManager = ClientNetworkManager(instr, ip, port)
         self.networkManager.verbose = verbose
 
