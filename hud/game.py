@@ -8,8 +8,9 @@ from . import hud
 
 
 class GameHud(hud.Scene):
-    def __init__(self):
+    def __init__(self, clientState):
         super().__init__()
+        self.clientState = clientState
 
         self.turnLabel = self.label(
             text="",

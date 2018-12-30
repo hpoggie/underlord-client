@@ -102,10 +102,6 @@ class App (ShowBase):
         self.gameState.active = value
 
     @property
-    def game(self):
-        return self.gameState.game
-
-    @property
     def guiScene(self):
         return self._guiScene
 
@@ -152,15 +148,15 @@ class App (ShowBase):
 
         # Set up the game UI
         if isinstance(self.player, templars.Templar):
-            self.guiScene = templarHud.TemplarHud()
+            self.guiScene = templarHud.TemplarHud(self.gameState)
         elif isinstance(self.player, mariners.Mariner):
-            self.guiScene = marinerHud.MarinerHud()
+            self.guiScene = marinerHud.MarinerHud(self.gameState)
         elif isinstance(self.player, thieves.Thief):
-            self.guiScene = thiefHud.ThiefHud()
+            self.guiScene = thiefHud.ThiefHud(self.gameState)
         elif isinstance(self.player, fae.Faerie):
-            self.guiScene = faerieHud.FaerieHud()
+            self.guiScene = faerieHud.FaerieHud(self.gameState)
         else:
-            self.guiScene = hud.game.GameHud()
+            self.guiScene = hud.game.GameHud(self.gameState)
         self.gameScene = game.Scene()
         self.zoneMaker = self.gameScene.zoneMaker
 

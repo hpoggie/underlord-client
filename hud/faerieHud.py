@@ -5,8 +5,8 @@ import hud.game
 
 class FaerieHud(hud.game.GameHud):
     def onEndPhaseButton(self):
-        if base.game.phase != Phase.reveal:
-            base.endPhase()
+        if self.clientState.game.phase != Phase.reveal:
+            self.clientState.endPhase()
             return
 
         def callback(card):

@@ -11,8 +11,8 @@ from ul_core.core.game import Phase
 
 
 class ThiefHud(GameHud):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, clientState):
+        super().__init__(clientState)
         self.entryLabel = self.label(
             text='',
             mayChange=True)
@@ -75,7 +75,7 @@ class ThiefHud(GameHud):
 
         # TODO: kludge
         if hasattr(self, 'thiefAbilityButton'):
-            if base.game.phase == Phase.startOfTurn:
+            if self.clientState.game.phase == Phase.startOfTurn:
                 self.thiefAbilityButton.show()
             else:
                 self.thiefAbilityButton.hide()
