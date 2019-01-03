@@ -38,7 +38,7 @@ class ThiefHud(GameHud):
             self.toDiscard.getPythonTag('card'))
         toStealIndex = base.enemy.facedowns.index(
             self.toSteal.getPythonTag('card'))
-        base.networkManager.useThiefAbility(
+        base.clientActions.useThiefAbility(
             toDiscardIndex, cardname, toStealIndex)
         base.mouseHandler.targeting = False
         self.entry.hide()

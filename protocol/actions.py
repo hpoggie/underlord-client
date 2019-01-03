@@ -81,3 +81,7 @@ class ClientActions:
             for i in zie.gameEntityToZie(self.player, card)
         ]
         self.rpcSender.replace(*args)
+
+    def useThiefAbility(self, toDiscardIndex, toStealIndex, cardname):
+        self.rpcSender.useThiefAbility(
+            toDiscardIndex, toStealIndex, cardname)
