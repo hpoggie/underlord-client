@@ -13,7 +13,6 @@ from direct.task import Task
 from ul_core.net.network_manager import ConnectionClosed
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
-import ul_core.core.card
 import ul_core.factions
 from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
