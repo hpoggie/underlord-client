@@ -90,7 +90,7 @@ class GameHud(hud.Scene):
         self.targetingGradient.hide()
 
     def redrawTooltips(self):
-        if not base.hasMulliganed:
+        if not base.gameState.hasMulliganed:
             self.tooltipLabel.setText("Replace cards you don't want in your opening hand")
         elif base.active:
             if base.phase == Phase.startOfTurn:
@@ -105,7 +105,7 @@ class GameHud(hud.Scene):
             self.tooltipLabel.setText("")
 
     def redraw(self):
-        if base.hasMulliganed:
+        if base.gameState.hasMulliganed:
             self.mulliganButton.detachNode()
             self.endPhaseLabel.setText(str(Phase.keys[base.phase]))
         else:

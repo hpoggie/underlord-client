@@ -312,7 +312,7 @@ class ZoneMaker(DirectObject):
         base.enemyFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
 
     def redrawAll(self):
-        if base.hasMulliganed:
+        if base.gameState.hasMulliganed:
             self.makePlayerHand()
         else:
             self.makeMulliganHand()

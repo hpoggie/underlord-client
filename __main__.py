@@ -75,17 +75,6 @@ class App (ShowBase):
         self.guiScene = mainMenu.MainMenu()
 
     @property
-    def hasMulliganed(self):
-        if self.gameState is None:
-            return False
-        else:
-            return self.gameState.hasMulliganed
-
-    @hasMulliganed.setter
-    def hasMulliganed(self, value):
-        self.gameState.hasMulliganed = value
-
-    @property
     def active(self):
         if self.gameState is None:
             return False
@@ -177,7 +166,7 @@ class App (ShowBase):
         self.gameState.game.phase = value
 
     def mulligan(self):
-        if not self.hasMulliganed:
+        if not self.gameState.hasMulliganed:
             self.clientActions.mulligan(self.toMulligan)
             self.toMulligan = []  # These get GC'd
         else:

@@ -98,7 +98,7 @@ class MouseHandler (DirectObject):
             base.targetCallback(pickedObj)
         elif pickedObj and not pickedObj.isEmpty():
             zone = pickedObj.getPythonTag('zone')
-            if zone is base.player.hand and not base.hasMulliganed:
+            if zone is base.player.hand and not base.gameState.hasMulliganed:
                 c = pickedObj.getPythonTag('card')
                 if c in base.toMulligan:
                     base.toMulligan.remove(c)
@@ -228,7 +228,7 @@ class MouseHandler (DirectObject):
             if self.dragging is not None:
                 # Drag the card in the XY plane
                 self.dragging.setPos(self.mouseToXYPlane())
-            elif base.hasMulliganed:
+            elif base.gameState.hasMulliganed:
                 pickedObj = self.getObjectClickedOn()
                 if pickedObj:
                     card = pickedObj.getPythonTag('card')
