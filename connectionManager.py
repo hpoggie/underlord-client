@@ -21,7 +21,7 @@ class ConnectionManager(DirectObject):
             return
 
     def connect(self):
-        base.networkManager.connect(self.addr)
+        base.client.connect(self.addr)
 
     def startGame(self):
         base.readyUp()

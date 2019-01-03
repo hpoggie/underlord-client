@@ -11,7 +11,6 @@ from panda3d.core import loadPrcFileData
 from direct.task import Task
 
 from ul_core.net.network_manager import ConnectionClosed
-from ul_core.net.network import ClientNetworkManager
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
@@ -28,9 +27,7 @@ import hud.templarHud as templarHud
 import hud.marinerHud as marinerHud
 import hud.thiefHud as thiefHud
 import hud.faerieHud as faerieHud
-import protocol.actions
-import protocol.state
-import protocol.rpcReceiver
+import protocol.client
 
 import scenes.game as game
 
@@ -61,13 +58,12 @@ class App (ShowBase):
         self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
 
         # Set up the NetworkManager
-        self.gameState = protocol.state.ClientState()
+        self.client = protocol.client.Client(ip, port, verbose)
         instr = networkInstructions.NetworkInstructions(self)
-        self.rpcReceiver = protocol.rpcReceiver.RpcReceiver(self.gameState, instr)
-        self.networkManager = ClientNetworkManager(self.rpcReceiver, ip, port)
-        self.networkManager.verbose = verbose
-        self.clientActions = protocol.actions.ClientActions(
-            self.gameState, self.networkManager)
+        self.client.add_observer(instr)
+
+        self.clientActions = self.client.clientActions
+        self.gameState = self.client.state
 
         # Connect to the server
         self.connectionManager = ConnectionManager((ip, port), self)
@@ -280,7 +276,7 @@ class App (ShowBase):
 
     def networkUpdateTask(self, task):
         try:
-            self.networkManager.recv()
+            self.client.networkManager.recv()
         except ConnectionClosed:
             return Task.done
 
