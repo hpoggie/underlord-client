@@ -1,17 +1,18 @@
 # Underlord
 
-Underlord is an online ccg-esque game, currently in an early state of
-development.
+Underlord is an online ccg-esque game, currently in development.
 
 # Running it
 
-There will be builds here eventually. In the meantime:
+The easiest way to run the client is to grab it from the Releases page. If you
+want to run it from source:
 
 ```
-pip install -i https://archive.panda3d.org/branches/deploy-ng/ panda3d
+pip install -i https://archive.panda3d.org/ panda3d
 pip install GitPython
 git clone git@github.com:hpoggie/Underlord.git
-python client.py
+cd underlord-client
+python __main__.py
 ```
 
 Underlord is written in python 3. I'm assuming you're running this inside
