@@ -1,2 +1,2 @@
---extra-index-url https://archive.panda3d.org/branches/deploy-ng/
+--extra-index-url https://archive.panda3d.org/
 panda3d
