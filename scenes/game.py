@@ -5,8 +5,10 @@ from scenes.zoneMaker import ZoneMaker
 
 
 class Scene(DirectObject):
-    def __init__(self):
+    def __init__(self, clientState):
         super().__init__()
+        self.clientState = clientState
+
         self.model = base.loader.loadModel('env.bam')
         self.model.reparentTo(base.render)
         base.camera.setPosHpr(self.model.find('Camera'), 0, 0, 0, 0, -90, 0)
@@ -34,7 +36,7 @@ class Scene(DirectObject):
             enemyGraveyard=spawn.find('Enemy Graveyard'))
 
     def rotateTask(self, task):
-        if base.active:
+        if self.clientState.active:
             deltaTime = globalClock.getDt()
             self.hept.setHpr(self.hept, deltaTime * 5, 0, 0)
         return Task.cont

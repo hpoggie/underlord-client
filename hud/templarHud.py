@@ -42,7 +42,7 @@ class TemplarHud(GameHud):
             self.templarEndPhaseButton.hide()
             return
 
-        if base.phase == Phase.play and base.active:
+        if base.phase == Phase.play and self.clientState.active:
             self.templarEndPhaseButton.show()
         else:
             self.templarEndPhaseButton.hide()

@@ -18,7 +18,7 @@ class MarinerHud(GameHud):
                 command=self.onFishButton)
 
         if (base.phase == Phase.reveal and
-                base.active and
+                self.clientState.active and
                 base.bothPlayersMulliganed and
                 not base.hasFirstPlayerPenalty):
             self.fishButton.show()

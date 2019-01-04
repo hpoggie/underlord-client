@@ -92,7 +92,7 @@ class GameHud(hud.Scene):
     def redrawTooltips(self):
         if not base.gameState.hasMulliganed:
             self.tooltipLabel.setText("Replace cards you don't want in your opening hand")
-        elif base.active:
+        elif self.clientState.active:
             if base.phase == Phase.startOfTurn:
                 text = "Use your faction ability or proceed to your reveal phase"
             elif base.phase == Phase.reveal:
@@ -120,19 +120,19 @@ class GameHud(hud.Scene):
             self.enemyManaCapLabel.setText("")
             return
 
-        if base.active:
+        if self.clientState.active:
             self.endPhaseButton.show()
         else:
             self.endPhaseButton.hide()
 
-        if base.phase == Phase.reveal and base.active:
+        if base.phase == Phase.reveal and self.clientState.active:
             self.playerManaCapLabel.setText(
                 str(base.player.mana) + " / " + str(base.player.manaCap))
         else:
             self.playerManaCapLabel.setText(str(base.player.manaCap))
 
         self.enemyManaCapLabel.setText(str(base.enemy.manaCap))
-        self.turnLabel.setText("Your Turn" if base.active else "Enemy Turn")
+        self.turnLabel.setText("Your Turn" if self.clientState.active else "Enemy Turn")
 
     def startReplacing(self, nTargets):
         targets = []

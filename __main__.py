@@ -75,17 +75,6 @@ class App (ShowBase):
         self.guiScene = mainMenu.MainMenu()
 
     @property
-    def active(self):
-        if self.gameState is None:
-            return False
-        else:
-            return self.gameState.active
-
-    @active.setter
-    def active(self, value):
-        self.gameState.active = value
-
-    @property
     def guiScene(self):
         return self._guiScene
 
@@ -141,7 +130,7 @@ class App (ShowBase):
             self.guiScene = faerieHud.FaerieHud(self.gameState)
         else:
             self.guiScene = hud.game.GameHud(self.gameState)
-        self.gameScene = game.Scene()
+        self.gameScene = game.Scene(self.gameState)
         self.zoneMaker = self.gameScene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
