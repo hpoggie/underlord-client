@@ -5,9 +5,9 @@ from scenes.zoneMaker import ZoneMaker
 
 
 class Scene(DirectObject):
-    def __init__(self, clientState):
+    def __init__(self, player):
         super().__init__()
-        self.clientState = clientState
+        self.player = player
 
         self.model = base.loader.loadModel('env.bam')
         self.model.reparentTo(base.render)
@@ -25,6 +25,7 @@ class Scene(DirectObject):
 
         spawn = self.model.find('Spawn')
         self.zoneMaker = ZoneMaker(
+            self.player,
             self.model,
             playerHand=spawn.find('Player Hand'),
             enemyHand=spawn.find('Enemy Hand'),
@@ -36,7 +37,7 @@ class Scene(DirectObject):
             enemyGraveyard=spawn.find('Enemy Graveyard'))
 
     def rotateTask(self, task):
-        if self.clientState.active:
+        if self.player.active:
             deltaTime = globalClock.getDt()
             self.hept.setHpr(self.hept, deltaTime * 5, 0, 0)
         return Task.cont
@@ -61,8 +62,8 @@ if __name__ == '__main__':
             self.player, self.enemy = self.game.players
             self.game.start()
             self.active = True
-            self.scene = Scene()
-            self.hasMulliganed = True
+            self.scene = Scene(self.player)
+            self.player.hasMulliganed = True
             self.scene.zoneMaker.redrawAll()
 
     app = App()

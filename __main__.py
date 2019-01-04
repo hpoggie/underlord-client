@@ -127,7 +127,7 @@ class App (ShowBase):
             self.guiScene = faerieHud.FaerieHud(self.gameState)
         else:
             self.guiScene = hud.game.GameHud(self.gameState)
-        self.gameScene = game.Scene(self.gameState)
+        self.gameScene = game.Scene(self.gameState.player)
         self.zoneMaker = self.gameScene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst

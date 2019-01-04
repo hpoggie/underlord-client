@@ -26,9 +26,11 @@ def cleanup(parent):
 
 
 class ZoneMaker(DirectObject):
-    def __init__(self,
+    def __init__(self, player,
                  scene, playerHand, enemyHand, playerBoard, enemyBoard,
                  playerFace, enemyFace, playerGraveyard, enemyGraveyard):
+        self.player = player
+
         self.playerHand = playerHand
         self.enemyHand = enemyHand
         self.playerBoard = playerBoard
@@ -319,7 +321,7 @@ class ZoneMaker(DirectObject):
         base.enemyFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
 
     def redrawAll(self):
-        if base.gameState.hasMulliganed:
+        if self.player.hasMulliganed:
             self.makePlayerHand()
         else:
             self.makeMulliganHand()
