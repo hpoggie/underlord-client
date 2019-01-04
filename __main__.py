@@ -53,9 +53,6 @@ class App (ShowBase):
         # Set up the UI
         self.fonts = hud.hud.Fonts()
 
-        # View the cards at an angle
-        self.camera.setPosHpr(4, -15, -15, 0, 45, 0)
-
         # Set up the NetworkManager
         self.client = protocol.client.Client(ip, port, verbose)
         instr = networkInstructions.NetworkInstructions(self)
