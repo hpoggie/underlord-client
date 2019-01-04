@@ -135,7 +135,9 @@ class ZoneMaker(DirectObject):
         """
         cleanup(self.playerBoard)
 
-        posX = 0.0
+        width = 1.1 * (len(base.player.faceups) + len(base.player.facedowns))
+
+        posX = -width / 2 + 0.1
 
         def addFaceupCard(card):
             cardModel = self.loadCard(card)
@@ -162,7 +164,9 @@ class ZoneMaker(DirectObject):
         for n in self.enemyBoard.children:
             n.reparentTo(self.orphan)
 
-        posX = 0.0
+        width = 1.1 * (len(base.enemy.faceups) + len(base.enemy.facedowns))
+
+        posX = -width / 2 + 0.1
 
         def addEnemyFdCard(card):
             if card.visible:
