@@ -90,8 +90,11 @@ class ZoneMaker(DirectObject):
 
             posX += 1.1
 
+        ratio = base.camLens.getAspectRatio()
+        scale = max(ratio * 1.05, 1)
         self.mulliganHand.setPosHpr(
-            -1.1 * (len(base.player.hand) - 1) / 2, 12, 0, 0, 0, 0)
+            -1.1 * (len(base.player.hand) - 1) / 2 * scale, 12, 0, 0, 0, 0)
+        self.mulliganHand.setScale(scale, 1, scale)
 
     def makePlayerHand(self):
         """
