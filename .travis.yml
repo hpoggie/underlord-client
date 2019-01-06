@@ -6,3 +6,5 @@ dist: xenial
 install:
     - pip install -r requirements.txt
     - python setup.py bdist_apps
+
+script: echo "No tests in this repo for now."
