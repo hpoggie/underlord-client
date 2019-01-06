@@ -67,6 +67,8 @@ class RpcReceiver:
         self.callbacks.enemyGoingSecond()
 
     def updateBothPlayersMulliganed(self):
+        for pl in self.state.game.players:
+            pl.hasMulliganed = True
         self.callbacks.updateBothPlayersMulliganed()
 
     def requestTarget(self):

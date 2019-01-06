@@ -35,6 +35,7 @@ class ClientActions:
         indices = [self.state.player.hand.index(c) for c in cards]
         self.rpcSender.mulligan(*indices)
         self.state.hasMulliganed = True
+        self.state.player.hasMulliganed = True
 
     # Game actions
     # TODO: Most of this is ugly and should be refactored
