@@ -14,7 +14,7 @@ deploy:
   file: dist/*
   on:
     repo: hpoggie/underlord-client
-    branch: travis
+    branch: master
     tags: true
   draft: true
   skip_cleanup: true
