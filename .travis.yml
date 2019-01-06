@@ -1,10 +1,18 @@
 language: python
 python:
-    - "3.7"
+- '3.7'
 dist: xenial
-
 install:
-    - pip install -r requirements.txt
-    - python setup.py bdist_apps
-
+- pip install -r requirements.txt
+- python setup.py bdist_apps
 script: echo "No tests in this repo for now."
+deploy:
+  provider: releases
+  api_key:
+    secure: UNM9Qh4I6tVO66htcUhaRZ6qrcxMvBNtLZpJMlr1er4ADAEJJsHhWF8WHVIBgD1H+V7YeFY9ib4y+o+YiU637Ur04EoQKUaP/QbPwB1AUTG+ttNDcDsHIwcUZW9VPY3kEkmwsavzcUPW2oFXc0VJefctBIw0QibHjdYB84a5b5GxxNPpGfxkg5Ic6gmngvU8I5ZSuwI6AZOgJMS4vg5DSA1Cbi4N8eTqnDc9jsfWGeAPFjbRBMXOxaWBfXULJYfNH8CNihP6FeUj01NCp0womBhsCwIDeE55BgRgn0UZg2e38PQhQy4gjjRIr7M0Udh4Us2kebxuHkjpXpy05zDV/vCo2pCcpVy3Qlr3Pu18raqZRg6Pb5NddkLOmA8lbYAaIyGNVeK7CzBTOBjMDDAZJReBrRlbVl87ailtzZRf4MkLKbLMm2T+U5dcGkMKkcfH9zsvfS6uAV2sCoFwOeJu5Xe8tdkEpN+qcUwNj02E8JS+sL7N5UNI4tUOuyPS4P2Qj5lcA1k0cxc78ZgsIlGqpXudPrnG7YB96XduN1yVWzuhE0wGbynRbQ4YsJJ8SSEgsDuiMlpWUJxRYQZDqW2NCUe0MvkyMgB//MPQQEl1OcBy0sG/gKlNpkfaObAZfu8UTtUDhWvasA2a3j49azcsmkhErFncTm0oFQf7ZNXbn5Y=
+  file: dist/Underlord-0.4.2_manylinux1_x86_64.tar.gz
+  on:
+    repo: hpoggie/underlord-client
+    branch: travis
+  draft: true
+  skip_cleanup: true
