@@ -9,8 +9,15 @@ class ClientState:
     def __init__(self):
         self.faction = None
         self.enemyFaction = None
-        self.hasMulliganed = False
         self.ready = False
+
+    @property
+    def hasMulliganed(self):
+        return self.player.hasMulliganed if hasattr(self, 'player') else False
+
+    @hasMulliganed.setter
+    def hasMulliganed(self, value):
+        self.player.hasMulliganed = value
 
     @property
     def active(self):
