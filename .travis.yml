@@ -15,5 +15,6 @@ deploy:
   on:
     repo: hpoggie/underlord-client
     branch: travis
+    tags: true
   draft: true
   skip_cleanup: true
