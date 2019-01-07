@@ -1,3 +1,5 @@
+![](https://travis-ci.org/hpoggie/underlord-client.svg?branch=master)
+
 # Underlord
 
 Underlord is an online ccg-esque game, currently in development.
