@@ -1,6 +1,7 @@
 import panda3d.core
 from panda3d.core import CardMaker, BitMask32
 from direct.showbase.DirectObject import DirectObject
+from direct.task import Task
 
 from fanHand import fanHand
 import animations
@@ -62,6 +63,8 @@ class ZoneMaker(DirectObject):
         for c in base.player.referenceDeck + base.enemy.referenceDeck:
             c.pandaNode = None
 
+        base.taskMgr.add(self.resizeMulliganHandTask, 'ResizeMulliganHand')
+
     def addHandCard(self, card, tr, parent=None):
         if parent is None:
             parent = self.playerHand
@@ -92,11 +95,16 @@ class ZoneMaker(DirectObject):
 
             posX += 1.1
 
+    def resizeMulliganHandTask(self, task):
+        if self.player.hasMulliganed:
+            return Task.done
+
         ratio = base.camLens.getAspectRatio()
         scale = max(ratio * 1.05, 1)
         self.mulliganHand.setPosHpr(
             -1.1 * (len(base.player.hand) - 1) / 2 * scale, 12, 0, 0, 0, 0)
         self.mulliganHand.setScale(scale, 1, scale)
+        return Task.cont
 
     def makePlayerHand(self):
         """
@@ -337,3 +345,4 @@ class ZoneMaker(DirectObject):
     def unmake(self):
         self.playerHand.removeNode()  # In case it's parented to the camera
         self.mulliganHand.removeNode()
+        base.taskMgr.remove('ResizeMulliganHand')
