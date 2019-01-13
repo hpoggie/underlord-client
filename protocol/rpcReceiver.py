@@ -32,6 +32,7 @@ class RpcReceiver:
     def moveCard(self, c, zone):
         # fake moveToZone
         if c._zone is not None and c in c._zone:
+            c.hasMoved = True
             c._zone.remove(c)
         c._zone = zone
         zone.append(c)
@@ -91,6 +92,10 @@ class RpcReceiver:
 
     def endRedraw(self):
         self.callbacks.endRedraw()
+        for c in self.state.player.referenceDeck:
+            if c.hasMoved:
+                self.callbacks.onCardMoved(c)
+                c.hasMoved = False
 
     # Updates
     # Don't call the callbacks, just modify state

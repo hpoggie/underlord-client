@@ -1,3 +1,6 @@
+import animations
+
+
 class NetworkInstructions:
     """
     Handles instructions from the server.
@@ -43,3 +46,7 @@ class NetworkInstructions:
 
     def endRedraw(self):
         self.base.redraw()
+
+    def onCardMoved(self, card):
+        if card.faceup:
+            animations.animateRevealFacedown(card.pandaNode, 0.3)
