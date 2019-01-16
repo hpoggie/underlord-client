@@ -232,7 +232,7 @@ class MouseHandler (DirectObject):
                 pickedObj = self.getObjectClickedOn()
                 if pickedObj:
                     card = pickedObj.getPythonTag('card')
-                    if card is not None:
+                    if card is not None and not pickedObj.getPythonTag('disableFocus'):
                         self._activeObj = pickedObj
                         if card.zone in (
                                 base.enemy.hand,
