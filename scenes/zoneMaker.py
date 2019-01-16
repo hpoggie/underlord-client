@@ -139,7 +139,7 @@ class ZoneMaker(DirectObject):
 
         width = 1.1 * (len(base.player.faceups) + len(base.player.facedowns))
 
-        posX = -width / 2 + 0.1
+        posX = 0.55 - width / 2
 
         def addFaceupCard(card):
             cardModel = self.loadCard(card)
@@ -168,7 +168,7 @@ class ZoneMaker(DirectObject):
 
         width = 1.1 * (len(base.enemy.faceups) + len(base.enemy.facedowns))
 
-        posX = -width / 2 + 0.1
+        posX = 0.55 - width / 2
 
         def addEnemyFdCard(card):
             if card.visible:
