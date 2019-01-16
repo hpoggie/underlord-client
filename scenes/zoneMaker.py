@@ -297,6 +297,7 @@ class ZoneMaker(DirectObject):
         tex = loader.loadTexture(path)
         cardModel.setTexture(tex)
         cardModel.setPythonTag('zone', base.player.face)
+        cardModel.setPos(-0.5, 0, -0.5)
         base.playerFaceNode = cardModel
         base.playerFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
 
@@ -307,6 +308,7 @@ class ZoneMaker(DirectObject):
         tex = loader.loadTexture(path)
         cardModel.setTexture(tex)
         cardModel.setPythonTag('zone', base.enemy.face)
+        cardModel.setPos(-0.5, 0, -0.5)
         base.enemyFaceNode = cardModel
         # Want it to be possible to click on enemy face
         base.enemyFaceNode.setCollideMask(cardBuilder.cardCollisionMask)
