@@ -215,11 +215,9 @@ class App (ShowBase):
         self.clientActions.replace(cards)
 
         for node in nodes:
-            # Do getParent.getParent because of pivots
-            # TODO: make this cleaner
             # NEVER COMPARE NODE PATHS w/ is. It seems to always return False
             if (node is not None and
-                    node.getParent().getParent() == self.zoneMaker.playerHand):
+                    node.getParent() == self.zoneMaker.playerHand):
                 node.removeNode()
 
     def redraw(self):

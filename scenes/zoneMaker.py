@@ -70,14 +70,9 @@ class ZoneMaker(DirectObject):
             parent = self.playerHand
 
         cardModel = self.loadCard(card)
-        pivot = self.scene.attachNewNode('pivot')
-        offset = cardModel.getScale() / 2
-        pivot.setPosHpr(*tr)
-        cardModel.reparentTo(pivot)
-        cardModel.setPos(-offset)
-        cardModel.setHpr(0, 0, 0)
+        cardModel.setPosHpr(*tr)
         cardModel.setPythonTag('zone', base.player.hand)
-        pivot.reparentTo(parent)
+        cardModel.reparentTo(parent)
 
     def makeMulliganHand(self):
         """
@@ -113,10 +108,8 @@ class ZoneMaker(DirectObject):
         self.mulliganHand.stash()
         # Destroy entire hand. This is slow and may need to be changed
         # cleanup(self.playerHand)
-        for pivot in self.playerHand.children:
-            for c in pivot.children:
-                c.wrtReparentTo(self.scene)
-            pivot.removeNode()
+        for node in self.playerHand.children:
+            node.removeNode()
 
         fan = fanHand(len(base.player.hand))
         for i, tr in enumerate(fan):
@@ -130,13 +123,9 @@ class ZoneMaker(DirectObject):
                 cardModel = self.loadCard(card)
             else:
                 cardModel = self.loadEnemyBlank(card)
-            pivot = self.scene.attachNewNode('pivot')
-            offset = cardModel.getScale() / 2
-            pivot.setPosHpr(*tr)
-            cardModel.reparentTo(pivot)
-            cardModel.setPos(-offset)
+            cardModel.setPosHpr(*tr)
             cardModel.setPythonTag('zone', base.enemy.hand)
-            pivot.reparentTo(self.enemyHand)
+            cardModel.reparentTo(self.enemyHand)
 
         fan = fanHand(len(base.enemy.hand))
         for i, tr in enumerate(fan):

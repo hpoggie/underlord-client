@@ -28,7 +28,6 @@ card.owner = FakePlayer()
 node = base.render.attachNewNode('card_root')
 node.setPos(0, 5, 0)
 cardNode = cardBuilder.buildCard(None, card, node)
-cardNode.setPos(-0.5, 0, -0.5)
 
 class MouseRotator:
     def __init__(self):

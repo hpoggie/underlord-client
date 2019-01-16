@@ -30,35 +30,39 @@ def buildCard(self, card, parent):
     name = panda3d.core.TextNode('name')
     name.setAlign(panda3d.core.TextNode.ARight)
     name.setText(card.name)
-    textNodePath = cardBase.attachNewNode(name)
-    textNodePath.setScale(0.08)
-    textNodePath.setPos(0.92, -0.05, 1.275)
+    nameNodePath = cardBase.attachNewNode(name)
+    nameNodePath.setScale(0.08)
+    nameNodePath.setPos(0.92, -0.05, 1.275)
 
     cost = panda3d.core.TextNode('cost')
     cost.setText(str(card.cost))
-    textNodePath = cardBase.attachNewNode(cost)
-    textNodePath.setScale(0.1)
-    textNodePath.setPos(0.08, -0.05, 1.275)
+    costNodePath = cardBase.attachNewNode(cost)
+    costNodePath.setScale(0.1)
+    costNodePath.setPos(0.08, -0.05, 1.275)
     card.costNode = cost
 
     rank = panda3d.core.TextNode('rank')
     rank.setText(str(card.rank))
-    textNodePath = cardBase.attachNewNode(rank)
-    textNodePath.setScale(0.1)
-    textNodePath.setPos(0.08, -0.05, 1.125)
+    rankNodePath = cardBase.attachNewNode(rank)
+    rankNodePath.setScale(0.1)
+    rankNodePath.setPos(0.08, -0.05, 1.125)
     card.rankNode = rank
 
     desc = panda3d.core.TextNode('desc')
     desc.setText(textwrap.fill(card.desc, width=25))
-    textNodePath = cardBase.attachNewNode(desc)
-    textNodePath.setScale(0.07)
-    textNodePath.setPos(0.09, -0.05, 0.4)
+    descNodePath = cardBase.attachNewNode(desc)
+    descNodePath.setScale(0.07)
+    descNodePath.setPos(0.09, -0.05, 0.4)
 
     counter = panda3d.core.TextNode('counter')
-    textNodePath = cardBase.attachNewNode(counter)
-    textNodePath.setScale(0.4)
-    textNodePath.setPos(0.7, -0.05, 0.1)
+    counterNodePath = cardBase.attachNewNode(counter)
+    counterNodePath.setScale(0.4)
+    counterNodePath.setPos(0.7, -0.05, 0.1)
     card.counterNode = counter
+
+    for node in (cardFrame, cardImage, costNodePath, rankNodePath,
+                 descNodePath, counterNodePath, nameNodePath):
+        node.setPos(node.getX() - 0.5, node.getY(), node.getZ() - 0.5)
 
     if hasattr(card, 'counter'):
         counter.setText(str(card.counter))
@@ -80,6 +84,7 @@ def buildBlankCard(self, card, parent):
     cardFrame.setScale(1, 1, 509 / 364)
     cardFrame.setTransparency(True)
     cardFrame.setName('frame')
+    cardFrame.setPos(-0.5, 0, -0.5)
     cardBase.setPythonTag('card', card)
     cardBase.setCollideMask(cardCollisionMask)
     return cardBase
