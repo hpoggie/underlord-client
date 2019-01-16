@@ -20,10 +20,9 @@ class Line(DirectObject):
 
     def draw(self, start, end):
         self.meshDrawer.begin(base.cam, render)
-        offset = Vec3(0.5, 0, 0.5)  # start/end at the center of the card
         self.meshDrawer.segment(
-            Vec3(*start) + offset,
-            Vec3(*end) + offset,
+            Vec3(*start),
+            Vec3(*end),
             frame=Vec4(0, 0, 1, 1),  # Use entire texture
             thickness=0.1,
             color=Vec4(0, 0, 0, 255))
