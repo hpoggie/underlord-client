@@ -20,7 +20,7 @@ def fanHand(n):
         maxRot -= rotStep
 
     posX = minPosX
-    posY = 0.0
+    posY = -1
     rot = minRot
 
     transforms = []
