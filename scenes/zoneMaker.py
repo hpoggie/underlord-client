@@ -256,12 +256,12 @@ class ZoneMaker(DirectObject):
             elif card.getPythonTag('zone') is base.enemy.graveyard:
                 # Don't get cut off by top of screen
                 copy.wrtReparentTo(self.focusedCard)
-                copy.setPos(copy, 1, 0, -2)
+                copy.setPos(copy, 1.5, -1, -2)
                 copy.setHpr(0, 0, 0)
                 copy.setScale(2.5)
             else:
                 copy.wrtReparentTo(self.focusedCard)
-                copy.setPos(copy, 1, 0, 1)
+                copy.setPos(copy, 1.5, -1, 1)
                 copy.setHpr(0, 0, 0)
                 copy.setScale(2.5)
             # Don't try to play this
