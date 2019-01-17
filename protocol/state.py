@@ -55,7 +55,7 @@ class ClientState:
         self.hasMulliganed = False
 
         for c in self.player.referenceDeck:
-            c.hasMoved = False
+            c.prevZone = None
 
         for c in self.enemy.referenceDeck:
-            c.hasMoved = False
+            c.prevZone = None

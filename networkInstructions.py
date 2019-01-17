@@ -47,6 +47,9 @@ class NetworkInstructions:
     def endRedraw(self):
         self.base.redraw()
 
-    def onCardMoved(self, card):
-        if card.faceup:
+    def onCardMoved(self, card, prevZone):
+        if card.faceup and (prevZone == card.controller.facedowns
+                            or prevZone == card.controller.opponent.facedowns):
             animations.animateRevealFacedown(card.pandaNode, 0.3)
+        elif card.faceup:
+            animations.animatePlayFaceup(card.pandaNode, 0.3)
