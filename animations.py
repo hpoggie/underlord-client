@@ -15,5 +15,8 @@ def animateRevealFacedown(card, duration):
     card.setPythonTag('disableFocus', True)
     card.setHpr(180, 0, 0)
     Sequence(
-        card.hprInterval(duration / 2, (0, 0, 0)), Func(enableFocus,
-                                                        card)).start()
+        card.posInterval(duration / 3,
+                         (card.getX(), card.getY() - 1, card.getZ())),
+        card.hprInterval(duration / 3, (0, 0, 0)),
+        card.posInterval(duration / 3, card.getPos()), Func(enableFocus,
+                                                            card)).start()
