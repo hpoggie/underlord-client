@@ -116,7 +116,8 @@ class ZoneMaker(DirectObject):
             self.addHandCard(base.player.hand[i], tr)
 
     def makeEnemyHand(self):
-        cleanup(self.enemyHand)
+        for node in self.enemyHand.children:
+            node.removeNode()
 
         def addEnemyHandCard(card, tr):
             if card.visible:
