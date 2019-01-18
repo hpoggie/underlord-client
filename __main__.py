@@ -233,8 +233,9 @@ class App (ShowBase):
             1, self._quitToMainMenuTask, "QuitToMainMenu")
 
     def _quitToMainMenuTask(self, task):
-        if hasattr(self, 'gameScene'):  # TODO: kludge
+        if self.gameScene is not None:
             self.gameScene.unmake()
+            self.gameScene = None
         self.guiScene = mainMenu.MainMenu()
         self.clientActions.requestNumPlayers()
         return Task.done
