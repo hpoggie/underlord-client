@@ -52,6 +52,7 @@ class App (ShowBase):
 
         # Set up the UI
         self.fonts = hud.hud.Fonts()
+        self._guiScene = None
 
         # Set up the NetworkManager
         self.client = protocol.client.Client(ip, port, verbose)
@@ -80,7 +81,7 @@ class App (ShowBase):
         """
         Used to control which menu is being shown
         """
-        if hasattr(self, '_guiScene') and self._guiScene:  # TODO: kludge
+        if self._guiScene:
             self._guiScene.unmake()
         self._guiScene = value
 
