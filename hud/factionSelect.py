@@ -2,7 +2,7 @@ from . import hud
 
 
 class FactionSelect(hud.Scene):
-    def __init__(self):
+    def __init__(self, availableFactions):
         super().__init__()
 
         self.label(
@@ -11,9 +11,9 @@ class FactionSelect(hud.Scene):
             mayChange=True)
 
         icons = self.root.attachNewNode('icons')
-        icons.setPos(-0.155 * len(base.availableFactions) / 2 + 0.005, 0, 0)
+        icons.setPos(-0.155 * len(availableFactions) / 2 + 0.005, 0, 0)
 
-        for i, faction in enumerate(base.availableFactions):
+        for i, faction in enumerate(availableFactions):
             self.button(
                 image=faction.iconPath + '/' + faction.cardBack,
                 parent=icons,

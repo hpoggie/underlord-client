@@ -62,8 +62,6 @@ class App (ShowBase):
         self.connectionManager.tryConnect()
         self.taskMgr.add(self.networkUpdateTask, "NetworkUpdateTask")
 
-        self.availableFactions = ul_core.factions.availableFactions
-
     def onConnectedToServer(self):
         self.scene = mainMenu.MainMenu()
 
@@ -86,7 +84,8 @@ class App (ShowBase):
             self.scene.showWaitMessage()
 
     def onEnteredGame(self):
-        self.scene = factionSelect.FactionSelect()
+        self.scene = factionSelect.FactionSelect(
+            ul_core.factions.availableFactions)
 
     def pickFaction(self, index):
         """
