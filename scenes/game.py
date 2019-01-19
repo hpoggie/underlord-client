@@ -2,12 +2,30 @@ from direct.showbase.DirectObject import DirectObject
 from direct.task import Task
 from panda3d.core import AmbientLight, VBase4
 from scenes.zoneMaker import ZoneMaker
+import hud.game
+from ul_core.factions import templars, mariners, thieves, fae
+import hud.templarHud as templarHud
+import hud.marinerHud as marinerHud
+import hud.thiefHud as thiefHud
+import hud.faerieHud as faerieHud
 
 
 class Scene(DirectObject):
     def __init__(self, player):
         super().__init__()
         self.player = player
+
+        # Set up the game UI
+        if isinstance(self.player, templars.Templar):
+            base.guiScene = templarHud.TemplarHud(base.gameState)
+        elif isinstance(self.player, mariners.Mariner):
+            base.guiScene = marinerHud.MarinerHud(base.gameState)
+        elif isinstance(self.player, thieves.Thief):
+            base.guiScene = thiefHud.ThiefHud(base.gameState)
+        elif isinstance(self.player, fae.Faerie):
+            base.guiScene = faerieHud.FaerieHud(base.gameState)
+        else:
+            base.guiScene = hud.game.GameHud(self.gameState)
 
         self.model = base.loader.loadModel('env.bam')
         self.model.reparentTo(base.render)

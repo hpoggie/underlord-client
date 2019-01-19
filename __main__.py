@@ -14,7 +14,6 @@ from ul_core.net.network_manager import ConnectionClosed
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.factions
-from ul_core.factions import templars, mariners, thieves, fae
 from mouse import MouseHandler
 import hud
 import hud.goingFirstDecision as gfd
@@ -22,10 +21,6 @@ import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
 from connectionManager import ConnectionManager
 import networkInstructions
-import hud.templarHud as templarHud
-import hud.marinerHud as marinerHud
-import hud.thiefHud as thiefHud
-import hud.faerieHud as faerieHud
 import protocol.client
 
 import scenes.game as game
@@ -117,17 +112,6 @@ class App (ShowBase):
         self.bothPlayersMulliganed = False
         self.toMulligan = []
 
-        # Set up the game UI
-        if isinstance(self.player, templars.Templar):
-            self.guiScene = templarHud.TemplarHud(self.gameState)
-        elif isinstance(self.player, mariners.Mariner):
-            self.guiScene = marinerHud.MarinerHud(self.gameState)
-        elif isinstance(self.player, thieves.Thief):
-            self.guiScene = thiefHud.ThiefHud(self.gameState)
-        elif isinstance(self.player, fae.Faerie):
-            self.guiScene = faerieHud.FaerieHud(self.gameState)
-        else:
-            self.guiScene = hud.game.GameHud(self.gameState)
         self.gameScene = game.Scene(self.gameState.player)
         self.zoneMaker = self.gameScene.zoneMaker
 
