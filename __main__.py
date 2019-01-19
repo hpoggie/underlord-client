@@ -105,7 +105,6 @@ class App (ShowBase):
         self.onGameStarted(goingFirst=False)
 
     def onGameStarted(self, goingFirst=True):
-        self.bothPlayersMulliganed = False
         self.toMulligan = []
 
         self.scene = game.Scene(self.gameState.player)
@@ -131,6 +130,11 @@ class App (ShowBase):
     @phase.setter
     def phase(self, value):
         self.gameState.game.phase = value
+
+    @property
+    def bothPlayersMulliganed(self):
+        pls = self.gameState.game.players
+        return pls[0].hasMulliganed and pls[1].hasMulliganed
 
     def mulligan(self):
         if not self.gameState.hasMulliganed:

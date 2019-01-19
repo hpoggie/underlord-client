@@ -26,9 +26,6 @@ class NetworkInstructions:
     def enemyGoingSecond(self):
         self.base.onGameStarted(goingFirst=True)
 
-    def updateBothPlayersMulliganed(self):
-        self.base.bothPlayersMulliganed = True
-
     def requestReplace(self, nArgs):
         self.base.guiScene.startReplacing(nArgs)
 

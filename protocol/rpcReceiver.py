@@ -72,12 +72,6 @@ class RpcReceiver:
         for listener in self.listeners:
             listener.enemyGoingSecond()
 
-    def updateBothPlayersMulliganed(self):
-        for pl in self.state.game.players:
-            pl.hasMulliganed = True
-        for listener in self.listeners:
-            listener.updateBothPlayersMulliganed()
-
     def requestTarget(self):
         pass
 
@@ -114,6 +108,10 @@ class RpcReceiver:
     # We redraw things all at once in endRedraw
     def updateEnemyFaction(self, index):
         self.state.enemyFaction = ul_core.factions.availableFactions[index]
+
+    def updateBothPlayersMulliganed(self):
+        for pl in self.state.game.players:
+            pl.hasMulliganed = True
 
     def updatePlayerHand(self, *cardIds):
         self.updateZone(self.state.player.hand, cardIds)
