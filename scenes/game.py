@@ -64,6 +64,12 @@ class Scene(DirectObject):
             self.hept.setHpr(self.hept, deltaTime * 5, 0, 0)
         return Task.cont
 
+    def onKicked(self):
+        """
+        Called when the player is kicked from the game
+        """
+        base.guiScene.showBigMessage("Kicked")
+
     def unmake(self):
         base.guiScene.unmake()
         self.zoneMaker.unmake()

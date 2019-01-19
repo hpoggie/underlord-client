@@ -41,7 +41,7 @@ class NetworkInstructions:
         self.base.quitToMainMenu()
 
     def kick(self):
-        self.base.guiScene.showBigMessage("Kicked")
+        self.base.scene.onKicked()
         self.base.quitToMainMenu()
 
     def endRedraw(self):

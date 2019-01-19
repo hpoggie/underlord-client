@@ -26,3 +26,6 @@ class FactionSelect(hud.Scene):
         self.label(
             text="Waiting for opponent.",
             pos=(0, -0.5, 0))
+
+    def onKicked(self):
+        self.showBigMessage("Kicked")
