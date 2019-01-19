@@ -56,6 +56,7 @@ class Scene(DirectObject):
 
     def redraw(self):
         base.guiScene.redraw()
+        self.zoneMaker.redrawAll()
 
     def rotateTask(self, task):
         if self.player.active:
