@@ -47,7 +47,7 @@ class App (ShowBase):
 
         # Set up the UI
         self.fonts = hud.hud.Fonts()
-        self._guiScene = None
+        self._scene = None
 
         # Set up the NetworkManager
         self.client = protocol.client.Client(ip, port, verbose)
@@ -65,20 +65,17 @@ class App (ShowBase):
         self.availableFactions = ul_core.factions.availableFactions
 
     def onConnectedToServer(self):
-        self.guiScene = mainMenu.MainMenu()
+        self.scene = mainMenu.MainMenu()
 
     @property
-    def guiScene(self):
-        return self._guiScene
+    def scene(self):
+        return self._scene
 
-    @guiScene.setter
-    def guiScene(self, value):
-        """
-        Used to control which menu is being shown
-        """
-        if self._guiScene:
-            self._guiScene.unmake()
-        self._guiScene = value
+    @scene.setter
+    def scene(self, value):
+        if self._scene:
+            self._scene.unmake()
+        self._scene = value
 
     def readyUp(self):
         """
@@ -86,10 +83,10 @@ class App (ShowBase):
         """
         if not self.gameState.ready:
             self.clientActions.readyUp()
-            self.guiScene.showWaitMessage()
+            self.scene.showWaitMessage()
 
     def onEnteredGame(self):
-        self.guiScene = factionSelect.FactionSelect()
+        self.scene = factionSelect.FactionSelect()
 
     def pickFaction(self, index):
         """
@@ -98,7 +95,7 @@ class App (ShowBase):
         self.clientActions.pickFaction(index)
 
         # Tell the user we're waiting for opponent
-        self.guiScene.showWaitMessage()
+        self.scene.showWaitMessage()
 
     def goFirst(self):
         self.clientActions.goFirst()
@@ -112,13 +109,13 @@ class App (ShowBase):
         self.bothPlayersMulliganed = False
         self.toMulligan = []
 
-        self.gameScene = game.Scene(self.gameState.player)
-        self.zoneMaker = self.gameScene.zoneMaker
+        self.scene = game.Scene(self.gameState.player)
+        self.zoneMaker = self.scene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
 
     def decideWhetherToGoFirst(self):
-        self.guiScene = gfd.GoingFirstDecision()
+        self.scene = gfd.GoingFirstDecision()
 
     @property
     def player(self):
@@ -157,7 +154,7 @@ class App (ShowBase):
         self.targetCallback = None
         self.activeDecision = None
         self.mouseHandler.targeting = False
-        self.guiScene.hideTargeting()
+        self.scene.hideTargeting()
 
     def playCard(self, card, target=None):
         """
@@ -210,17 +207,14 @@ class App (ShowBase):
         self.zoneMaker.redrawAll()
         if self.mouseHandler.targeting:
             self.mouseHandler.targeting = False
-        self.guiScene.redraw()
+        self.scene.redraw()
 
     def quitToMainMenu(self):
         self.taskMgr.doMethodLater(
             1, self._quitToMainMenuTask, "QuitToMainMenu")
 
     def _quitToMainMenuTask(self, task):
-        if self.gameScene is not None:
-            self.gameScene.unmake()
-            self.gameScene = None
-        self.guiScene = mainMenu.MainMenu()
+        self.scene = mainMenu.MainMenu()
         self.clientActions.requestNumPlayers()
         return Task.done
 

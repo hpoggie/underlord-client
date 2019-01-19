@@ -54,6 +54,9 @@ class Scene(DirectObject):
             playerGraveyard=spawn.find('Player Graveyard'),
             enemyGraveyard=spawn.find('Enemy Graveyard'))
 
+    def redraw(self):
+        base.guiScene.redraw()
+
     def rotateTask(self, task):
         if self.player.active:
             deltaTime = globalClock.getDt()
@@ -61,6 +64,7 @@ class Scene(DirectObject):
         return Task.cont
 
     def unmake(self):
+        base.guiScene.unmake()
         self.zoneMaker.unmake()
         self.model.removeNode()
 

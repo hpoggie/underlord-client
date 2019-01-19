@@ -8,7 +8,7 @@ class ConnectionManager(DirectObject):
     Handles the task of connecting to the server.
     """
     def __init__(self, addr, networkInstructions):
-        self.connectionUI = base.guiScene = ConnectionUI()
+        self.connectionUI = base.scene = ConnectionUI()
         self.addr, self.networkInstructions = (addr, networkInstructions)
 
     def tryConnect(self):
