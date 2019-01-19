@@ -7,18 +7,15 @@ from . import rpcReceiver
 class Client:
     def __init__(self, ip, port, verbose):
         self.state = state.ClientState()
-        self.rpcReceiver = rpcReceiver.RpcReceiver(
-            self.state, None)
+        self.rpcReceiver = rpcReceiver.RpcReceiver(self.state)
         self.networkManager = network.ClientNetworkManager(
             self.rpcReceiver, ip, port)
         self.networkManager.verbose = verbose
         self.clientActions = actions.ClientActions(
             self.state, self.networkManager)
-        self.observer = None
 
     def add_observer(self, cb):
-        self.observer = cb
-        self.rpcReceiver.callbacks = cb
+        self.rpcReceiver.listeners.append(cb)
 
     def connect(self, addr):
         self.networkManager.connect(addr)

@@ -6,9 +6,9 @@ class RpcReceiver:
     """
     Translates server messages into game state changes
     """
-    def __init__(self, state, callbacks):
+    def __init__(self, state):
         self.state = state
-        self.callbacks = callbacks
+        self.listeners = []
 
     def idsToCards(self, cardIds):
         idAndEnemy = zip(cardIds[::2], cardIds[1::2])
@@ -51,50 +51,62 @@ class RpcReceiver:
     # Call the callbacks
 
     def onEnteredGame(self):
-        self.callbacks.onEnteredGame()
+        for listener in self.listeners:
+            listener.onEnteredGame()
 
     def updateNumPlayers(self, n):
-        self.callbacks.updateNumPlayers(n)
+        for listener in self.listeners:
+            listener.updateNumPlayers(n)
 
     def requestGoingFirstDecision(self):
-        self.callbacks.requestGoingFirstDecision()
+        for listener in self.listeners:
+            listener.requestGoingFirstDecision()
 
     def enemyGoingFirst(self):
         self.state.onGameStarted(goingFirst=False)
-        self.callbacks.enemyGoingFirst()
+        for listener in self.listeners:
+            listener.enemyGoingFirst()
 
     def enemyGoingSecond(self):
         self.state.onGameStarted(goingFirst=True)
-        self.callbacks.enemyGoingSecond()
+        for listener in self.listeners:
+            listener.enemyGoingSecond()
 
     def updateBothPlayersMulliganed(self):
         for pl in self.state.game.players:
             pl.hasMulliganed = True
-        self.callbacks.updateBothPlayersMulliganed()
+        for listener in self.listeners:
+            listener.updateBothPlayersMulliganed()
 
     def requestTarget(self):
         pass
 
     def requestReplace(self, nArgs):
-        self.callbacks.requestReplace(nArgs)
+        for listener in self.listeners:
+            listener.requestReplace(nArgs)
 
     def winGame(self):
         self.onGameEnded()
-        self.callbacks.winGame()
+        for listener in self.listeners:
+            listener.winGame()
 
     def loseGame(self):
         self.onGameEnded()
-        self.callbacks.loseGame()
+        for listener in self.listeners:
+            listener.loseGame()
 
     def kick(self):
         self.onGameEnded()
-        self.callbacks.kick()
+        for listener in self.listeners:
+            listener.kick()
 
     def endRedraw(self):
-        self.callbacks.endRedraw()
+        for listener in self.listeners:
+            listener.endRedraw()
         for c in self.state.player.referenceDeck:
             if c.prevZone is not None:
-                self.callbacks.onCardMoved(c, c.prevZone)
+                for listener in self.listeners:
+                    listener.onCardMoved(c, c.prevZone)
                 c.prevZone = None
 
     # Updates
