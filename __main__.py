@@ -159,7 +159,7 @@ class App (ShowBase):
         self.targetCallback = None
         self.activeDecision = None
         self.mouseHandler.targeting = False
-        self.scene.hideTargeting()
+        self.guiScene.hideTargeting()
 
     def playCard(self, card, target=None):
         """
