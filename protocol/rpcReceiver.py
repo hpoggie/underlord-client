@@ -95,6 +95,7 @@ class RpcReceiver:
             listener.kick()
 
     def endRedraw(self):
+        self.state.player.fishing = False
         for listener in self.listeners:
             listener.endRedraw()
         for c in self.state.player.referenceDeck:

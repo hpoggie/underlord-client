@@ -208,7 +208,6 @@ class App (ShowBase):
                 node.removeNode()
 
     def redraw(self):
-        self.player.fishing = False
         if self.mouseHandler.targeting:
             self.mouseHandler.targeting = False
         self.scene.redraw()
