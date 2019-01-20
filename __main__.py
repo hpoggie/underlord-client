@@ -19,7 +19,7 @@ import hud
 import hud.goingFirstDecision as gfd
 import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
-from scenes.connectionManager import ConnectionManager
+from connectionManager import ConnectionManager
 import networkInstructions
 import protocol.client
 
