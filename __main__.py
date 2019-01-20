@@ -19,6 +19,7 @@ import hud
 import hud.goingFirstDecision as gfd
 import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
+import hud.connection
 from connectionManager import ConnectionManager
 import networkInstructions
 import protocol.client
@@ -58,7 +59,8 @@ class App (ShowBase):
         self.gameState = self.client.state
 
         # Connect to the server
-        self.connectionManager = ConnectionManager((ip, port), self)
+        self.scene = hud.connection.ConnectionUI()
+        self.connectionManager = ConnectionManager((ip, port), self, self.scene)
         self.connectionManager.tryConnect()
         self.taskMgr.add(self.networkUpdateTask, "NetworkUpdateTask")
 

@@ -1,14 +1,12 @@
 from direct.showbase.DirectObject import DirectObject
 
-from hud.connection import ConnectionUI
-
 
 class ConnectionManager(DirectObject):
     """
     Handles the task of connecting to the server.
     """
-    def __init__(self, addr, networkInstructions):
-        self.connectionUI = base.scene = ConnectionUI()
+    def __init__(self, addr, networkInstructions, scene):
+        self.connectionUI = scene
         self.addr, self.networkInstructions = (addr, networkInstructions)
 
     def tryConnect(self):
