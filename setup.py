@@ -12,9 +12,9 @@ setup(
                 'GitPython'
             ],
             'include_patterns': [
-                '*.png',
-                '*.ttf',
-                '*.bam',
+                '**/*.png',
+                '**/*.ttf',
+                '**/*.bam',
                 'CREDITS.txt'
             ],
             'plugins': [
