@@ -3,7 +3,7 @@ from panda3d.core import CardMaker, BitMask32
 from direct.showbase.DirectObject import DirectObject
 from direct.task import Task
 
-from fanHand import fanHand
+from .fanHand import fanHand
 import animations
 import cardBuilder
 
