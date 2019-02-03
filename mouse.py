@@ -6,7 +6,7 @@ from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 
 import scenes.zoneMaker as zoneMaker
-import attackLine
+from effects import attackLine
 import cardBuilder
 
 
