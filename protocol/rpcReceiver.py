@@ -75,7 +75,7 @@ class RpcReceiver:
     def requestTarget(self):
         pass
 
-    def requestReplace(self, nArgs):
+    def requestReplace(self, nArgs, *flags):
         for listener in self.listeners:
             listener.requestReplace(nArgs)
 

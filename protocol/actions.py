@@ -82,6 +82,9 @@ class ClientActions:
         ]
         self.rpcSender.replace(*args)
 
+    def replaceString(self, value):
+        self.rpcSender.replace(value)
+
     def useThiefAbility(self, toDiscard, toSteal, cardname):
         toDiscardIndex = toDiscard.zone.index(toDiscard)
         toStealIndex = toSteal.zone.index(toSteal)

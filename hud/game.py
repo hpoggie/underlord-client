@@ -1,4 +1,5 @@
 from panda3d.core import TextNode
+from direct.gui.DirectGui import DirectEntry
 
 from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
@@ -53,6 +54,15 @@ class GameHud(hud.Scene):
             text="Mulligan",
             pos=(0.7, 0, -0.85),
             command=self.onMulliganButton)
+
+        self.chooseStringEntry = DirectEntry(
+            initialText='Type card name...',
+            scale=0.05,
+            focus=1,
+            command=self.onStringChosen,
+            focusInCommand=lambda: self.chooseStringEntry.enterText(''))
+
+        self.chooseStringEntry.hide()
 
         self.redraw()
 
@@ -153,3 +163,9 @@ class GameHud(hud.Scene):
 
         # TODO: base on desc for effect
         base.mouseHandler.startTargeting("Select targets", callback)
+
+    def chooseString(self):
+        self.chooseStringEntry.show()
+
+    def onStringChosen(self, value):
+        base.clientActions.replaceString(value)

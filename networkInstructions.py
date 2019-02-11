@@ -1,4 +1,5 @@
 import animations
+from ul_core.core.card import Card
 
 
 class NetworkInstructions:
@@ -26,8 +27,14 @@ class NetworkInstructions:
     def enemyGoingSecond(self):
         self.base.onGameStarted(goingFirst=True)
 
-    def requestReplace(self, nArgs):
-        self.base.guiScene.startReplacing(nArgs)
+    def requestReplace(self, nArgs, *flags):
+        # TODO: add support for multiple arguments
+        print(flags)
+        types = (Card, str)
+        if types[flags[0]] == str:
+            self.base.guiScene.chooseString()
+        else:
+            self.base.guiScene.startReplacing(nArgs)
 
     def winGame(self):
         self.base.guiScene.showBigMessage("Victory")
