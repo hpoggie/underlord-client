@@ -40,6 +40,8 @@ class App (ShowBase):
     def __init__(self, ip, port, verbose=False):
         super().__init__()
 
+        base.enableParticles()
+
         # Set up mouse input
         base.cTrav = CollisionTraverser()
         self.handler = CollisionHandlerQueue()
