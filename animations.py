@@ -1,4 +1,5 @@
 from direct.interval.IntervalGlobal import Sequence, Func
+import effects.ul_particles
 
 
 def enableFocus(cardNode):
@@ -26,4 +27,6 @@ def animatePlayFaceup(card, duration):
     card.setHpr(0, 0, 0)
     oldPos = card.getPos()
     card.setPos(card, 0, -1, 0)
+    dust = effects.ul_particles.load_dust()
+    dust.start(parent=card, renderParent=card)
     Sequence(card.posInterval(duration / 2, oldPos)).start()

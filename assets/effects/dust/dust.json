@@ -1,0 +1,77 @@
+{
+    "amplitude": 0.0,
+    "amplitudeSpread": 0.0,
+    "angle": 1.0,
+    "birthRate": 1.0,
+    "colorBlend": "blend",
+    "color_gradient": "dust_color.png",
+    "distortion": 0.0,
+    "emiter": "RingEmitter",
+    "forceJitter": [
+        0.0,
+        1
+    ],
+    "forceSink": [
+        0.0,
+        0.0,
+        0.0,
+        1,
+        1.0,
+        0.0,
+        1
+    ],
+    "forceSource": [
+        0.0,
+        0.0,
+        1.0,
+        0,
+        1.0,
+        15.0,
+        1
+    ],
+    "forceVector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1
+    ],
+    "forceVertex": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1
+    ],
+    "innerAngle": 1.0,
+    "innerMagnitude": 1.0,
+    "life": 1.0,
+    "lifeSpread": 0.0,
+    "litter": 50,
+    "litterSpread": 0,
+    "mass": 1.0,
+    "massSpread": 0.0,
+    "max": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "min": [
+        1.0,
+        1.0,
+        1.0
+    ],
+    "mode": 1,
+    "offsetForce": [
+        0.0,
+        0.0,
+        1.0
+    ],
+    "outerAngle": 1.0,
+    "outerMagnitude": 1.0,
+    "pool": 100,
+    "radius": 4.0,
+    "radiusSpread": 0.0,
+    "shape_gradient": "dust_shape.png",
+    "size_gradient": "dust_size.png"
+}
