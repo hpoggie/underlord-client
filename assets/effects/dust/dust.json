@@ -2,7 +2,7 @@
     "amplitude": 0.0,
     "amplitudeSpread": 0.0,
     "angle": 1.0,
-    "birthRate": 1.0,
+    "birthRate": 0.0,
     "colorBlend": "blend",
     "color_gradient": "dust_color.png",
     "distortion": 0.0,
