@@ -1,5 +1,5 @@
 {
-    "amplitude": 100.0,
+    "amplitude": 50.0,
     "amplitudeSpread": 0.0,
     "angle": 1.0,
     "birthRate": 0.0,
@@ -45,7 +45,7 @@
     ],
     "innerAngle": 1.0,
     "innerMagnitude": 1.0,
-    "life": 1.0,
+    "life": 0.5,
     "lifeSpread": 0.0,
     "litter": 50,
     "litterSpread": 0,
