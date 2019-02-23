@@ -6,7 +6,7 @@
     "colorBlend": "blend",
     "color_gradient": "dust_color.png",
     "distortion": 0.0,
-    "emiter": "RingEmitter",
+    "emitter": "RingEmitter",
     "forceJitter": [
         0.0,
         1
