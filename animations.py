@@ -24,9 +24,11 @@ def animateRevealFacedown(card, duration):
 
 
 def animatePlayFaceup(card, duration):
+    card.setPythonTag('disableFocus', True)
     card.setHpr(0, 0, 0)
     oldPos = card.getPos()
     card.setPos(card, 0, -1, 0)
     dust = effects.ul_particles.load_dust()
     Sequence(card.posInterval(duration / 2, oldPos),
-             ParticleInterval(dust, card, duration=1.5, cleanup=True)).start()
+             ParticleInterval(dust, card, duration=1.5, cleanup=True),
+             Func(enableFocus, card)).start()
