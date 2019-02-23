@@ -15,6 +15,7 @@ setup(
                 '**/*.png',
                 '**/*.ttf',
                 '**/*.bam',
+                '**/*.json',
                 'CREDITS.txt'
             ],
             'plugins': [
