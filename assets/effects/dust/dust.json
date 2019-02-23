@@ -1,5 +1,5 @@
 {
-    "amplitude": 0.0,
+    "amplitude": 100.0,
     "amplitudeSpread": 0.0,
     "angle": 1.0,
     "birthRate": 0.0,
@@ -26,7 +26,7 @@
         1.0,
         0,
         1.0,
-        15.0,
+        0.0,
         1
     ],
     "forceVector": [
