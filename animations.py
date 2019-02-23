@@ -30,5 +30,5 @@ def animatePlayFaceup(card, duration):
     card.setPos(card, 0, -1, 0)
     dust = effects.ul_particles.load_dust()
     Sequence(card.posInterval(duration / 2, oldPos),
-             ParticleInterval(dust, card, duration=1.0, cleanup=True),
+             ParticleInterval(dust, card, worldRelative=0, duration=1.0, cleanup=True),
              Func(enableFocus, card)).start()
