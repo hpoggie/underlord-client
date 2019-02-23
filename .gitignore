@@ -4,6 +4,7 @@
 build/
 dist/
 wheels/
+.eggs/
 *.egg-info
 .cache/
 .coverage
