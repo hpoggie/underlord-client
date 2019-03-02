@@ -27,7 +27,7 @@ class NetworkInstructions:
         self.base.onGameStarted(goingFirst=True)
 
     def requestDecision(self, nArgs):
-        self.base.guiScene.startReplacing(nArgs)
+        self.base.guiScene.startTargeting(nArgs)
 
     def winGame(self):
         self.base.guiScene.showBigMessage("Victory")

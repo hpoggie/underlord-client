@@ -134,7 +134,7 @@ class GameHud(hud.Scene):
         self.enemyManaCapLabel.setText(str(base.enemy.manaCap))
         self.turnLabel.setText("Your Turn" if self.clientState.active else "Enemy Turn")
 
-    def startReplacing(self, nTargets):
+    def startTargeting(self, nTargets):
         targets = []
 
         def callback(target):
