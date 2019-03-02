@@ -197,9 +197,9 @@ class App (ShowBase):
         self.clientActions.endPhase(args + kwargs)
         self.hasFirstPlayerPenalty = False
 
-    def replace(self, nodes):
+    def makeDecision(self, nodes):
         cards = [self.nodeToGameEntity(node) for node in nodes]
-        self.clientActions.replace(cards)
+        self.clientActions.makeDecision(cards)
 
         for node in nodes:
             # NEVER COMPARE NODE PATHS w/ is. It seems to always return False

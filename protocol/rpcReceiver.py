@@ -77,7 +77,7 @@ class RpcReceiver:
 
     def requestDecision(self, nArgs):
         for listener in self.listeners:
-            listener.requestReplace(nArgs)
+            listener.requestDecision(nArgs)
 
     def winGame(self):
         self.onGameEnded()

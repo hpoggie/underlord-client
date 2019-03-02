@@ -148,7 +148,7 @@ class GameHud(hud.Scene):
                     hideCard(target)
 
             if len(targets) == nTargets:
-                base.replace(targets)
+                base.makeDecision(targets)
                 base.finishTargeting()
 
         # TODO: base on desc for effect

@@ -26,7 +26,7 @@ class NetworkInstructions:
     def enemyGoingSecond(self):
         self.base.onGameStarted(goingFirst=True)
 
-    def requestReplace(self, nArgs):
+    def requestDecision(self, nArgs):
         self.base.guiScene.startReplacing(nArgs)
 
     def winGame(self):
