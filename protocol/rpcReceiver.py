@@ -151,9 +151,6 @@ class RpcReceiver:
     def updateEnemyManaCap(self, manaCap):
         self.state.enemy.manaCap = manaCap
 
-    def updatePhase(self, phase):
-        self.state.phase = phase
-
     def updatePlayerCounter(self, index, value):
         self.state.player.faceups[index].counter = value
 

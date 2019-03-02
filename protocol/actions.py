@@ -64,7 +64,7 @@ class ClientActions:
         targetZone, targetIndex, _ = zie.gameEntityToZie(self.player, target)
         self.rpcSender.attack(index, targetIndex, targetZone)
 
-    def endPhase(self, args):
+    def endTurn(self, args):
         # For each value in args, append it if it's a bool, otherwise
         # assume it's a card and append the indices for it
         args = [
@@ -73,7 +73,7 @@ class ClientActions:
                 self.player, arg))
         ]
 
-        self.rpcSender.endPhase(*args)
+        self.rpcSender.endTurn(*args)
 
     def makeDecision(self, cards):
         args = [
