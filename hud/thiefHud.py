@@ -7,8 +7,6 @@ from direct.gui.DirectGui import DirectEntry
 
 from scenes.zoneMaker import hideCard, showCard
 
-from ul_core.core.game import Phase
-
 
 class ThiefHud(GameHud):
     def __init__(self, clientState):
@@ -30,7 +28,7 @@ class ThiefHud(GameHud):
             text="Faction Ability",
             scale=1,
             pos=(0, 0, -1),
-            parent=self.endPhaseButton,
+            parent=self.endTurnButton,
             command=self.onThiefAbilityButton)
 
     def useThiefAbility(self, cardname):
@@ -73,7 +71,4 @@ class ThiefHud(GameHud):
 
         # TODO: kludge
         if hasattr(self, 'thiefAbilityButton'):
-            if self.clientState.game.phase == Phase.startOfTurn:
-                self.thiefAbilityButton.show()
-            else:
-                self.thiefAbilityButton.hide()
+            self.thiefAbilityButton.show()

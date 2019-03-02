@@ -1,4 +1,3 @@
-from ul_core.core.game import Phase
 from hud.game import GameHud
 
 
@@ -17,8 +16,7 @@ class MarinerHud(GameHud):
                 parent=self.endPhaseButton,
                 command=self.onFishButton)
 
-        if (base.phase == Phase.reveal and
-                self.clientState.active and
+        if (self.clientState.active and
                 base.bothPlayersMulliganed and
                 not base.hasFirstPlayerPenalty):
             self.fishButton.show()

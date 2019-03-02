@@ -1,6 +1,5 @@
 from panda3d.core import TextNode
 
-from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 
 from scenes.zoneMaker import hideCard, showCard
@@ -45,10 +44,10 @@ class GameHud(hud.Scene):
             text="",
             pos=(0.7, -0.7, 0),
             mayChange=True)
-        self.endPhaseButton = self.button(
-            text="End Phase",
+        self.endTurnButton = self.button(
+            text="End Turn",
             pos=(0.7, 0, -0.85),
-            command=self.onEndPhaseButton)
+            command=self.onEndTurnButton)
         self.mulliganButton = self.button(
             text="Mulligan",
             pos=(0.7, 0, -0.85),
@@ -59,9 +58,9 @@ class GameHud(hud.Scene):
     def onMulliganButton(self):
         base.mulligan()
 
-    def onEndPhaseButton(self):
+    def onEndTurnButton(self):
         try:
-            base.endPhase()
+            base.endTurn()
         except IllegalMoveError as e:
             print(e)
 
@@ -93,13 +92,7 @@ class GameHud(hud.Scene):
         if not base.gameState.hasMulliganed:
             self.tooltipLabel.setText("Replace cards you don't want in your opening hand")
         elif self.clientState.active:
-            if base.phase == Phase.startOfTurn:
-                text = "Use your faction ability or proceed to your reveal phase"
-            elif base.phase == Phase.reveal:
-                text = "Reveal face-down cards or play fast cards"
-            else:
-                text = "Play face-down cards and attack with units"
-
+            text = "Play cards and attack with units"
             self.tooltipLabel.setText(text)
         else:
             self.tooltipLabel.setText("")
@@ -107,7 +100,7 @@ class GameHud(hud.Scene):
     def redraw(self):
         if base.gameState.hasMulliganed:
             self.mulliganButton.detachNode()
-            self.endPhaseLabel.setText(str(Phase.keys[base.phase]))
+            self.endPhaseLabel.setText("")
         else:
             self.endPhaseLabel.setText("Mulligan")
 
@@ -115,17 +108,17 @@ class GameHud(hud.Scene):
 
         # Hide everything if we haven't mulliganed yet
         if not base.bothPlayersMulliganed:
-            self.endPhaseButton.hide()
+            self.endTurnButton.hide()
             self.playerManaCapLabel.setText("")
             self.enemyManaCapLabel.setText("")
             return
 
         if self.clientState.active:
-            self.endPhaseButton.show()
+            self.endTurnButton.show()
         else:
-            self.endPhaseButton.hide()
+            self.endTurnButton.hide()
 
-        if base.phase == Phase.reveal and self.clientState.active:
+        if self.clientState.active:
             self.playerManaCapLabel.setText(
                 str(base.player.mana) + " / " + str(base.player.manaCap))
         else:

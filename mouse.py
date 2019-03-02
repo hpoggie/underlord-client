@@ -1,7 +1,6 @@
 from panda3d.core import CollisionNode, GeomNode, CollisionRay
 from direct.showbase.DirectObject import DirectObject
 
-from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.core.card
 
@@ -119,7 +118,7 @@ class MouseHandler (DirectObject):
                     base.targetCallback = callback
                 else:
                     base.revealFacedown(pickedObj)
-            elif zone is base.player.faceups and base.phase == Phase.play:
+            elif zone is base.player.faceups:
                 c = pickedObj.getPythonTag('card')
                 if not c.hasAttacked:
                     self.activeCard = pickedObj
@@ -161,9 +160,9 @@ class MouseHandler (DirectObject):
         if inDropZone(pos):
             try:
                 target = None
-                if base.phase == Phase.reveal:
+                c = self.dragging.getPythonTag('card')
+                if c.fast:
                     pickedObj = self.getObjectClickedOn()
-                    c = self.dragging.getPythonTag('card')
                     if pickedObj is not None and pickedObj != self.dragging:
                         target = pickedObj
                     elif c.requiresTarget:

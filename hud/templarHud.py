@@ -1,4 +1,3 @@
-from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.factions.templars
 from hud.game import GameHud
@@ -7,14 +6,14 @@ from hud.game import GameHud
 class TemplarHud(GameHud):
     def onEndPhaseButton(self):
         try:
-            base.endPhase(card=None)
+            base.endTurn(card=None)
         except IllegalMoveError as e:
             print(e)
 
     def onTemplarEndPhaseButton(self):
         def callback(target):
             try:
-                base.endPhase(card=target)
+                base.endTurn(card=target)
             except IllegalMoveError as e:
                 print(e)
             else:
@@ -34,7 +33,7 @@ class TemplarHud(GameHud):
                 text="Faction Ability",
                 scale=1,
                 pos=(0, 0, -1),
-                parent=self.endPhaseButton,
+                parent=self.endTurnButton,
                 command=self.onTemplarEndPhaseButton)
 
         # Hide everything if we haven't mulliganed yet
@@ -42,8 +41,4 @@ class TemplarHud(GameHud):
             self.templarEndPhaseButton.hide()
             return
 
-        if base.phase == Phase.play and self.clientState.active:
-            self.templarEndPhaseButton.show()
-        else:
-            self.templarEndPhaseButton.hide()
-
+        self.templarEndPhaseButton.show()

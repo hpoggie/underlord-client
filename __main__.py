@@ -11,7 +11,6 @@ from panda3d.core import loadPrcFileData
 from direct.task import Task
 
 from ul_core.net.network_manager import ConnectionClosed
-from ul_core.core.game import Phase
 from ul_core.core.exceptions import IllegalMoveError
 import ul_core.factions
 from mouse import MouseHandler
@@ -163,13 +162,13 @@ class App (ShowBase):
 
     def playCard(self, card, target=None):
         """
-        If it's our reveal phase and the card is fast, play it face-up,
+        If the card is fast, play it face-up,
         otherwise play it face-down.
         """
         c = card.getPythonTag('card')
         t = self.nodeToGameEntity(target)
 
-        if self.phase == Phase.reveal:
+        if c.fast:
             if c.requiresTarget:
                 self.clientActions.playFaceup(c, t)
             else:
@@ -187,14 +186,14 @@ class App (ShowBase):
         self.clientActions.attack(
             card.getPythonTag('card'), self.nodeToGameEntity(target))
 
-    def endPhase(self, *args, **kwargs):
+    def endTurn(self, *args, **kwargs):
         def entityOrBool(arg):
             return arg if isinstance(arg, bool) else self.nodeToGameEntity(arg)
 
         args = [entityOrBool(arg) for arg in args]
         kwargs = [entityOrBool(arg) for key, arg in kwargs.items()]
 
-        self.clientActions.endPhase(args + kwargs)
+        self.clientActions.endTurn(args + kwargs)
         self.hasFirstPlayerPenalty = False
 
     def makeDecision(self, nodes):
