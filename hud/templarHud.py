@@ -6,14 +6,14 @@ from hud.game import GameHud
 class TemplarHud(GameHud):
     def onEndPhaseButton(self):
         try:
-            base.endTurn(card=None)
+            base.endTurn()
         except IllegalMoveError as e:
             print(e)
 
     def onTemplarEndPhaseButton(self):
         def callback(target):
             try:
-                base.endTurn(card=target)
+                base.useTemplarAbility(target)
             except IllegalMoveError as e:
                 print(e)
             else:

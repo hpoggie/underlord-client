@@ -196,6 +196,9 @@ class App (ShowBase):
         self.clientActions.endTurn(args + kwargs)
         self.hasFirstPlayerPenalty = False
 
+    def useTemplarAbility(self, target):
+        self.clientActions.useTemplarAbility(self.nodeToGameEntity(target))
+
     def makeDecision(self, nodes):
         cards = [self.nodeToGameEntity(node) for node in nodes]
         self.clientActions.makeDecision(cards)
