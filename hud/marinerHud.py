@@ -3,7 +3,7 @@ from hud.game import GameHud
 
 class MarinerHud(GameHud):
     def onFishButton(self):
-        base.endPhase(fish=True)
+        base.useMarinerAbility()
 
     def redraw(self):
         super().redraw()
@@ -13,12 +13,11 @@ class MarinerHud(GameHud):
                 text="End and Fish",
                 scale=1,
                 pos=(0, 0, -1),
-                parent=self.endPhaseButton,
+                parent=self.endTurnButton,
                 command=self.onFishButton)
 
         if (self.clientState.active and
-                base.bothPlayersMulliganed and
-                not base.hasFirstPlayerPenalty):
+                base.bothPlayersMulliganed):
             self.fishButton.show()
         else:
             self.fishButton.hide()

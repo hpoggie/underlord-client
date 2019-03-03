@@ -91,3 +91,6 @@ class ClientActions:
         toStealIndex = toSteal.zone.index(toSteal)
         self.rpcSender.useFactionAbility(
             toDiscardIndex, cardname, toStealIndex)
+
+    def useMarinerAbility(self):
+        self.rpcSender.useFactionAbility()
