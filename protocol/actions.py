@@ -89,5 +89,5 @@ class ClientActions:
     def useThiefAbility(self, toDiscard, toSteal, cardname):
         toDiscardIndex = toDiscard.zone.index(toDiscard)
         toStealIndex = toSteal.zone.index(toSteal)
-        self.rpcSender.useThiefAbility(
+        self.rpcSender.useFactionAbility(
             toDiscardIndex, cardname, toStealIndex)
