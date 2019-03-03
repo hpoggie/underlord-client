@@ -157,5 +157,13 @@ class RpcReceiver:
     def updateEnemyCounter(self, index, value):
         self.state.enemy.faceups[index].counter = value
 
+    def updatePlayerFacedownStaleness(self, *values):
+        for i, c in enumerate(self.state.player.facedowns):
+            c.stale = values[i]
+
+    def updateEnemyFacedownStaleness(self, *values):
+        for i, c in enumerate(self.state.enemy.facedowns):
+            c.stale = values[i]
+
     def setActive(self, value):
         self.state.active = value
