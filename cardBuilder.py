@@ -64,6 +64,9 @@ def buildCard(self, card, parent):
                  descNodePath, counterNodePath, nameNodePath):
         node.setPos(node.getX() - 0.5, node.getY(), node.getZ() - 0.5)
 
+    for txt in (name, cost, rank, counter, desc):
+        txt.setFont(base.fonts.bodyFont)
+
     if hasattr(card, 'counter'):
         counter.setText(str(card.counter))
 

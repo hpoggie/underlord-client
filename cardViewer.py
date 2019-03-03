@@ -9,6 +9,8 @@ import cardBuilder
 
 import ul_core.factions
 
+import hud.hud
+
 panda3d.core.loadPrcFileData('', 'model-path assets')
 
 parser = argparse.ArgumentParser()
@@ -19,6 +21,7 @@ card = ul_core.factions.allCards[args.c]()
 
 base = direct.showbase.ShowBase.ShowBase()
 base.disableMouse()
+base.fonts = hud.hud.Fonts()
 
 class FakePlayer:
     def __init__(self):
