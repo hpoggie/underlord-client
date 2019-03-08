@@ -63,6 +63,9 @@ class ZoneMaker(DirectObject):
         for c in base.player.referenceDeck + base.enemy.referenceDeck:
             c.pandaNode = None
 
+        self.lockMaker = CardMaker("lock icon")
+        self.lockIcons = []
+
         base.taskMgr.add(self.resizeMulliganHandTask, 'ResizeMulliganHand')
 
     def addHandCard(self, card, tr, parent=None):
@@ -132,6 +135,14 @@ class ZoneMaker(DirectObject):
         for i, tr in enumerate(fan):
             addEnemyHandCard(base.enemy.hand[i], tr)
 
+    def makeLockIcon(self, card):
+        lockModel = self.playerBoard.attachNewNode(self.lockMaker.generate())
+        tex = loader.loadTexture("padlock.png")
+        lockModel.setTexture(tex)
+        lockModel.setPos(card, -0.5, 0, 1)
+        lockModel.setHpr(base.camera, 0, 0, 0)
+        self.lockIcons.append(lockModel)
+
     def makeBoard(self):
         """
         Show the player's faceups and facedowns
@@ -154,6 +165,8 @@ class ZoneMaker(DirectObject):
             cardModel.reparentTo(self.playerBoard)
             cardModel.setPosHpr(posX, 0, 0, 0, 0, 0)
             cardModel.setPythonTag('zone', base.player.facedowns)
+            if not card.stale:
+                self.makeLockIcon(cardModel)
 
         for c in base.player.faceups:
             addFaceupCard(c)
@@ -180,6 +193,8 @@ class ZoneMaker(DirectObject):
             cardModel.reparentTo(self.enemyBoard)
             cardModel.setPos(posX, 0, 0)
             cardModel.setPythonTag('zone', base.enemy.facedowns)
+            if not card.stale:
+                self.makeLockIcon(cardModel)
 
         def addEnemyFaceupCard(card):
             cardModel = self.loadCard(card)
