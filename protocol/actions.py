@@ -83,8 +83,9 @@ class ClientActions:
         self.rpcSender.makeDecision(*args)
 
     def useTemplarAbility(self, card):
-        idx = card.zone.index(card)
-        self.rpcSender.useFactionAbility(idx)
+        if card is not None:
+            idx = card.zone.index(card)
+            self.rpcSender.useFactionAbility(idx)
 
     def useThiefAbility(self, toDiscard, toSteal, cardname):
         toDiscardIndex = toDiscard.zone.index(toDiscard)
