@@ -243,7 +243,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-v', action='store_true')
 parser.add_argument('-a', type=str, default='174.138.119.84')
 parser.add_argument('-p', type=int, default=9099)
+parser.add_argument('--testing', '-t', action='store_true')
 args = parser.parse_args()
+
+if args.testing:
+    args.a = '174.138.110.117'
 
 app = App(args.a, args.p, args.v)
 app.run()
