@@ -27,12 +27,17 @@ class Scene(DirectObject):
         else:
             base.guiScene = hud.game.GameHud(self.gameState)
 
-        self.model = base.loader.loadModel('env.bam')
-        self.model.reparentTo(base.render)
+        self.base_model = base.loader.loadModel('env.blend')
+        self.base_model.reparentTo(base.render)
+        # So it looks like there's an object called <BlenderRoot>
+        # that gets loaded when you pull in a .blend file.
+        # For some reason panda3d has trouble searching below <BlenderRoot>.
+        self.model = self.base_model.children[0]
         base.camera.setPosHpr(self.model.find('Camera'), 0, 0, 0, 0, -90, 0)
         base.disableMouse()  # Fixes all your camera woes
 
         self.hept = self.model.find('Plane')
+        self.hept.setTransparency(True)
         base.taskMgr.add(self.rotateTask, 'RotateHeptTask')
 
         # Ambient lighting so we can easily see cards
@@ -73,7 +78,7 @@ class Scene(DirectObject):
     def unmake(self):
         base.guiScene.unmake()
         self.zoneMaker.unmake()
-        self.model.removeNode()
+        self.base_model.removeNode()
 
 
 if __name__ == '__main__':
