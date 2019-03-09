@@ -81,6 +81,7 @@ if __name__ == '__main__':
     from ul_core.core.game import Game
     from ul_core.factions.templars import Templar
     from panda3d.core import loadPrcFileData
+    from hud.hud import Fonts
 
     loadPrcFileData('', 'model-path assets')
 
@@ -91,8 +92,11 @@ if __name__ == '__main__':
             self.player, self.enemy = self.game.players
             self.game.start()
             self.active = True
-            self.scene = Scene(self.player)
+            self.gameState = self.player  # Hack so we get active property
+            self.fonts = Fonts()
             self.player.hasMulliganed = True
+            self.bothPlayersMulliganed = True
+            self.scene = Scene(self.player)
             self.scene.zoneMaker.redrawAll()
 
     app = App()
