@@ -31,8 +31,8 @@ class Scene(DirectObject):
         self.base_model.reparentTo(base.render)
         # So it looks like there's an object called <BlenderRoot>
         # that gets loaded when you pull in a .blend file.
-        # For some reason panda3d has trouble searching below <BlenderRoot>.
-        self.model = self.base_model.children[0]
+        # We need to search for the actual nodes we want in <BlenderRoot>
+        self.model = self.base_model.find('<BlenderRoot>')
         base.camera.setPosHpr(self.model.find('Camera'), 0, 0, 0, 0, -90, 0)
         base.disableMouse()  # Fixes all your camera woes
 
