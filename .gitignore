@@ -9,3 +9,4 @@ wheels/
 .cache/
 .coverage
 .pytest_cache
+*.blend?
