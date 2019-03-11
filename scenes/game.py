@@ -1,6 +1,6 @@
 from direct.showbase.DirectObject import DirectObject
 from direct.task import Task
-from panda3d.core import AmbientLight, VBase4
+from panda3d.core import PointLight, AmbientLight, VBase4
 from scenes.zoneMaker import ZoneMaker
 import hud.game
 from ul_core.factions import templars, mariners, thieves, fae
@@ -27,7 +27,7 @@ class Scene(DirectObject):
         else:
             base.guiScene = hud.game.GameHud(self.gameState)
 
-        self.base_model = base.loader.loadModel('env.blend')
+        self.base_model = base.loader.loadModel('env.blend', noCache = True)
         self.base_model.reparentTo(base.render)
         # So it looks like there's an object called <BlenderRoot>
         # that gets loaded when you pull in a .blend file.
@@ -40,9 +40,16 @@ class Scene(DirectObject):
         self.hept.setTransparency(True)
         base.taskMgr.add(self.rotateTask, 'RotateHeptTask')
 
+        # Convert the blender point light to a panda one
+        blenderLight = self.model.find('Point Light')
+        pandaLight = PointLight('Point Light')
+        pandaLight.setColor(VBase4(1, 1, 1, 1))
+        lightNode = blenderLight.attachNewNode(pandaLight)
+        base.render.setLight(lightNode)
+
         # Ambient lighting so we can easily see cards
         alight = AmbientLight('alight')
-        alight.setColor(VBase4(1, 1, 1, 1))
+        alight.setColor(VBase4(0.5, 0.5, 0.5, 1))
         alnp = base.render.attachNewNode(alight)
         base.render.setLight(alnp)
 
