@@ -75,6 +75,9 @@ def buildCard(self, card, parent):
 
     cardBase.setCollideMask(cardCollisionMask)
 
+    # Mark the card as unlit so it's always readable
+    cardBase.setLightOff(0)
+
     return cardBase
 
 
