@@ -19,6 +19,7 @@ setup(
             ],
             'plugins': [
                 'pandagl',
+                'p3fmod_audio',
             ],
             'gui_apps': {
                 'Underlord': '__main__.py',
