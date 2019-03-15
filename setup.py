@@ -15,12 +15,14 @@ setup(
                 '**/*.png',
                 '**/*.ttf',
                 '**/*.bam',
+                '**/*.blend',
                 '**/*.wav',
                 'CREDITS.txt'
             ],
             'plugins': [
                 'pandagl',
                 'p3openal_audio',
+                'p3assimp',
             ],
             'gui_apps': {
                 'Underlord': '__main__.py',
