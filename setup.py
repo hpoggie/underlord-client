@@ -15,21 +15,16 @@ setup(
                 '**/*.png',
                 '**/*.ttf',
                 '**/*.bam',
+                '**/*.wav',
                 'CREDITS.txt'
             ],
             'plugins': [
                 'pandagl',
-                'p3fmod_audio',
+                'p3openal_audio',
             ],
             'gui_apps': {
                 'Underlord': '__main__.py',
             },
-            'platforms': [
-                'manylinux1_x86_64',
-                # 'macosx_10_6_x86_64',
-                # 'win32',
-                'win_amd64',
-            ],
         }
     },
 )

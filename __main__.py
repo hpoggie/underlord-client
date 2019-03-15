@@ -32,6 +32,7 @@ loadPrcFileData(
     window-title Underlord
     fullscreen 0
     model-path assets
+    audio-library-name p3openal_audio
     """)
 
 
