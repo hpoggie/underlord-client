@@ -1,4 +1,5 @@
 from ul_core.core.game import Game
+from ul_core.core.event_handler import EmptyEventHandler
 
 
 class ClientState:
@@ -46,10 +47,10 @@ class ClientState:
 
     def onGameStarted(self, goingFirst):
         if goingFirst:
-            self.game = Game(self.faction, self.enemyFaction)
+            self.game = Game(self.faction, self.enemyFaction, EmptyEventHandler())
             self.player, self.enemy = self.game.players
         else:
-            self.game = Game(self.enemyFaction, self.faction)
+            self.game = Game(self.enemyFaction, self.faction, EmptyEventHandler())
             self.enemy, self.player = self.game.players
 
         self.hasMulliganed = False
