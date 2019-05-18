@@ -87,6 +87,9 @@ class RpcReceiver:
                     listener.onCardMoved(c, c.prevZone)
                 c.prevZone = None
 
+    def playAnimation(self, *args):
+        print("playAnimation " + " ".join(str(i) for i in args))
+
     # Updates
     # Don't call the callbacks, just modify state
     # We redraw things all at once in endRedraw
