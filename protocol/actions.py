@@ -1,4 +1,3 @@
-from . import zie
 import ul_core.factions
 
 
@@ -32,66 +31,33 @@ class ClientActions:
         self.state.onGameStarted(goingFirst=False)
 
     def mulligan(self, cards):
-        indices = [self.state.player.hand.index(c) for c in cards]
-        self.rpcSender.mulligan(*indices)
+        self.rpcSender.mulligan(*cards)
         self.state.hasMulliganed = True
 
     # Game actions
-    # TODO: Most of this is ugly and should be refactored
     def revealFacedown(self, card, target=None):
-        index = card.zone.index(card)
-        if target is not None:
-            self.rpcSender.revealFacedown(
-                index, *zie.gameEntityToZie(self.player, target))
-        else:
-            self.rpcSender.revealFacedown(index)
+        self.rpcSender.revealFacedown(card, target)
 
     def playFacedown(self, card):
-        idx = card.zone.index(card)
-        self.rpcSender.play(idx)
+        self.rpcSender.play(card)
 
     def playFaceup(self, card, target=None):
-        idx = card.zone.index(card)
-
-        if target:
-            self.rpcSender.playFaceup(
-                idx, *zie.gameEntityToZie(self.player, target))
-        else:
-            self.rpcSender.playFaceup(idx)
+        self.rpcSender.playFaceup(card, target)
 
     def attack(self, attacker, target):
-        _, index, _ = zie.gameEntityToZie(self.player, attacker)
-        targetZone, targetIndex, _ = zie.gameEntityToZie(self.player, target)
-        self.rpcSender.attack(index, targetIndex, targetZone)
+        self.rpcSender.attack(attacker, target)
 
     def endTurn(self, args):
-        # For each value in args, append it if it's a bool, otherwise
-        # assume it's a card and append the indices for it
-        args = [
-            i for arg in args
-            for i in ([arg] if isinstance(arg, bool) else zie.gameEntityToZie(
-                self.player, arg))
-        ]
-
         self.rpcSender.endTurn(*args)
 
     def makeDecision(self, cards):
-        args = [
-            i for card in cards
-            for i in zie.gameEntityToZie(self.player, card)
-        ]
-        self.rpcSender.makeDecision(*args)
+        self.rpcSender.makeDecision(*cards)
 
     def useTemplarAbility(self, card):
-        if card is not None:
-            idx = card.zone.index(card)
-            self.rpcSender.useFactionAbility(idx)
+        self.rpcSender.useFactionAbility(card)
 
     def useThiefAbility(self, toDiscard, toSteal, cardname):
-        toDiscardIndex = toDiscard.zone.index(toDiscard)
-        toStealIndex = toSteal.zone.index(toSteal)
-        self.rpcSender.useFactionAbility(
-            toDiscardIndex, cardname, toStealIndex)
+        self.rpcSender.useFactionAbility(toDiscard, toSteal, cardname)
 
     def useMarinerAbility(self):
         self.rpcSender.useFactionAbility()

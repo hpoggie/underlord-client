@@ -9,7 +9,7 @@ class Client:
         self.state = state.ClientState()
         self.rpcReceiver = rpcReceiver.RpcReceiver(self.state)
         self.networkManager = network.ClientNetworkManager(
-            self.rpcReceiver, ip, port)
+            self.rpcReceiver, ip, port, self.state)
         self.networkManager.verbose = verbose
         self.clientActions = actions.ClientActions(
             self.state, self.networkManager)

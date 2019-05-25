@@ -1,5 +1,4 @@
 import ul_core.factions
-from ul_core.core.card import Card
 
 
 class RpcReceiver:
@@ -10,26 +9,10 @@ class RpcReceiver:
         self.state = state
         self.listeners = []
 
-    def idsToCards(self, cardIds):
-        idAndEnemy = zip(cardIds[::2], cardIds[1::2])
-        cards = []
-        for cardId, ownedByEnemy in idAndEnemy:
-            if cardId == -1:
-                cards.append(
-                    Card(
-                        name="mysterious card",
-                        owner=self.state.enemy,
-                        game=self.state.game,
-                        cardId=-1))
-            else:
-                c = (self.state.enemy.referenceDeck[cardId] if ownedByEnemy
-                     else self.state.player.referenceDeck[cardId])
-                c.visible = True
-                cards.append(c)
-
-        return cards
-
     def moveCard(self, c, zone):
+        if c is None:
+            return c
+               
         # fake moveToZone
         if c._zone is not None and c in c._zone:
             c.prevZone = c._zone
@@ -39,9 +22,9 @@ class RpcReceiver:
 
         return c
 
-    def updateZone(self, zone, cardIds):
+    def updateZone(self, zone, cards):
         zone[:] = []
-        for x in self.idsToCards(cardIds):
+        for x in cards:
             self.moveCard(x, zone)
 
     def onGameEnded(self):
@@ -114,33 +97,33 @@ class RpcReceiver:
         for pl in self.state.game.players:
             pl.hasMulliganed = True
 
-    def updatePlayerHand(self, *cardIds):
-        self.updateZone(self.state.player.hand, cardIds)
+    def updatePlayerHand(self, *cards):
+        self.updateZone(self.state.player.hand, cards)
 
-    def updateEnemyHand(self, *cardIds):
-        self.updateZone(self.state.enemy.hand, cardIds)
+    def updateEnemyHand(self, *cards):
+        self.updateZone(self.state.enemy.hand, cards)
 
-    def updatePlayerFacedowns(self, *cardIds):
-        self.updateZone(self.state.player.facedowns, cardIds)
+    def updatePlayerFacedowns(self, *cards):
+        self.updateZone(self.state.player.facedowns, cards)
 
-    def updateEnemyFacedowns(self, *cardIds):
-        self.updateZone(self.state.enemy.facedowns, cardIds)
+    def updateEnemyFacedowns(self, *cards):
+        self.updateZone(self.state.enemy.facedowns, cards)
 
-    def updatePlayerFaceups(self, *cardIds):
-        self.updateZone(self.state.player.faceups, cardIds)
+    def updatePlayerFaceups(self, *cards):
+        self.updateZone(self.state.player.faceups, cards)
 
     def updateHasAttacked(self, *values):
         for i, c in enumerate(self.state.player.faceups):
             c.hasAttacked = values[i]
 
-    def updateEnemyFaceups(self, *cardIds):
-        self.updateZone(self.state.enemy.faceups, cardIds)
+    def updateEnemyFaceups(self, *cards):
+        self.updateZone(self.state.enemy.faceups, cards)
 
-    def updatePlayerGraveyard(self, *cardIds):
-        self.updateZone(self.state.player.graveyard, cardIds)
+    def updatePlayerGraveyard(self, *cards):
+        self.updateZone(self.state.player.graveyard, cards)
 
-    def updateEnemyGraveyard(self, *cardIds):
-        self.updateZone(self.state.enemy.graveyard, cardIds)
+    def updateEnemyGraveyard(self, *cards):
+        self.updateZone(self.state.enemy.graveyard, cards)
 
     def updatePlayerManaCap(self, manaCap):
         self.state.player.manaCap = manaCap
