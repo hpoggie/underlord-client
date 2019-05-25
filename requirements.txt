@@ -9,4 +9,4 @@ py==1.7.0
 pytest==4.1.1
 six==1.12.0
 smmap2==2.0.5
-git+https://github.com/hpoggie/ul_core.git@5dfb648
+git+https://github.com/hpoggie/ul_core.git@dc2afcc
