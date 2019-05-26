@@ -115,7 +115,11 @@ class RpcReceiver:
                 'on_spawn': lambda: set_zone(args[1], args[1].controller.faceups),
                 'on_fight': _pr,  # TODO play the fight animation
                 'on_die': lambda: set_zone(args[1], args[1].owner.graveyard),
-                'on_change_controller': _pr,  # TODO set state, play anim
+                # TODO: do this in a cleaner way
+                # This works because anything after (on_spawn, on_die, etc.) will set the zone
+                'on_change_controller': lambda: set_zone(
+                    args[1],
+                    args[1].controller.opponent.faceups),
                 'on_reveal_facedown': _pr,  # TODO anim
                 'on_play_faceup': _pr,  # TODO anim
                 'on_play_facedown': lambda: set_zone(args[1], args[1].controller.facedowns),
