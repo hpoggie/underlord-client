@@ -1,3 +1,4 @@
+import queue
 import ul_core.factions
 
 
@@ -8,6 +9,7 @@ class RpcReceiver:
     def __init__(self, state):
         self.state = state
         self.listeners = []
+        self.update_queue = queue.Queue()
 
     def moveCard(self, c, zone):
         if c is None:
@@ -78,6 +80,12 @@ class RpcReceiver:
             listener.kick()
 
     def endRedraw(self):
+        while True:
+            try:
+                self.update_queue.get_nowait()()
+            except queue.Empty:
+                break
+
         self.state.player.fishing = False
         for listener in self.listeners:
             listener.endRedraw()
@@ -88,7 +96,37 @@ class RpcReceiver:
                 c.prevZone = None
 
     def playAnimation(self, *args):
-        print("playAnimation " + " ".join(str(i) for i in args))
+        def make_update_func(args):
+            def _pr():
+                print("playAnimation " + " ".join(str(i) for i in args))
+
+            if args[0] == 'on_spawn':
+                def _f():
+                    _pr()
+                    args[1].zone = args[1].controller.faceups
+
+                return _f
+            elif args[0] == 'on_die':
+                def _f():
+                    _pr()
+                    args[1].zone = args[1].owner.graveyard
+
+                return _f
+            elif args[0] == 'on_change_controller':
+                return _pr  # TODO
+            elif args[0] == 'on_play_facedown':
+                def _f():
+                    _pr()
+                    args[1].zone = args[1].controller.facedowns
+
+                return _f
+            elif args[0] == 'on_draw':
+                # TODO: need to specify which card was drawn
+                return _pr
+            else:
+                return _pr
+
+        self.update_queue.put(make_update_func(args))
 
     # Updates
     # Don't call the callbacks, just modify state
