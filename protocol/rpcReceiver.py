@@ -107,31 +107,21 @@ class RpcReceiver:
             def _pr():
                 print("playAnimation " + " ".join(str(i) for i in args))
 
-            if args[0] == 'on_spawn':
-                def _f():
-                    _pr()
-                    args[1].zone = args[1].controller.faceups
+            def set_zone(card, zone):
+                _pr()
+                card.zone = zone
 
-                return _f
-            elif args[0] == 'on_die':
-                def _f():
-                    _pr()
-                    args[1].zone = args[1].owner.graveyard
-
-                return _f
-            elif args[0] == 'on_change_controller':
-                return _pr  # TODO
-            elif args[0] == 'on_play_facedown':
-                def _f():
-                    _pr()
-                    args[1].zone = args[1].controller.facedowns
-
-                return _f
-            elif args[0] == 'on_draw':
-                # TODO: need to specify which card was drawn
-                return _pr
-            else:
-                return _pr
+            return {
+                'on_spawn': lambda: set_zone(args[1], args[1].controller.faceups),
+                'on_fight': _pr,  # TODO
+                'on_die': lambda: set_zone(args[1], args[1].owner.graveyard),
+                'on_change_controller': _pr,  # TODO
+                'on_reveal_facedown': _pr,  # TODO
+                'on_play_faceup': _pr,  # TODO
+                'on_play_facedown': lambda: set_zone(args[1], args[1].controller.facedowns),
+                'on_draw': _pr, # TODO: need to specify which card was drawn
+                'on_end_turn': _pr
+            }[args[0]]
 
         self.update_queue.put(make_update_func(args))
 
