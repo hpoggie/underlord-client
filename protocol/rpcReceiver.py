@@ -113,13 +113,13 @@ class RpcReceiver:
 
             return {
                 'on_spawn': lambda: set_zone(args[1], args[1].controller.faceups),
-                'on_fight': _pr,  # TODO
+                'on_fight': _pr,  # TODO play the fight animation
                 'on_die': lambda: set_zone(args[1], args[1].owner.graveyard),
-                'on_change_controller': _pr,  # TODO
-                'on_reveal_facedown': _pr,  # TODO
-                'on_play_faceup': _pr,  # TODO
+                'on_change_controller': _pr,  # TODO set state, play anim
+                'on_reveal_facedown': _pr,  # TODO anim
+                'on_play_faceup': _pr,  # TODO anim
                 'on_play_facedown': lambda: set_zone(args[1], args[1].controller.facedowns),
-                'on_draw': _pr, # TODO: need to specify which card was drawn
+                'on_draw': _pr, # TODO: anim
                 'on_end_turn': _pr
             }[args[0]]
 
