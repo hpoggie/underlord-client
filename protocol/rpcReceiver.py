@@ -104,11 +104,11 @@ class RpcReceiver:
                     listener.playAnimation(*args)
 
             def set_zone(card, zone):
-                _pr()
                 card.zone = zone
+                _pr()
 
             return {
-                'on_spawn': lambda: set_zone(args[1], args[1].controller.faceups),
+                'on_spawn': _pr,
                 'on_fight': _pr,  # TODO play the fight animation
                 'on_die': lambda: set_zone(args[1], args[1].owner.graveyard),
                 # TODO: do this in a cleaner way
@@ -116,8 +116,8 @@ class RpcReceiver:
                 'on_change_controller': lambda: set_zone(
                     args[1],
                     args[1].controller.opponent.faceups),
-                'on_reveal_facedown': _pr,  # TODO anim
-                'on_play_faceup': _pr,  # TODO anim
+                'on_reveal_facedown': lambda: set_zone(args[1], args[1].controller.faceups),
+                'on_play_faceup': lambda: set_zone(args[1], args[1].controller.faceups),
                 'on_play_facedown': lambda: set_zone(args[1], args[1].controller.facedowns),
                 'on_draw': _pr, # TODO: anim
                 'on_end_turn': _pr
