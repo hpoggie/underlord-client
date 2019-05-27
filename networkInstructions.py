@@ -50,3 +50,34 @@ class NetworkInstructions:
             animations.animateRevealFacedown(card.pandaNode, 0.3)
         elif card.faceup:
             animations.animatePlayFaceup(card.pandaNode, 0.3)
+
+    def playAnimation(self, *args):
+        class Animations:
+            def on_spawn(card):
+                self.onCardMoved(card, card.zone)
+
+            def on_fight(attacker, target):
+                pass
+
+            def on_die(card):
+                pass
+
+            def on_change_controller(card):
+                pass
+
+            def on_reveal_facedown(card, target=None):
+                pass
+
+            def on_play_faceup(card, target=None):
+                pass
+
+            def on_play_facedown(card):
+                pass
+
+            def on_draw(card):
+                pass
+
+            def on_end_turn():
+                pass
+
+        getattr(Animations, args[0])(*args[1:])

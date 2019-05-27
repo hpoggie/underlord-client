@@ -106,6 +106,8 @@ class RpcReceiver:
         def make_update_func(args):
             def _pr():
                 print("playAnimation " + " ".join(str(i) for i in args))
+                for listener in self.listeners:
+                    listener.playAnimation(*args)
 
             def set_zone(card, zone):
                 _pr()
