@@ -347,3 +347,22 @@ class ZoneMaker(DirectObject):
         self.playerHand.removeNode()  # In case it's parented to the camera
         self.mulliganHand.removeNode()
         base.taskMgr.remove('ResizeMulliganHand')
+
+    def animateRevealFacedown(self, card):
+        if card.pandaNode is None:
+            cardBuilder.buildCard(None, card, self.scene)
+
+        self.makeBoard()
+        self.makeEnemyBoard()
+
+        animations.animateRevealFacedown(card.pandaNode, 0.3)
+
+    def animatePlayFaceup(self, card):
+        if card.pandaNode is None:
+            cardBuilder.buildCard(None, card, base.zoneMaker.scene)
+
+        self.makePlayerHand()
+        self.makeBoard()
+        self.makeEnemyBoard()
+
+        animations.animatePlayFaceup(card.pandaNode, 0.3)

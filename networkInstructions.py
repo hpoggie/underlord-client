@@ -1,4 +1,4 @@
-import animations
+import cardBuilder
 
 
 class NetworkInstructions:
@@ -44,17 +44,10 @@ class NetworkInstructions:
     def endRedraw(self):
         self.base.redraw()
 
-    def onCardMoved(self, card, prevZone):
-        if card.faceup and (prevZone == card.controller.facedowns
-                            or prevZone == card.controller.opponent.facedowns):
-            animations.animateRevealFacedown(card.pandaNode, 0.3)
-        elif card.faceup:
-            animations.animatePlayFaceup(card.pandaNode, 0.3)
-
     def playAnimation(self, *args):
         class Animations:
             def on_spawn(card):
-                self.onCardMoved(card, card.zone)
+                pass
 
             def on_fight(attacker, target):
                 pass
@@ -66,10 +59,10 @@ class NetworkInstructions:
                 pass
 
             def on_reveal_facedown(card, target=None):
-                pass
+                base.zoneMaker.animateRevealFacedown(card)
 
             def on_play_faceup(card, target=None):
-                pass
+                base.zoneMaker.animatePlayFaceup(card)
 
             def on_play_facedown(card):
                 pass

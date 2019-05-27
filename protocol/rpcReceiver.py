@@ -24,7 +24,6 @@ class RpcReceiver:
                
         # fake moveToZone
         if c._zone is not None and c in c._zone:
-            c.prevZone = c._zone
             c._zone.remove(c)
         c._zone = zone
         zone.append(c)
@@ -96,11 +95,6 @@ class RpcReceiver:
         self.state.player.fishing = False
         for listener in self.listeners:
             listener.endRedraw()
-        for c in self.state.player.referenceDeck:
-            if c.prevZone is not None:
-                for listener in self.listeners:
-                    listener.onCardMoved(c, c.prevZone)
-                c.prevZone = None
 
     def playAnimation(self, *args):
         def make_update_func(args):
