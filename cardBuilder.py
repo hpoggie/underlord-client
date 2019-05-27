@@ -5,7 +5,7 @@ import panda3d.core
 cardCollisionMask = panda3d.core.BitMask32.bit(31)
 
 
-def buildCard(self, card, parent):
+def buildCard(card, parent):
     cardBase = parent.attachNewNode(card.name)
 
     cm = panda3d.core.CardMaker(card.name)
@@ -81,7 +81,7 @@ def buildCard(self, card, parent):
     return cardBase
 
 
-def buildBlankCard(self, card, parent):
+def buildBlankCard(card, parent):
     cardBase = parent.attachNewNode('mysterious card')
     cm = panda3d.core.CardMaker('mysterious card')
     cardFrame = cardBase.attachNewNode(cm.generate())

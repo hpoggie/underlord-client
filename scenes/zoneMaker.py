@@ -301,10 +301,10 @@ class ZoneMaker(DirectObject):
             cardBuilder.updateCard(card)
             return card.pandaNode
 
-        return cardBuilder.buildCard(self, card, self.scene)
+        return cardBuilder.buildCard(card, self.scene)
 
     def loadEnemyBlank(self, card):
-        return cardBuilder.buildBlankCard(self, card, self.scene)
+        return cardBuilder.buildBlankCard(card, self.scene)
 
     def makePlayerFace(self):
         cm = CardMaker("face")
@@ -350,7 +350,7 @@ class ZoneMaker(DirectObject):
 
     def animateRevealFacedown(self, card):
         if card.pandaNode is None:
-            cardBuilder.buildCard(None, card, self.scene)
+            cardBuilder.buildCard(card, self.scene)
 
         self.makeBoard()
         self.makeEnemyBoard()
@@ -359,7 +359,7 @@ class ZoneMaker(DirectObject):
 
     def animatePlayFaceup(self, card):
         if card.pandaNode is None:
-            cardBuilder.buildCard(None, card, base.zoneMaker.scene)
+            cardBuilder.buildCard(card, base.zoneMaker.scene)
 
         self.makePlayerHand()
         self.makeBoard()
