@@ -97,33 +97,29 @@ class RpcReceiver:
             listener.endRedraw()
 
     def playAnimation(self, *args):
-        def make_update_func(args):
-            def _pr():
-                print("playAnimation " + " ".join(str(i) for i in args))
-                for listener in self.listeners:
-                    listener.playAnimation(*args)
+        move = {
+            'on_spawn': lambda: None,
+            'on_fight': lambda: None,  # TODO play the fight animation
+            'on_die': lambda: self.moveCard(args[1], args[1].owner.graveyard),
+            # TODO: do this in a cleaner way
+            # This works because anything after (on_spawn, on_die, etc.) will set the zone
+            'on_change_controller': lambda: self.moveCard(
+                args[1],
+                args[1].controller.opponent.faceups),
+            'on_reveal_facedown': lambda: self.moveCard(args[1], args[1].controller.faceups),
+            'on_play_faceup': lambda: self.moveCard(args[1], args[1].controller.faceups),
+            'on_play_facedown': lambda: self.moveCard(args[1], args[1].controller.facedowns),
+            'on_draw': lambda: None, # TODO: anim
+            'on_end_turn': lambda: None
+        }[args[0]]
 
-            def set_zone(card, zone):
-                card.zone = zone
-                _pr()
+        def action():
+            move()
+            print("playAnimation " + " ".join(str(i) for i in args))
+            for listener in self.listeners:
+                listener.playAnimation(*args)
 
-            return {
-                'on_spawn': _pr,
-                'on_fight': _pr,  # TODO play the fight animation
-                'on_die': lambda: set_zone(args[1], args[1].owner.graveyard),
-                # TODO: do this in a cleaner way
-                # This works because anything after (on_spawn, on_die, etc.) will set the zone
-                'on_change_controller': lambda: set_zone(
-                    args[1],
-                    args[1].controller.opponent.faceups),
-                'on_reveal_facedown': lambda: set_zone(args[1], args[1].controller.faceups),
-                'on_play_faceup': lambda: set_zone(args[1], args[1].controller.faceups),
-                'on_play_facedown': lambda: set_zone(args[1], args[1].controller.facedowns),
-                'on_draw': _pr, # TODO: anim
-                'on_end_turn': _pr
-            }[args[0]]
-
-        self.update_queue.put(make_update_func(args))
+        self.update_queue.put(action)
 
     # Updates
     # Don't call the callbacks, just modify state
