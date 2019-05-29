@@ -59,10 +59,10 @@ class NetworkInstructions:
                 pass
 
             def on_reveal_facedown(card, target=None):
-                base.zoneMaker.animateRevealFacedown(card)
+                return self.base.zoneMaker.animateRevealFacedown(card)
 
             def on_play_faceup(card, target=None):
-                base.zoneMaker.animatePlayFaceup(card)
+                return self.base.zoneMaker.animatePlayFaceup(card)
 
             def on_play_facedown(card):
                 pass
@@ -73,4 +73,4 @@ class NetworkInstructions:
             def on_end_turn():
                 pass
 
-        getattr(Animations, args[0])(*args[1:])
+        return getattr(Animations, args[0])(*args[1:])

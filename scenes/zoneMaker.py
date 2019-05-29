@@ -355,7 +355,7 @@ class ZoneMaker(DirectObject):
         self.makeBoard()
         self.makeEnemyBoard()
 
-        animations.animateRevealFacedown(card.pandaNode, 0.3)
+        return animations.animateRevealFacedown(card.pandaNode, 0.3)
 
     def animatePlayFaceup(self, card):
         if card.pandaNode is None:
@@ -365,4 +365,4 @@ class ZoneMaker(DirectObject):
         self.makeBoard()
         self.makeEnemyBoard()
 
-        animations.animatePlayFaceup(card.pandaNode, 0.3)
+        return animations.animatePlayFaceup(card.pandaNode, 0.3)
