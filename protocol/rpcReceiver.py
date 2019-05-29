@@ -1,10 +1,10 @@
-import queue
 import ul_core.factions
+from . import update_queue
 
 
 def queued_update(func):
     def do_update(self, *args, **kwargs):
-        self.update_queue.put(lambda: func(self, *args, **kwargs))
+        update_queue.do_later(lambda: func(self, *args, **kwargs))
 
     return do_update
 
@@ -16,7 +16,6 @@ class RpcReceiver:
     def __init__(self, state):
         self.state = state
         self.listeners = []
-        self.update_queue = queue.Queue()
 
     def moveCard(self, c, zone):
         if c is None:
@@ -86,15 +85,14 @@ class RpcReceiver:
             listener.kick()
 
     def endRedraw(self):
-        while True:
-            try:
-                self.update_queue.get_nowait()()
-            except queue.Empty:
-                break
+        def after_updates_finished():
+            self.state.player.fishing = False
+            for listener in self.listeners:
+                listener.endRedraw()
 
-        self.state.player.fishing = False
-        for listener in self.listeners:
-            listener.endRedraw()
+        update_queue.do_later(after_updates_finished)
+
+        update_queue.start()
 
     def playAnimation(self, *args):
         move = {
@@ -116,10 +114,11 @@ class RpcReceiver:
         def action():
             move()
             print("playAnimation " + " ".join(str(i) for i in args))
-            for listener in self.listeners:
-                listener.playAnimation(*args)
 
-        self.update_queue.put(action)
+        update_queue.do_later(action)
+
+        for listener in self.listeners:
+            update_queue.do_later(lambda: listener.playAnimation(*args))
 
     # Updates
     # Don't call the callbacks, just modify state
