@@ -215,7 +215,6 @@ class ZoneMaker(DirectObject):
             cleanup(self.playerGraveyard)
             c = self.loadCard(base.player.graveyard[-1])
             showCard(c)
-            animations.animateMove(c, self.playerGraveyard, 0.3)
             c.setPythonTag('zone', base.player.graveyard)
 
             for c1 in base.player.graveyard[:-1]:
@@ -228,7 +227,6 @@ class ZoneMaker(DirectObject):
             cleanup(self.enemyGraveyard)
             c = self.loadCard(base.enemy.graveyard[-1])
             showCard(c)
-            animations.animateMove(c, self.enemyGraveyard, 0.3)
             c.setPythonTag('zone', base.enemy.graveyard)
 
             for c1 in base.enemy.graveyard[:-1]:
@@ -347,6 +345,14 @@ class ZoneMaker(DirectObject):
         self.playerHand.removeNode()  # In case it's parented to the camera
         self.mulliganHand.removeNode()
         base.taskMgr.remove('ResizeMulliganHand')
+
+    def animateDie(self, card):
+        if card.pandaNode is None:
+            cardBuilder.buildCard(card, self.scene)
+
+        gy = self.playerGraveyard if card.owner is self.player else self.enemyGraveyard
+
+        return animations.animateMove(card.pandaNode, gy, 0.3)
 
     def animateRevealFacedown(self, card):
         if card.pandaNode is None:

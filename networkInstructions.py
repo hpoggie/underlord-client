@@ -53,7 +53,7 @@ class NetworkInstructions:
                 pass
 
             def on_die(card):
-                pass
+                return self.base.zoneMaker.animateDie(card)
 
             def on_change_controller(card):
                 pass
