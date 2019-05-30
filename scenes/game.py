@@ -27,7 +27,7 @@ class Scene(DirectObject):
         else:
             base.guiScene = hud.game.GameHud(self.gameState)
 
-        self.base_model = base.loader.loadModel('env.blend', noCache = True)
+        self.base_model = base.loader.loadModel('env.bam', noCache = True)
         self.base_model.reparentTo(base.render)
         # So it looks like there's an object called <BlenderRoot>
         # that gets loaded when you pull in a .blend file.
@@ -41,11 +41,11 @@ class Scene(DirectObject):
         base.taskMgr.add(self.rotateTask, 'RotateHeptTask')
 
         # Convert the blender point light to a panda one
-        blenderLight = self.model.find('Point Light')
-        pandaLight = PointLight('Point Light')
-        pandaLight.setColor(VBase4(1, 1, 1, 1))
-        lightNode = blenderLight.attachNewNode(pandaLight)
-        base.render.setLight(lightNode)
+        #blenderLight = self.model.find('Point Light')
+        #pandaLight = PointLight('Point Light')
+        #pandaLight.setColor(VBase4(1, 1, 1, 1))
+        #lightNode = blenderLight.attachNewNode(pandaLight)
+        #base.render.setLight(lightNode)
 
         # Ambient lighting so we can easily see cards
         alight = AmbientLight('alight')
