@@ -123,6 +123,10 @@ class RpcReceiver:
         for listener in self.listeners:
             update_queue.do_later(lambda: listener.playAnimation(*args))
 
+    def illegalMove(self):
+        for listener in self.listeners:
+            listener.illegalMove()
+
     # Updates
     # Don't call the callbacks, just modify state
     # We redraw things all at once in endRedraw
