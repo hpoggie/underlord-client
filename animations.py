@@ -46,6 +46,14 @@ class CardAnimator(DirectObject):
 
         self.animateMove(card, gy, duration=duration)
 
+    def animateChangeController(self, card, duration=0.3):
+        if card.controller is base.player:
+            zone = base.zoneMaker.enemyBoard
+        else:
+            zone = base.zoneMaker.playerBoard
+
+        self.animateMove(card, zone, duration=duration)
+
     @animation
     def animateRevealFacedown(self, card, duration=0.3):
         card.setPythonTag('disableFocus', True)

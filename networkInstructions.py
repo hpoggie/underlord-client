@@ -56,7 +56,7 @@ class NetworkInstructions:
                 return self.base.cardAnimator.animateDie(card)
 
             def on_change_controller(card):
-                pass
+                return self.base.cardAnimator.animateChangeController(card)
 
             def on_reveal_facedown(card, target=None):
                 return self.base.cardAnimator.animateRevealFacedown(card)
