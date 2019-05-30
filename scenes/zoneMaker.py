@@ -216,6 +216,8 @@ class ZoneMaker(DirectObject):
             c = self.loadCard(base.player.graveyard[-1])
             showCard(c)
             c.setPythonTag('zone', base.player.graveyard)
+            c.reparentTo(self.playerGraveyard)
+            c.setPosHpr(0, 0, 0, 0, 0, 0)
 
             for c1 in base.player.graveyard[:-1]:
                 if c1.pandaNode is not None:
@@ -228,6 +230,8 @@ class ZoneMaker(DirectObject):
             c = self.loadCard(base.enemy.graveyard[-1])
             showCard(c)
             c.setPythonTag('zone', base.enemy.graveyard)
+            c.reparentTo(self.enemyGraveyard)
+            c.setPosHpr(0, 0, 0, 0, 0, 0)
 
             for c1 in base.enemy.graveyard[:-1]:
                 if c1.pandaNode is not None:
