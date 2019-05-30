@@ -67,7 +67,11 @@ class RpcReceiver:
 
     def requestDecision(self, nArgs):
         for listener in self.listeners:
-            listener.requestDecision(nArgs)
+            update_queue.do_later(lambda: listener.requestDecision(nArgs))
+
+        # We get this after endRedraw, so we need to start the update queue again
+        # since all the animations have already finished
+        update_queue.start()
 
     def winGame(self):
         self.onGameEnded()
