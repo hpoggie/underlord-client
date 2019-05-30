@@ -12,12 +12,15 @@ class TemplarHud(GameHud):
 
     def onTemplarEndPhaseButton(self):
         def callback(target):
-            try:
-                base.useTemplarAbility(target)
-            except IllegalMoveError as e:
-                print(e)
-            else:
+            if target is None:
                 base.finishTargeting()
+            else:
+                try:
+                    base.useTemplarAbility(target)
+                except IllegalMoveError as e:
+                    print(e)
+                else:
+                    base.finishTargeting()
 
         # TODO: grab desc from faction?
         base.mouseHandler.startTargeting(
