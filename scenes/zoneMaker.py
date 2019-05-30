@@ -351,8 +351,7 @@ class ZoneMaker(DirectObject):
         base.taskMgr.remove('ResizeMulliganHand')
 
     def animateFight(self, attacker, target):
-        if not hasattr(attacker, 'pandaNode') or attacker.pandaNode is None:
-            cardBuilder.buildCard(attacker, self.scene)
+        self.loadCard(attacker)
 
         if not hasattr(target, 'pandaNode') or target.pandaNode is None:
             try:
@@ -363,16 +362,14 @@ class ZoneMaker(DirectObject):
         return animations.animateFight(attacker.pandaNode, target.pandaNode, 0.3)
 
     def animateDie(self, card):
-        if card.pandaNode is None:
-            cardBuilder.buildCard(card, self.scene)
+        self.loadCard(card)
 
         gy = self.playerGraveyard if card.owner is self.player else self.enemyGraveyard
 
         return animations.animateMove(card.pandaNode, gy, 0.3)
 
     def animateRevealFacedown(self, card):
-        if card.pandaNode is None:
-            cardBuilder.buildCard(card, self.scene)
+        self.loadCard(card)
 
         self.makeBoard()
         self.makeEnemyBoard()
@@ -380,8 +377,7 @@ class ZoneMaker(DirectObject):
         return animations.animateRevealFacedown(card.pandaNode, 0.3)
 
     def animatePlayFaceup(self, card):
-        if card.pandaNode is None:
-            cardBuilder.buildCard(card, base.zoneMaker.scene)
+        self.loadCard(card)
 
         self.makePlayerHand()
         self.makeBoard()
