@@ -1,5 +1,8 @@
 from direct.interval.IntervalGlobal import Sequence, Func
 from direct.showbase.DirectObject import DirectObject
+from panda3d.core import LVecBase3f
+
+from scenes.fanHand import fanHand
 
 
 def animation(func):
@@ -57,3 +60,10 @@ class CardAnimator(DirectObject):
         oldPos = card.getPos()
         card.setPos(card, 0, -1, 0)
         return Sequence(card.posInterval(duration / 2, oldPos))
+
+    @animation
+    def animateDraw(self, card, duration=0.3):
+        card.setPos(base.zoneMaker.playerFace, 0, 0, 0)
+        fan = fanHand(len(base.player.hand) + 1)
+        newPos = LVecBase3f(*fan[-1][:3]) + base.zoneMaker.playerHand.getPos()
+        return Sequence(card.posInterval(duration / 2, newPos))

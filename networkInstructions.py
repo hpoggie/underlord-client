@@ -68,7 +68,7 @@ class NetworkInstructions:
                 pass
 
             def on_draw(card):
-                pass
+                return self.base.cardAnimator.animateDraw(card)
 
             def on_end_turn():
                 pass
