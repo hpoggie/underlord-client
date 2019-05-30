@@ -1,4 +1,4 @@
-from direct.interval.IntervalGlobal import Sequence, Func
+from direct.interval.IntervalGlobal import Sequence, Parallel, Func
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import LVecBase3f
 
@@ -22,6 +22,9 @@ def animation(func):
 
 
 class CardAnimator(DirectObject):
+    def __init__(self):
+        self.nHandCards = 0
+
     def enableFocus(self, cardNode):
         cardNode.setPythonTag('disableFocus', False)
 
@@ -63,7 +66,18 @@ class CardAnimator(DirectObject):
 
     @animation
     def animateDraw(self, card, duration=0.3):
+        hand = base.zoneMaker.playerHand\
+            if base.bothPlayersMulliganed else base.zoneMaker.mulliganHand
         card.setPos(base.zoneMaker.playerFace, 0, 0, 0)
-        fan = fanHand(len(base.player.hand) + 1)
-        newPos = LVecBase3f(*fan[-1][:3]) + base.zoneMaker.playerHand.getPos()
-        return Sequence(card.posInterval(duration / 2, newPos))
+
+        if base.bothPlayersMulliganed:
+            fan = fanHand(len(base.player.hand) + 1)[-1]
+        else:
+            fan = (self.nHandCards * 1.1 / 2, 0, 0, 0, 0, 0)
+            self.nHandCards += 1
+
+        pos, hpr = fan[:3], fan[3:]
+        newPos = LVecBase3f(*pos) + hand.getPos(base.render)
+        newHpr = LVecBase3f(*hpr) + hand.getHpr(base.render)
+        return Sequence(Parallel(card.posInterval(duration / 2, newPos),
+                                 card.hprInterval(duration / 2, newHpr)))
