@@ -22,6 +22,7 @@ import hud.connection
 from connectionManager import ConnectionManager
 import networkInstructions
 import protocol.client
+import audio
 
 import scenes.game as game
 
@@ -49,6 +50,9 @@ class App (ShowBase):
         # Set up the UI
         self.fonts = hud.hud.Fonts()
         self._scene = None
+
+        # Set up audio
+        self.audioMaster = audio.AudioMaster()
 
         # Set up the NetworkManager
         self.client = protocol.client.Client(ip, port, verbose)

@@ -21,9 +21,6 @@ class Scene(DirectObject):
         # Put everything under one node to make it easy to destroy
         self.root = base.aspect2d.attachNewNode(name="GuiScene")
 
-        self.clickSound = base.loader.loadSfx(
-            'sounds/108317__robinhood76__02030-swooshing-punch.wav')
-
     def label(self, **kwargs):
         defaultArgs = {}
         # Attach the label to the root.
@@ -41,7 +38,7 @@ class Scene(DirectObject):
         defaultArgs['parent'] = self.root
         defaultArgs['text_font'] = self.bodyFont  # Use the default font
         defaultArgs['scale'] = 0.1
-        defaultArgs['clickSound'] = self.clickSound
+        defaultArgs['clickSound'] = base.audioMaster.clickSound
         kwargs = {**defaultArgs, **kwargs}  # Merge the 2 dicts; prefer kwargs
         return DirectButton(**kwargs)
 

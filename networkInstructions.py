@@ -8,7 +8,6 @@ class NetworkInstructions:
 
     def __init__(self, base):
         self.base = base
-        self.nopeSound = base.loader.loadSfx('sounds/nope_bad.wav')
 
     def onEnteredGame(self):
         self.base.onEnteredGame()
@@ -77,4 +76,4 @@ class NetworkInstructions:
         return getattr(Animations, args[0])(*args[1:])
 
     def illegalMove(self):
-        self.nopeSound.play()
+        self.base.audioMaster.playIllegalMove()
