@@ -117,7 +117,6 @@ class RpcReceiver:
 
         def action():
             move()
-            print("playAnimation " + " ".join(str(i) for i in args))
 
         update_queue.do_later(action)
 
