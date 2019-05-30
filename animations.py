@@ -5,6 +5,12 @@ def enableFocus(cardNode):
     cardNode.setPythonTag('disableFocus', False)
 
 
+def animateFight(attacker, target, duration):
+    oldPos = attacker.getPos()
+    return Sequence(attacker.posInterval(duration / 2, target.getPos(attacker.parent)),
+                    attacker.posInterval(duration / 2, oldPos))
+
+
 def animateMove(card, zone, duration):
     card.wrtReparentTo(zone)
     card.setHpr(0, 0, 0)

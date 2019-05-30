@@ -50,7 +50,7 @@ class NetworkInstructions:
                 pass
 
             def on_fight(attacker, target):
-                pass
+                return self.base.zoneMaker.animateFight(attacker, target)
 
             def on_die(card):
                 return self.base.zoneMaker.animateDie(card)

@@ -350,6 +350,18 @@ class ZoneMaker(DirectObject):
         self.mulliganHand.removeNode()
         base.taskMgr.remove('ResizeMulliganHand')
 
+    def animateFight(self, attacker, target):
+        if not hasattr(attacker, 'pandaNode') or attacker.pandaNode is None:
+            cardBuilder.buildCard(attacker, self.scene)
+
+        if not hasattr(target, 'pandaNode') or target.pandaNode is None:
+            try:
+                cardBuilder.buildCard(target, self.scene)
+            except Exception:
+                return
+
+        return animations.animateFight(attacker.pandaNode, target.pandaNode, 0.3)
+
     def animateDie(self, card):
         if card.pandaNode is None:
             cardBuilder.buildCard(card, self.scene)
