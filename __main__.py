@@ -23,6 +23,7 @@ from connectionManager import ConnectionManager
 import networkInstructions
 import protocol.client
 import audio
+import animations
 
 import scenes.game as game
 
@@ -46,6 +47,8 @@ class App (ShowBase):
         self.handler = CollisionHandlerQueue()
         self.mouseHandler = MouseHandler()
         self.taskMgr.add(self.inputTask, "InputTask")
+
+        self.cardAnimator = animations.CardAnimator()
 
         # Set up the UI
         self.fonts = hud.hud.Fonts()

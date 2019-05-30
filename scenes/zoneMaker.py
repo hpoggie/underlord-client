@@ -349,38 +349,3 @@ class ZoneMaker(DirectObject):
         self.playerHand.removeNode()  # In case it's parented to the camera
         self.mulliganHand.removeNode()
         base.taskMgr.remove('ResizeMulliganHand')
-
-    def animateFight(self, attacker, target):
-        self.loadCard(attacker)
-
-        if not hasattr(target, 'pandaNode') or target.pandaNode is None:
-            try:
-                cardBuilder.buildCard(target, self.scene)
-            except Exception:
-                return
-
-        return animations.animateFight(attacker.pandaNode, target.pandaNode, 0.3)
-
-    def animateDie(self, card):
-        self.loadCard(card)
-
-        gy = self.playerGraveyard if card.owner is self.player else self.enemyGraveyard
-
-        return animations.animateMove(card.pandaNode, gy, 0.3)
-
-    def animateRevealFacedown(self, card):
-        self.loadCard(card)
-
-        self.makeBoard()
-        self.makeEnemyBoard()
-
-        return animations.animateRevealFacedown(card.pandaNode, 0.3)
-
-    def animatePlayFaceup(self, card):
-        self.loadCard(card)
-
-        self.makePlayerHand()
-        self.makeBoard()
-        self.makeEnemyBoard()
-
-        return animations.animatePlayFaceup(card.pandaNode, 0.3)

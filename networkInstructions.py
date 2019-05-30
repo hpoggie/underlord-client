@@ -50,19 +50,19 @@ class NetworkInstructions:
                 pass
 
             def on_fight(attacker, target):
-                return self.base.zoneMaker.animateFight(attacker, target)
+                return self.base.cardAnimator.animateFight(attacker, target)
 
             def on_die(card):
-                return self.base.zoneMaker.animateDie(card)
+                return self.base.cardAnimator.animateDie(card)
 
             def on_change_controller(card):
                 pass
 
             def on_reveal_facedown(card, target=None):
-                return self.base.zoneMaker.animateRevealFacedown(card)
+                return self.base.cardAnimator.animateRevealFacedown(card)
 
             def on_play_faceup(card, target=None):
-                return self.base.zoneMaker.animatePlayFaceup(card)
+                return self.base.cardAnimator.animatePlayFaceup(card)
 
             def on_play_facedown(card):
                 pass
