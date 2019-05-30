@@ -92,6 +92,7 @@ def buildBlankCard(card, parent):
     cardFrame.setName('frame')
     cardFrame.setPos(-0.5, 0, -0.5)
     cardBase.setPythonTag('card', card)
+    card.pandaNode = cardBase
     cardBase.setCollideMask(cardCollisionMask)
     return cardBase
 
