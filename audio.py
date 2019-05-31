@@ -11,6 +11,7 @@ class AudioMaster(DirectObject):
         self.startFishSound = loader.loadSfx('assets/sounds/factionAbility_mariner01.wav')
         self.endFishSound = loader.loadSfx('assets/sounds/factionAbility_mariner02.wav')
         self.templarAbilitySound = loader.loadSfx('assets/sounds/factionAbility_templar.wav')
+        self.thiefAbilitySound = loader.loadSfx('assets/sounds/factionAbility_thieves.wav')
 
     def playIllegalMove(self):
         self.illegalMoveSound.play()
@@ -18,3 +19,6 @@ class AudioMaster(DirectObject):
     def playDecision(self):
         if isinstance(base.player, Mariner):
             self.endFishSound.play()
+
+    def playThiefAbility(self):
+        self.thiefAbilitySound.play()
