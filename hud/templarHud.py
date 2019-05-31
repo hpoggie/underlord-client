@@ -37,7 +37,8 @@ class TemplarHud(GameHud):
                 scale=1,
                 pos=(0, 0, -1),
                 parent=self.endTurnButton,
-                command=self.onTemplarEndPhaseButton)
+                command=self.onTemplarEndPhaseButton,
+                clickSound=base.audioMaster.templarAbilitySound)
 
         # Hide everything if we haven't mulliganed yet
         if not base.bothPlayersMulliganed:

@@ -10,6 +10,7 @@ class AudioMaster(DirectObject):
             'sounds/108317__robinhood76__02030-swooshing-punch.wav')
         self.startFishSound = loader.loadSfx('assets/sounds/factionAbility_mariner01.wav')
         self.endFishSound = loader.loadSfx('assets/sounds/factionAbility_mariner02.wav')
+        self.templarAbilitySound = loader.loadSfx('assets/sounds/factionAbility_templar.wav')
 
     def playIllegalMove(self):
         self.illegalMoveSound.play()
