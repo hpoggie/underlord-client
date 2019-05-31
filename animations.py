@@ -24,6 +24,7 @@ def animation(func):
 class CardAnimator(DirectObject):
     def __init__(self):
         self.nHandCards = 0
+        self.nEnemyHandCards = 0
 
     def enableFocus(self, cardNode):
         cardNode.setPythonTag('disableFocus', False)
@@ -85,6 +86,23 @@ class CardAnimator(DirectObject):
             fan = fanHand(len(base.player.hand) + 1)[-1]
         else:
             fan = (self.nHandCards * 1.1 / 2, 0, 0, 0, 0, 0)
+            self.nHandCards += 1
+
+        pos, hpr = fan[:3], fan[3:]
+        newPos = LVecBase3f(*pos) + hand.getPos(base.render)
+        newHpr = LVecBase3f(*hpr) + hand.getHpr(base.render)
+        return Sequence(Parallel(card.posInterval(duration / 2, newPos),
+                                 card.hprInterval(duration / 2, newHpr)))
+
+    @animation
+    def animateEnemyDraw(self, card, duration=0.3):
+        hand = base.zoneMaker.enemyHand
+        card.setPos(base.zoneMaker.enemyFace, 0, 0, 0)
+
+        if base.bothPlayersMulliganed:
+            fan = fanHand(len(base.enemy.hand) + 1)[-1]
+        else:
+            fan = (self.nEnemyHandCards * 1.1 / 2, 0, 0, 0, 0, 0)
             self.nHandCards += 1
 
         pos, hpr = fan[:3], fan[3:]
