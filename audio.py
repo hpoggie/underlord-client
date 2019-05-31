@@ -22,6 +22,8 @@ class AudioMaster(DirectObject):
         Faerie.selectSound = loader.loadSfx('assets/sounds/select_fey.wav')
 
         self.mulliganSound = loader.loadSfx('assets/sounds/mulligan_button.wav')
+        self.mulliganSelectSound = loader.loadSfx('assets/sounds/mulligan_select.wav')
+        self.mulliganDeselectSound = loader.loadSfx('assets/sounds/mulligan_unselect.wav')
 
     def playIllegalMove(self):
         self.illegalMoveSound.play()

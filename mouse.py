@@ -101,8 +101,10 @@ class MouseHandler (DirectObject):
                 c = pickedObj.getPythonTag('card')
                 if c in base.toMulligan:
                     base.toMulligan.remove(c)
+                    base.audioMaster.mulliganSelectSound.play()
                 else:
                     base.toMulligan.append(c)
+                    base.audioMaster.mulliganDeselectSound.play()
                 base.zoneMaker.makeMulliganHand()
             elif zone is base.player.hand:
                 self.dragging = pickedObj
