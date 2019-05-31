@@ -90,7 +90,8 @@ def buildCard(card, parent):
 def buildBlankCard(card, parent):
     cardBase = parent.attachNewNode('mysterious card')
     cardFrame = makeCardFrame(cardBase)
-    cardFrame.setPos(cardFrame.getX() - 0.5, cardFrame.getY(), cardFrame.getZ() - 0.5)
+    cardFrame.setPosHpr(
+        cardFrame.getX() - 0.5, cardFrame.getY(), cardFrame.getZ() - 0.5, 0, 90, 180)
     cardBase.setPythonTag('card', card)
     card.pandaNode = cardBase
     cardBase.setCollideMask(cardCollisionMask)
