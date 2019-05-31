@@ -5,11 +5,7 @@ import panda3d.core
 cardCollisionMask = panda3d.core.BitMask32.bit(31)
 
 
-def buildCard(card, parent):
-    cardBase = parent.attachNewNode(card.name)
-
-    cm = panda3d.core.CardMaker(card.name)
-
+def makeCardFrame(cardBase):
     cardFrame = loader.loadModel('card.bam')
     cardFrame.reparentTo(cardBase)
     tex = loader.loadTexture('ul_frame_alt.png')
@@ -17,6 +13,15 @@ def buildCard(card, parent):
     cardFrame.setPosHprScale(0.5, 0, 0.7, 0, 90, 0, 0.075, 0.075, 0.05)
     cardFrame.setTransparency(True)
     cardFrame.setName('frame')
+    return cardFrame
+
+
+def buildCard(card, parent):
+    cardBase = parent.attachNewNode(card.name)
+
+    cm = panda3d.core.CardMaker(card.name)
+
+    cardFrame = makeCardFrame(cardBase)
 
     cardImage = cardBase.attachNewNode(cm.generate())
     try:
@@ -84,14 +89,8 @@ def buildCard(card, parent):
 
 def buildBlankCard(card, parent):
     cardBase = parent.attachNewNode('mysterious card')
-    cm = panda3d.core.CardMaker('mysterious card')
-    cardFrame = cardBase.attachNewNode(cm.generate())
-    tex = loader.loadTexture('ul_frame_alt.png')
-    cardFrame.setTexture(tex)
-    cardFrame.setScale(1, 1, 509 / 364)
-    cardFrame.setTransparency(True)
-    cardFrame.setName('frame')
-    cardFrame.setPos(-0.5, 0, -0.5)
+    cardFrame = makeCardFrame(cardBase)
+    cardFrame.setPos(cardFrame.getX() - 0.5, cardFrame.getY(), cardFrame.getZ() - 0.5)
     cardBase.setPythonTag('card', card)
     card.pandaNode = cardBase
     cardBase.setCollideMask(cardCollisionMask)
