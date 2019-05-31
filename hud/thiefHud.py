@@ -36,7 +36,7 @@ class ThiefHud(GameHud):
         toSteal = self.toSteal.getPythonTag('card')
         base.clientActions.useThiefAbility(
             toDiscard, toSteal, cardname)
-        base.audioMaster.playThiefAbility()
+        base.audioMaster.thiefAbilitySound.play()
         base.mouseHandler.targeting = False
         self.entry.hide()
 

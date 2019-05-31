@@ -88,4 +88,4 @@ class NetworkInstructions:
         return getattr(Animations, args[0])(*args[1:])
 
     def illegalMove(self):
-        self.base.audioMaster.playIllegalMove()
+        self.base.audioMaster.illegalMoveSound.play()

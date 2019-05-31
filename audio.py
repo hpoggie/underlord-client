@@ -24,12 +24,6 @@ class AudioMaster(DirectObject):
         self.mulliganSelectSound = loader.loadSfx('assets/sounds/mulligan_select.wav')
         self.mulliganDeselectSound = loader.loadSfx('assets/sounds/mulligan_unselect.wav')
 
-    def playIllegalMove(self):
-        self.illegalMoveSound.play()
-
     def playDecision(self):
         if isinstance(base.player, Mariner):
             self.endFishSound.play()
-
-    def playThiefAbility(self):
-        self.thiefAbilitySound.play()
