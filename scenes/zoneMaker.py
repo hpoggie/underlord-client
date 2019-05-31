@@ -12,11 +12,17 @@ def hideCard(card):
         if ch.name != 'frame':
             ch.hide()
 
+    if card.getPythonTag('card').name != 'mysterious card':
+        card.setHpr(0, 180, 0)
+
 
 def showCard(card):
     for ch in card.children:
         if ch.name != 'frame':
             ch.show()
+
+    if card.getPythonTag('card').name != 'mysterious card':
+        card.setHpr(0, 0, 0)
 
 
 def cleanup(parent):
@@ -161,12 +167,12 @@ class ZoneMaker(DirectObject):
 
         def addFdCard(card):
             cardModel = self.loadCard(card)
-            hideCard(cardModel)
             cardModel.reparentTo(self.playerBoard)
             cardModel.setPosHpr(posX, 0, 0, 0, 0, 0)
             cardModel.setPythonTag('zone', base.player.facedowns)
             if not card.stale:
                 self.makeLockIcon(cardModel)
+            hideCard(cardModel)
 
         for c in base.player.faceups:
             addFaceupCard(c)
