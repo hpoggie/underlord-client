@@ -8,8 +8,6 @@ from scenes.fanHand import fanHand
 
 def animation(func):
     def new_func(self, *args, **kwargs):
-        base.zoneMaker.redrawAll()
-
         cards = args
         for card in cards:
             if isinstance(card, Card) and card.cardId < 0:
