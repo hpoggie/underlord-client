@@ -191,7 +191,7 @@ class ZoneMaker(DirectObject):
             else:
                 cardModel = self.loadEnemyBlank(card)
             cardModel.reparentTo(self.enemyBoard)
-            cardModel.setPos(posX, 0, 0)
+            cardModel.setPosHpr(posX, 0, 0, 0, 0, 0)
             cardModel.setPythonTag('zone', base.enemy.facedowns)
             if not card.stale:
                 self.makeLockIcon(cardModel)
@@ -199,7 +199,7 @@ class ZoneMaker(DirectObject):
         def addEnemyFaceupCard(card):
             cardModel = self.loadCard(card)
             cardModel.reparentTo(self.enemyBoard)
-            cardModel.setPos(posX, 0, 0)
+            cardModel.setPosHpr(posX, 0, 0, 0, 0, 0)
             cardModel.setPythonTag('zone', base.enemy.faceups)
 
         for c in base.enemy.faceups:
