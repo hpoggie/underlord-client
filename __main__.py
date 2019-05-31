@@ -211,6 +211,8 @@ class App (ShowBase):
         self.clientActions.useMarinerAbility()
 
     def makeDecision(self, nodes):
+        self.audioMaster.playDecision()
+
         cards = [self.nodeToGameEntity(node) for node in nodes]
         self.clientActions.makeDecision(cards)
 
