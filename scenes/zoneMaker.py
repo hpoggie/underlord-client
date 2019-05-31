@@ -306,6 +306,9 @@ class ZoneMaker(DirectObject):
         return cardBuilder.buildCard(card, self.scene)
 
     def loadEnemyBlank(self, card):
+        if card.pandaNode is not None:
+            return card.pandaNode
+
         return cardBuilder.buildBlankCard(card, self.scene)
 
     def makePlayerFace(self):

@@ -2,6 +2,7 @@ from direct.interval.IntervalGlobal import Sequence, Parallel, Func
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import LVecBase3f
 
+from ul_core.core.card import Card
 from scenes.fanHand import fanHand
 
 
@@ -11,12 +12,12 @@ def animation(func):
 
         cards = args
         for card in cards:
-            try:
+            if isinstance(card, Card) and card.cardId < 0:
+                base.zoneMaker.loadEnemyBlank(card)
+            elif isinstance(card, Card) and card.cardId >= 0:
                 base.zoneMaker.loadCard(card)
-            except Exception:  # TODO: this is needed because mysterious cards don't update properly
-                return
 
-        return func(self, *(card.pandaNode for card in cards), **kwargs)
+        return func(self, *(card.pandaNode if isinstance(card, Card) else card for card in cards), **kwargs)
 
     return new_func
 

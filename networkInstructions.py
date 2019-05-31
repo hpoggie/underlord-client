@@ -1,4 +1,5 @@
 import cardBuilder
+from ul_core.core.card import Card
 
 
 class NetworkInstructions:
@@ -45,6 +46,11 @@ class NetworkInstructions:
         self.base.redraw()
 
     def playAnimation(self, *args):
+        # Give all the mysterious cards pandaNodes so other stuff doesn't complain
+        for arg in args:
+            if isinstance(arg, Card) and not hasattr(arg, 'pandaNode'):
+                arg.pandaNode = None
+
         class Animations:
             def on_spawn(card):
                 pass
