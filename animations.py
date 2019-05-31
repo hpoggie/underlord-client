@@ -8,14 +8,21 @@ from scenes.fanHand import fanHand
 
 def animation(func):
     def new_func(self, *args, **kwargs):
+        newArgs = []
+
         cards = args
         for card in cards:
-            if isinstance(card, Card) and card.cardId < 0:
-                base.zoneMaker.loadEnemyBlank(card)
-            elif isinstance(card, Card) and card.cardId >= 0:
-                base.zoneMaker.loadCard(card)
+            if isinstance(card, Card):
+                if card.cardId < 0:
+                    base.zoneMaker.loadEnemyBlank(card)
+                else:
+                    base.zoneMaker.loadCard(card)
 
-        return func(self, *(card.pandaNode if isinstance(card, Card) else card for card in cards), **kwargs)
+                newArgs.append(card.pandaNode)
+            else:
+                newArgs.append(card)
+
+        return func(self, *newArgs, **kwargs)
 
     return new_func
 
