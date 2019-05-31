@@ -14,7 +14,8 @@ class MarinerHud(GameHud):
                 scale=1,
                 pos=(0, 0, -1),
                 parent=self.endTurnButton,
-                command=self.onFishButton)
+                command=self.onFishButton,
+                clickSound=base.audioMaster.startFishSound)
 
         if (self.clientState.active and
                 base.bothPlayersMulliganed):
