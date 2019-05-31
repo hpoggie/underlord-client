@@ -46,6 +46,9 @@ class CardAnimator(DirectObject):
 
         self.animateMove(card, gy, duration=duration)
 
+    def animateFizzle(self, card, duration=0.3):
+        self.animateDie(card, duration=duration)
+
     def animateChangeController(self, card, duration=0.3):
         if card.controller is base.player:
             zone = base.zoneMaker.enemyBoard
