@@ -71,7 +71,10 @@ class NetworkInstructions:
                 pass
 
             def on_draw(card):
-                return self.base.cardAnimator.animateDraw(card)
+                if card.controller == self.base.player:
+                    return self.base.cardAnimator.animateDraw(card)
+                else:
+                    return self.base.cardAnimator.animateEnemyDraw(card)
 
             def on_end_turn():
                 pass
