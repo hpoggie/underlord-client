@@ -10,10 +10,11 @@ def buildCard(card, parent):
 
     cm = panda3d.core.CardMaker(card.name)
 
-    cardFrame = cardBase.attachNewNode(cm.generate())
+    cardFrame = loader.loadModel('card.bam')
+    cardFrame.reparentTo(cardBase)
     tex = loader.loadTexture('ul_frame_alt.png')
     cardFrame.setTexture(tex)
-    cardFrame.setScale(1, 1, 509 / 364)
+    cardFrame.setPosHprScale(0.5, 0, 0.7, 0, 90, 0, 0.075, 0.075, 0.05)
     cardFrame.setTransparency(True)
     cardFrame.setName('frame')
 
