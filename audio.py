@@ -1,6 +1,9 @@
 from direct.showbase.DirectObject import DirectObject
 
+from ul_core.factions.templars import Templar
+from ul_core.factions.thieves import Thief
 from ul_core.factions.mariners import Mariner
+from ul_core.factions.fae import Faerie
 
 
 class AudioMaster(DirectObject):
@@ -12,6 +15,11 @@ class AudioMaster(DirectObject):
         self.endFishSound = loader.loadSfx('assets/sounds/factionAbility_mariner02.wav')
         self.templarAbilitySound = loader.loadSfx('assets/sounds/factionAbility_templar.wav')
         self.thiefAbilitySound = loader.loadSfx('assets/sounds/factionAbility_thieves.wav')
+
+        Templar.selectSound = loader.loadSfx('assets/sounds/select_templar.wav')
+        Thief.selectSound = loader.loadSfx('assets/sounds/select_thieves.wav')
+        Mariner.selectSound = loader.loadSfx('assets/sounds/select_mariner.wav')
+        Faerie.selectSound = loader.loadSfx('assets/sounds/select_fey.wav')
 
     def playIllegalMove(self):
         self.illegalMoveSound.play()

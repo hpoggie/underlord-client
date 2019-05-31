@@ -20,7 +20,8 @@ class FactionSelect(hud.Scene):
                 pos=(i * 0.21, 0, 0),
                 relief=None,
                 command=base.pickFaction,
-                extraArgs=[i])
+                extraArgs=[i],
+                clickSound=faction.selectSound)
 
     def showWaitMessage(self):
         self.label(
