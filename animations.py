@@ -44,10 +44,10 @@ class CardAnimator(DirectObject):
         gy = (base.zoneMaker.playerGraveyard
               if card.owner is base.zoneMaker.player else base.zoneMaker.enemyGraveyard)
 
-        self.animateMove(card, gy, duration=duration)
+        return self.animateMove(card, gy, duration=duration)
 
     def animateFizzle(self, card, duration=0.3):
-        self.animateDie(card, duration=duration)
+        return self.animateDie(card, duration=duration)
 
     def animateChangeController(self, card, duration=0.3):
         if card.controller is base.player:
@@ -55,7 +55,7 @@ class CardAnimator(DirectObject):
         else:
             zone = base.zoneMaker.playerBoard
 
-        self.animateMove(card, zone, duration=duration)
+        return self.animateMove(card, zone, duration=duration)
 
     @animation
     def animateRevealFacedown(self, card, duration=0.3):
