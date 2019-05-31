@@ -21,6 +21,8 @@ class AudioMaster(DirectObject):
         Mariner.selectSound = loader.loadSfx('assets/sounds/select_mariner.wav')
         Faerie.selectSound = loader.loadSfx('assets/sounds/select_fey.wav')
 
+        self.mulliganSound = loader.loadSfx('assets/sounds/mulligan_button.wav')
+
     def playIllegalMove(self):
         self.illegalMoveSound.play()
 

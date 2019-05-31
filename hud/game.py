@@ -51,7 +51,8 @@ class GameHud(hud.Scene):
         self.mulliganButton = self.button(
             text="Mulligan",
             pos=(0.7, 0, -0.85),
-            command=self.onMulliganButton)
+            command=self.onMulliganButton,
+            clickSound=base.audioMaster.mulliganSound)
 
         self.redraw()
 
