@@ -19,6 +19,10 @@ def animation(func):
                     base.zoneMaker.loadCard(card)
 
                 newArgs.append(card.pandaNode)
+            elif card == base.player.face:
+                newArgs.append(base.zoneMaker.playerFace)
+            elif card == base.player.opponent.face:
+                newArgs.append(base.zoneMaker.enemyFace)
             else:
                 newArgs.append(card)
 
