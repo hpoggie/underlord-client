@@ -103,6 +103,7 @@ class RpcReceiver:
             'on_spawn': lambda: None,
             'on_fight': lambda: None,  # TODO play the fight animation
             'on_die': lambda: self.moveCard(args[1], args[1].owner.graveyard),
+            'on_fizzle': lambda: self.moveCard(args[1], args[1].owner.graveyard),
             # TODO: do this in a cleaner way
             # This works because anything after (on_spawn, on_die, etc.) will set the zone
             'on_change_controller': lambda: self.moveCard(

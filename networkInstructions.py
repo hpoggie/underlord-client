@@ -55,6 +55,9 @@ class NetworkInstructions:
             def on_die(card):
                 return self.base.cardAnimator.animateDie(card)
 
+            def on_fizzle(card):
+                print("on_fizzle")
+
             def on_change_controller(card):
                 return self.base.cardAnimator.animateChangeController(card)
 
