@@ -1,9 +1,18 @@
 import ul_core.factions
 from . import update_queue
+from ul_core.core.card import Card
+
+
+def setup_card_args(args):
+    # Give all the mysterious cards pandaNodes so other stuff doesn't complain
+    for arg in args:
+        if isinstance(arg, Card) and not hasattr(arg, 'pandaNode'):
+            arg.pandaNode = None
 
 
 def queued_update(func):
     def do_update(self, *args, **kwargs):
+        setup_card_args(args)
         update_queue.do_later(lambda: func(self, *args, **kwargs))
 
     return do_update
@@ -121,6 +130,7 @@ class RpcReceiver:
 
         update_queue.do_later(action)
 
+        setup_card_args(args)
         for listener in self.listeners:
             update_queue.do_later(lambda: listener.playAnimation(*args))
 
