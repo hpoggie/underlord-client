@@ -8,6 +8,7 @@ from direct.task import Task
 import cardBuilder
 
 import ul_core.factions
+from ul_core.core.card import Card
 
 import hud.hud
 
@@ -17,7 +18,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-c', type=str, default='equus')
 args = parser.parse_args()
 
-card = ul_core.factions.allCards[args.c]()
+try:
+    card = ul_core.factions.allCards[args.c]()
+except KeyError:
+    card = Card(name='mysterious card', cardId=-1)
 
 base = direct.showbase.ShowBase.ShowBase()
 base.disableMouse()
@@ -30,7 +34,10 @@ class FakePlayer:
 card.owner = FakePlayer()
 node = base.render.attachNewNode('card_root')
 node.setPos(0, 5, 0)
-cardNode = cardBuilder.buildCard(card, node)
+if hasattr(card, 'cardId') and card.cardId < 0:
+    cardNode = cardBuilder.buildBlankCard(card, node)
+else:
+    cardNode = cardBuilder.buildCard(card, node)
 
 class MouseRotator:
     def __init__(self):
