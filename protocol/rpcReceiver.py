@@ -29,7 +29,7 @@ class RpcReceiver:
     def moveCard(self, c, zone):
         if c is None:
             return c
-               
+
         # fake moveToZone
         if c._zone is not None and c in c._zone:
             c._zone.remove(c)

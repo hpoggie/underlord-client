@@ -206,7 +206,7 @@ class App (ShowBase):
 
     def useTemplarAbility(self, target):
         self.clientActions.useTemplarAbility(self.nodeToGameEntity(target))
-    
+
     def useMarinerAbility(self):
         self.clientActions.useMarinerAbility()
 
