@@ -108,27 +108,42 @@ class RpcReceiver:
         update_queue.start()
 
     def playAnimation(self, *args):
-        move = {
-            'on_spawn': lambda: None,
-            'on_fight': lambda: None,  # TODO play the fight animation
-            'on_die': lambda: self.moveCard(args[1], args[1].owner.graveyard),
-            'on_fizzle': lambda: self.moveCard(args[1], args[1].owner.graveyard),
-            # TODO: do this in a cleaner way
-            # This works because anything after (on_spawn, on_die, etc.) will set the zone
-            'on_change_controller': lambda: self.moveCard(
-                args[1],
-                args[1].controller.opponent.faceups),
-            'on_reveal_facedown': lambda: self.moveCard(args[1], args[1].controller.faceups),
-            'on_play_faceup': lambda: self.moveCard(args[1], args[1].controller.faceups),
-            'on_play_facedown': lambda: self.moveCard(args[1], args[1].controller.facedowns),
-            'on_draw': lambda: None, # TODO: anim
-            'on_end_turn': lambda: None
-        }[args[0]]
+        class AnimCallback:
+            def on_spawn():
+                pass
 
-        def action():
-            move()
+            def on_fight():
+                pass
 
-        update_queue.do_later(action)
+            def on_die():
+                return self.moveCard(args[1], args[1].owner.graveyard)
+
+            def on_fizzle():
+                return self.moveCard(args[1], args[1].owner.graveyard),
+
+            def on_change_controller():
+                # TODO: do this in a cleaner way
+                # This works because anything after (on_spawn, on_die, etc.) will set the zone
+                return self.moveCard(
+                    args[1],
+                    args[1].controller.opponent.faceups)
+
+            def on_reveal_facedown():
+                return self.moveCard(args[1], args[1].controller.faceups)
+
+            def on_play_faceup():
+                return self.moveCard(args[1], args[1].controller.faceups)
+
+            def on_play_facedown():
+                return self.moveCard(args[1], args[1].controller.facedowns)
+
+            def on_draw():
+                pass
+
+            def on_end_turn():
+                pass
+
+        update_queue.do_later(getattr(AnimCallback, args[0]))
 
         setup_card_args(args)
         for listener in self.listeners:
