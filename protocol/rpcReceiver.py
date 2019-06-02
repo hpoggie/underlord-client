@@ -138,7 +138,7 @@ class RpcReceiver:
                 return self.moveCard(args[1], args[1].controller.facedowns)
 
             def on_draw():
-                pass
+                return self.moveCard(args[1], args[1].controller.hand)
 
             def on_end_turn():
                 pass
