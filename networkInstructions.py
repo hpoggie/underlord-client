@@ -1,5 +1,6 @@
 import cardBuilder
 from ul_core.core.card import Card
+import animations
 
 
 class NetworkInstructions:
@@ -51,31 +52,31 @@ class NetworkInstructions:
                 pass
 
             def on_fight(attacker, target):
-                return self.base.cardAnimator.animateFight(attacker, target)
+                return animations.animateFight(attacker, target)
 
             def on_die(card):
-                return self.base.cardAnimator.animateDie(card)
+                return animations.animateDie(card)
 
             def on_fizzle(card):
-                return self.base.cardAnimator.animateFizzle(card)
+                return animations.animateFizzle(card)
 
             def on_change_controller(card):
-                return self.base.cardAnimator.animateChangeController(card)
+                return animations.animateChangeController(card)
 
             def on_reveal_facedown(card, target=None):
-                return self.base.cardAnimator.animateRevealFacedown(card)
+                return animations.animateRevealFacedown(card)
 
             def on_play_faceup(card, target=None):
-                return self.base.cardAnimator.animatePlayFaceup(card)
+                return animations.animatePlayFaceup(card)
 
             def on_play_facedown(card):
                 pass
 
             def on_draw(card):
                 if card.controller == self.base.player:
-                    return self.base.cardAnimator.animateDraw(card)
+                    return animations.animateDraw(card)
                 else:
-                    return self.base.cardAnimator.animateEnemyDraw(card)
+                    return animations.animateEnemyDraw(card)
 
             def on_end_turn():
                 pass

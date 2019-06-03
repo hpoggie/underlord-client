@@ -48,8 +48,6 @@ class App (ShowBase):
         self.mouseHandler = MouseHandler()
         self.taskMgr.add(self.inputTask, "InputTask")
 
-        self.cardAnimator = animations.CardAnimator()
-
         # Set up the UI
         self.fonts = hud.hud.Fonts()
         self._scene = None
