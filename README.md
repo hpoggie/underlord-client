@@ -1,3 +1,7 @@
+# NOTE
+
+This is not the most recent version of the game. For the most recent builds, go here: [https://underlordcg.github.io/builds](https://underlordcg.github.io/builds)
+
 ![](https://travis-ci.org/hpoggie/underlord-client.svg?branch=master)
 
 # Underlord
