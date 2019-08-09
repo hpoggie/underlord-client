@@ -41,10 +41,10 @@ class MainMenu(hud.Scene):
             mayChange=True,
             parent=main)
 
-        credits = self.text_screen('CREDITS.txt')
+        credits = self.text_screen('CREDITS.txt', textPos=(-0.7, 0.7, 0))
         showCredits = self.show_hide_screen(main, credits)
 
-        howToPlay = self.text_screen('HOW_TO_PLAY.txt', textPos=(-0.7, 0.75, 0))
+        howToPlay = self.text_screen('HOW_TO_PLAY.txt', textPos=(-0.7, 0.8, 0))
         showHowToPlay = self.show_hide_screen(main, howToPlay)
 
         def connect():
