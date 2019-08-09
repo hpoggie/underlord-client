@@ -79,7 +79,10 @@ def buildCard(card, parent):
     cardBase.setPythonTag('card', card)
     card.pandaNode = cardBase
 
-    cardBase.setCollideMask(cardCollisionMask)
+    cardBase.setCollideMask(0)
+    # Have to do getChild(0) because there should only be 1 thing that collides
+    # TODO: this doesn't get rid of everything; there are still 2 colliders in the raycast
+    cardFrame.getChild(0).setCollideMask(cardCollisionMask)
 
     # Mark the card as unlit so it's always readable
     cardBase.setLightOff(0)

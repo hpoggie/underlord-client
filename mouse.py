@@ -82,8 +82,13 @@ class MouseHandler (DirectObject):
                 pickedObj = base.handler.getEntry(0).getIntoNodePath()
                 pickedObj = pickedObj.findNetPythonTag('zone')
                 if pickedObj == self.dragging and base.handler.getNumEntries() > 1:
-                    pickedObj = base.handler.getEntry(1).getIntoNodePath()
-                    pickedObj = pickedObj.findNetPythonTag('zone')
+                    for entry in base.handler.getEntries():
+                        n = entry.getIntoNodePath().findNetPythonTag('zone')
+                        if n != self.dragging and n.parent != self.dragging:
+                            return n
+
+                    # If we don't find another object, do nothing
+                    # TODO: Every object should only have 1 collider to make this easier
 
                 return pickedObj
 
