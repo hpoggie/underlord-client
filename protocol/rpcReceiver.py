@@ -57,10 +57,6 @@ class RpcReceiver:
         for listener in self.listeners:
             listener.updateNumPlayers(n)
 
-    def requestGoingFirstDecision(self):
-        for listener in self.listeners:
-            listener.requestGoingFirstDecision()
-
     def enemyGoingFirst(self):
         self.state.onGameStarted(goingFirst=False)
         for listener in self.listeners:

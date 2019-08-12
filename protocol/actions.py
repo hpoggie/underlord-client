@@ -22,14 +22,6 @@ class ClientActions:
         self.rpcSender.selectFaction(index)
         self.state.faction = ul_core.factions.availableFactions[index]
 
-    def goFirst(self):
-        self.rpcSender.decideWhetherToGoFirst(1)
-        self.state.onGameStarted(goingFirst=True)
-
-    def goSecond(self):
-        self.rpcSender.decideWhetherToGoFirst(0)
-        self.state.onGameStarted(goingFirst=False)
-
     def mulligan(self, cards):
         self.rpcSender.mulligan(*cards)
         self.state.hasMulliganed = True

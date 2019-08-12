@@ -15,7 +15,6 @@ from ul_core.core.exceptions import IllegalMoveError
 import ul_core.factions
 from mouse import MouseHandler
 import hud
-import hud.goingFirstDecision as gfd
 import hud.mainMenu as mainMenu
 import hud.factionSelect as factionSelect
 import hud.connection
@@ -103,14 +102,6 @@ class App (ShowBase):
         # Tell the user we're waiting for opponent
         self.scene.showWaitMessage()
 
-    def goFirst(self):
-        self.clientActions.goFirst()
-        self.onGameStarted(goingFirst=True)
-
-    def goSecond(self):
-        self.clientActions.goSecond()
-        self.onGameStarted(goingFirst=False)
-
     def onGameStarted(self, goingFirst=True):
         self.toMulligan = []
 
@@ -118,9 +109,6 @@ class App (ShowBase):
         self.zoneMaker = self.scene.zoneMaker
 
         self.hasFirstPlayerPenalty = goingFirst
-
-    def decideWhetherToGoFirst(self):
-        self.scene = gfd.GoingFirstDecision()
 
     @property
     def player(self):
