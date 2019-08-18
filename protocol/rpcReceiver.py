@@ -160,41 +160,13 @@ class RpcReceiver:
             pl.hasMulliganed = True
 
     @queued_update
-    def updatePlayerHand(self, *cards):
-        self.updateZone(self.state.player.hand, cards)
-
-    @queued_update
-    def updateEnemyHand(self, *cards):
-        self.updateZone(self.state.enemy.hand, cards)
-
-    @queued_update
-    def updatePlayerFacedowns(self, *cards):
-        self.updateZone(self.state.player.facedowns, cards)
-
-    @queued_update
-    def updateEnemyFacedowns(self, *cards):
-        self.updateZone(self.state.enemy.facedowns, cards)
-
-    @queued_update
-    def updatePlayerFaceups(self, *cards):
-        self.updateZone(self.state.player.faceups, cards)
+    def updateZone(self, *args):
+        self.updateZone(args[0], args[1:])
 
     @queued_update
     def updateHasAttacked(self, *values):
         for i, c in enumerate(self.state.player.faceups):
             c.hasAttacked = values[i]
-
-    @queued_update
-    def updateEnemyFaceups(self, *cards):
-        self.updateZone(self.state.enemy.faceups, cards)
-
-    @queued_update
-    def updatePlayerGraveyard(self, *cards):
-        self.updateZone(self.state.player.graveyard, cards)
-
-    @queued_update
-    def updateEnemyGraveyard(self, *cards):
-        self.updateZone(self.state.enemy.graveyard, cards)
 
     @queued_update
     def updatePlayerManaCap(self, manaCap):
