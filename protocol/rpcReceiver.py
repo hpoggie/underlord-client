@@ -38,8 +38,7 @@ class RpcReceiver:
 
         return c
 
-    # TODO: should be 1 arg but encoding doesn't like lists so we do this
-    def updateZone(self, zone, *cards):
+    def updateZone(self, zone, cards):
         zone[:] = []
         for x in cards:
             self.moveCard(x, zone)
