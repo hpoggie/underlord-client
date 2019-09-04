@@ -79,9 +79,9 @@ class ZoneMaker(DirectObject):
             parent = self.playerHand
 
         cardModel = self.loadCard(card)
-        cardModel.setPosHpr(*tr)
-        cardModel.setPythonTag('zone', base.player.hand)
         cardModel.reparentTo(parent)
+        cardModel.setPosHprScale(*tr, 1, 1, 1)
+        cardModel.setPythonTag('zone', base.player.hand)
 
     def makeMulliganHand(self):
         """
