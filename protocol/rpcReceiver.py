@@ -38,11 +38,6 @@ class RpcReceiver:
 
         return c
 
-    def updateZone(self, zone, cards):
-        zone[:] = []
-        for x in cards:
-            self.moveCard(x, zone)
-
     def onGameEnded(self):
         self.state.ready = False
 
@@ -161,7 +156,10 @@ class RpcReceiver:
 
     @queued_update
     def updateZone(self, *args):
-        self.updateZone(args[0], args[1:])
+        zone, cards = args[0], args[1:]
+        zone[:] = []
+        for x in cards:
+            self.moveCard(x, zone)
 
     @queued_update
     def updateHasAttacked(self, *values):
