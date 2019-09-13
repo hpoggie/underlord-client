@@ -26,7 +26,7 @@ class RpcReceiver:
         self.state = state
         self.listeners = []
 
-    def moveCard(self, c, zone):
+    def _moveCard(self, c, zone):
         if c is None:
             return c
 
@@ -139,6 +139,13 @@ class RpcReceiver:
         setup_card_args(args)
         for listener in self.listeners:
             update_queue.do_later(lambda: listener.playAnimation(*args))
+
+    def updateCardVisibility(self, zone, index, enemy, cardId):
+        pl = (self.state.enemy if enemy else self.state.player)
+        pl.zones[zone][index] = pl.referenceDeck[cardId]
+
+    def moveCard(self, card, zone):
+        self._moveCard(card, zone)
 
     def illegalMove(self):
         for listener in self.listeners:
