@@ -99,43 +99,6 @@ class RpcReceiver:
         update_queue.start()
 
     def playAnimation(self, *args):
-        class AnimCallback:
-            def on_spawn():
-                pass
-
-            def on_fight():
-                pass
-
-            def on_die():
-                return self.moveCard(args[1], args[1].owner.graveyard)
-
-            def on_fizzle():
-                return self.moveCard(args[1], args[1].owner.graveyard),
-
-            def on_change_controller():
-                # TODO: do this in a cleaner way
-                # This works because anything after (on_spawn, on_die, etc.) will set the zone
-                return self.moveCard(
-                    args[1],
-                    args[1].controller.opponent.faceups)
-
-            def on_reveal_facedown():
-                return self.moveCard(args[1], args[1].controller.faceups)
-
-            def on_play_faceup():
-                return self.moveCard(args[1], args[1].controller.faceups)
-
-            def on_play_facedown():
-                return self.moveCard(args[1], args[1].controller.facedowns)
-
-            def on_draw():
-                return self.moveCard(args[1], args[1].controller.hand)
-
-            def on_end_turn():
-                pass
-
-        update_queue.do_later(getattr(AnimCallback, args[0]))
-
         setup_card_args(args)
         for listener in self.listeners:
             update_queue.do_later(lambda: listener.playAnimation(*args))
