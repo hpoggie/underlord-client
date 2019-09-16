@@ -18,6 +18,7 @@ def makeCardFrame(cardBase):
 
 def buildCard(card, parent):
     cardBase = parent.attachNewNode(card.name)
+    cardBase.setPythonTag('blank', False)
 
     cm = panda3d.core.CardMaker(card.name)
 
@@ -92,6 +93,7 @@ def buildCard(card, parent):
 
 def buildBlankCard(card, parent):
     cardBase = parent.attachNewNode('mysterious card')
+    cardBase.setPythonTag('blank', True)
     cardFrame = makeCardFrame(cardBase)
     cardFrame.setHpr(0, -90, 0)
     cardBase.setPythonTag('card', card)
@@ -101,6 +103,15 @@ def buildBlankCard(card, parent):
 
 
 def updateCard(card):
+    node = card.pandaNode
+
+    if node.getPythonTag('blank'):
+        new_node = buildCard(card, node.parent)
+        new_node.setPosHprScale(node, 0, 0, 0, 0, 0, 0, 1, 1, 1)
+        node.removeNode()
+        node = new_node
+        card.pandaNode = node
+
     card.costNode.setText(str(card.cost))
     card.rankNode.setText(str(card.rank))
     if hasattr(card, 'counter'):
