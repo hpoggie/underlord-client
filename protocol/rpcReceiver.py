@@ -106,6 +106,7 @@ class RpcReceiver:
     def updateCardVisibility(self, zone, index, enemy, cardId):
         pl = (self.state.enemy if enemy else self.state.player)
         pl.zones[zone][index] = pl.referenceDeck[cardId]
+        pl.referenceDeck[cardId]._zone = pl.zones[zone]
 
     def moveCard(self, card, zone):
         self._moveCard(card, zone)
