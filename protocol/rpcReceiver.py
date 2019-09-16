@@ -107,9 +107,13 @@ class RpcReceiver:
         pl = (self.state.enemy if enemy else self.state.player)
         pl.zones[zone][index] = pl.referenceDeck[cardId]
         pl.referenceDeck[cardId]._zone = pl.zones[zone]
+        for listener in self.listeners:
+            listener.endRedraw()
 
     def moveCard(self, card, zone):
         self._moveCard(card, zone)
+        for listener in self.listeners:
+            listener.endRedraw()
 
     def illegalMove(self):
         for listener in self.listeners:
