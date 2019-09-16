@@ -126,13 +126,6 @@ class RpcReceiver:
             pl.hasMulliganed = True
 
     @queued_update
-    def updateZone(self, *args):
-        zone, cards = args[0], args[1:]
-        zone[:] = []
-        for x in cards:
-            self.moveCard(x, zone)
-
-    @queued_update
     def updateHasAttacked(self, *values):
         for i, c in enumerate(self.state.player.faceups):
             c.hasAttacked = values[i]
