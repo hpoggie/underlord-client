@@ -105,6 +105,10 @@ def buildBlankCard(card, parent):
 def updateCard(card):
     node = card.pandaNode
 
+    # If the node is not attached to anything, we don't need to update it
+    if node.parent is None:
+        return
+
     if node.getPythonTag('blank'):
         new_node = buildCard(card, node.parent)
         new_node.setPosHprScale(node, 0, 0, 0, 0, 0, 0, 1, 1, 1)
