@@ -115,6 +115,9 @@ class RpcReceiver:
         for listener in self.listeners:
             listener.endRedraw()
 
+    def updateCounter(self, card, new_value):
+        card.counter = new_value
+
     def illegalMove(self):
         for listener in self.listeners:
             listener.illegalMove()
@@ -145,10 +148,6 @@ class RpcReceiver:
     @queued_update
     def updateEnemyManaCap(self, manaCap):
         self.state.enemy.manaCap = manaCap
-
-    @queued_update
-    def updatePlayerCounter(self, index, value):
-        self.state.player.faceups[index].counter = value
 
     @queued_update
     def updateEnemyCounter(self, index, value):
