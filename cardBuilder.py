@@ -122,8 +122,11 @@ def updateCard(card):
 
 
 def updateCardCounter(card):
+    # card.show() shows the entire card, including children. This is called from somewhere else.
+    # We don't want the counter to show so we stash it instead.
+    # TODO: this is a hack.
     if card.counter is None:
-        card.counterNodePath.hide()
+        card.counterNodePath.stash()
     else:
-        card.counterNodePath.show()
+        card.counterNodePath.unstash()
         card.counterNodePath.getNode(0).setText(str(card.counter))
