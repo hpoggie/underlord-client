@@ -65,7 +65,7 @@ def buildCard(card, parent):
     counterNodePath = cardBase.attachNewNode(counter)
     counterNodePath.setScale(0.4)
     counterNodePath.setPos(0.7, -0.05, 0.1)
-    card.counterNode = counter
+    card.counterNodePath = counterNodePath
 
     for node in (cardImage, costNodePath, rankNodePath,
                  descNodePath, counterNodePath, nameNodePath):
@@ -74,8 +74,7 @@ def buildCard(card, parent):
     for txt in (name, cost, rank, counter, desc):
         txt.setFont(base.fonts.bodyFont)
 
-    if hasattr(card, 'counter'):
-        counter.setText(str(card.counter))
+    updateCardCounter(card)
 
     cardBase.setPythonTag('card', card)
     card.pandaNode = cardBase
@@ -118,5 +117,13 @@ def updateCard(card):
 
     card.costNode.setText(str(card.cost))
     card.rankNode.setText(str(card.rank))
-    if hasattr(card, 'counter'):
-        card.counterNode.setText(str(card.counter))
+
+    updateCardCounter(card)
+
+
+def updateCardCounter(card):
+    if card.counter is None:
+        card.counterNodePath.hide()
+    else:
+        card.counterNodePath.show()
+        card.counterNodePath.getNode(0).setText(str(card.counter))
