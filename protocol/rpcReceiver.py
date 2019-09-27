@@ -116,7 +116,7 @@ class RpcReceiver:
             listener.endRedraw()
 
     def updateCounter(self, card, new_value):
-        card.counter = new_value
+        card._counter = new_value
 
     def illegalMove(self):
         for listener in self.listeners:
