@@ -36,6 +36,9 @@ class RpcReceiver:
         c._zone = zone
         zone.append(c)
 
+        if c._zone is c.controller.faceups:
+            c.hasAttacked = False
+
         return c
 
     def onGameEnded(self):
@@ -132,10 +135,8 @@ class RpcReceiver:
         for pl in self.state.game.players:
             pl.hasMulliganed = True
 
-    @queued_update
-    def updateHasAttacked(self, *values):
-        for i, c in enumerate(self.state.player.faceups):
-            c.hasAttacked = values[i]
+    def updateHasAttacked(self, card):
+        card.hasAttacked = True
 
     @queued_update
     def updatePlayerManaCap(self, manaCap):
@@ -165,4 +166,12 @@ class RpcReceiver:
 
     @queued_update
     def setActive(self, value):
+        if value != self.state.active:
+            # When the turn changes, update has attacked
+            for c in self.state.player.faceups:
+                c.hasAttacked = False
+
+            for c in self.state.enemy.faceups:
+                c.hasAttacked = False
+
         self.state.active = value
