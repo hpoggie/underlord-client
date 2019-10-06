@@ -106,6 +106,8 @@ class RpcReceiver:
         for listener in self.listeners:
             update_queue.do_later(lambda: listener.playAnimation(*args))
 
+        update_queue.start()
+
     def updateCardVisibility(self, zone, index, enemy, card):
         pl = (self.state.enemy if enemy else self.state.player)
         pl.zones[zone][index] = card
@@ -172,3 +174,6 @@ class RpcReceiver:
                 c.hasAttacked = False
 
         self.state.active = value
+
+        for listener in self.listeners:
+            listener.endRedraw()
