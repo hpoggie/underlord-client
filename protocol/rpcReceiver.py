@@ -154,17 +154,14 @@ class RpcReceiver:
     def updateEnemyCounter(self, index, value):
         self.state.enemy.faceups[index].counter = value
 
-    @queued_update
     def updatePlayerFacedownStaleness(self, *values):
         for i, c in enumerate(self.state.player.facedowns):
             c.stale = values[i]
 
-    @queued_update
     def updateEnemyFacedownStaleness(self, *values):
         for i, c in enumerate(self.state.enemy.facedowns):
             c.stale = values[i]
 
-    @queued_update
     def setActive(self, value):
         if value != self.state.active:
             # When the turn changes, update has attacked
