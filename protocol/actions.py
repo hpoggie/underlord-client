@@ -45,8 +45,8 @@ class ClientActions:
     def makeDecision(self, cards):
         self.rpcSender.makeDecision(*cards)
 
-    def useTemplarAbility(self, card):
-        self.rpcSender.useFactionAbility(card)
+    def useTemplarAbility(self):
+        self.rpcSender.useFactionAbility()
 
     def useThiefAbility(self, toDiscard, toSteal, cardname):
         self.rpcSender.useFactionAbility(toDiscard, toSteal, cardname)

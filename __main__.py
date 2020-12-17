@@ -190,8 +190,8 @@ class App (ShowBase):
         self.clientActions.endTurn(args + kwargs)
         self.hasFirstPlayerPenalty = False
 
-    def useTemplarAbility(self, target):
-        self.clientActions.useTemplarAbility(self.nodeToGameEntity(target))
+    def useTemplarAbility(self):
+        self.clientActions.useTemplarAbility()
 
     def useMarinerAbility(self):
         self.clientActions.useMarinerAbility()
